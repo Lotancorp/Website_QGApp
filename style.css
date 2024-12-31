@@ -1,0 +1,99 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+header {
+    background-color: #0066cc;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+.container {
+    width: 90%;
+    margin: auto;
+    max-width: 1200px;
+    padding: 20px 0;
+}
+
+.section {
+    margin-bottom: 40px;
+}
+
+.section h2 {
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+    border-bottom: 2px solid #0066cc;
+    padding-bottom: 10px;
+}
+
+.links-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.links-list li {
+    margin-bottom: 10px;
+}
+
+.links-list li a {
+    text-decoration: none;
+    color: #0066cc;
+}
+
+.links-list li a:hover {
+    text-decoration: underline;
+}
+
+.registration {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.registration button {
+    background-color: #28a745;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.registration button:hover {
+    background-color: #218838;
+}
+
+.payment-methods {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+}
+
+.payment-methods .method {
+    flex: 1;
+    margin: 0 10px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.payment-methods .method h3 {
+    margin-top: 0;
+}
+
+.payment-methods img {
+    max-width: 100%;
+    height: auto;
+    margin-top: 10px;
+}
