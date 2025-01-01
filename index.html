@@ -8,8 +8,6 @@
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3181228773033613"
         crossorigin="anonymous"></script>
-
-
 </head>
 <body>
     <header>
@@ -20,23 +18,13 @@
             <button id="downloadButton" onclick="window.open('https://www.mediafire.com/file/tjt74ipigwemrp6/Quartz+Gallery+Aplication.7z/file')">Download</button>
         </div>
     </header>
+    
     <div class="container">
-        <p>Welcome to the Quartz Gallery - RF Online Skin</p>
-        
-        <!-- Contoh Penempatan Unit Iklan -->
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="ca-pub-3181228773033613"
-             data-ad-slot="1234567890"
-             data-ad-format="auto"
-             data-full-width-responsive="true"></ins>
-        <script>
-             (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
+
     <main class="container">
         <!-- Section Tutorial -->
         <section class="section">
-            <h2>Tutorial</h2>
+            <button class="section-toggle" onclick="toggleSection(this)">Software Tutorial</button>
             <ul class="links-list">
                 <li><a href="https://youtu.be/nObpcj7Znf4" target="_blank">Tutorial 1: Getting Started</a></li>
                 <li><a href="https://youtu.be/acAcW_kxJSI" target="_blank">Tutorial 2: Root Function</a></li>
@@ -57,41 +45,92 @@
 
         <!-- Section File Resources -->
         <section class="section">
-            <h2>File Resources</h2>
+            <button class="section-toggle" onclick="toggleSection(this)">Original File Resources</button>
             <ul class="links-list">
                 <li><a href="https://www.mediafire.com/file/4ifhlfspmnbsq58/Chef.7z/file" target="_blank">Chef File Origin 2.2.3.2</a></li>
                 <li><a href="https://www.mediafire.com/file/lmnxpq35v5bv3q9/QG_FILENAME.xlsx/file" target="_blank">Excel File EFF Sample</a></li>
             </ul>
         </section>
-
-        <!-- Section Related Software -->
+        
+        <!-- Section Portofolio -->
         <section class="section">
-            <h2>Price Detail & Portofolio</h2>
+            <button class="section-toggle" onclick="toggleSection(this)">Skin Portofolio</button>
             <ul class="links-list">
-                <li>Price for 1 Account : IDR 150.000 or $10</a></li>
                 <li><a href="linktr.ee/quartzgallery" target="_blank">Skin Portofolio</a></li>
             </ul>
         </section>
 
-        <!-- Payment Methods -->
-        <section class="payment-methods">
-            <div class="method">
-                <h3>Payment Methods (Indonesia)</h3>
-                <ul>
-                    <li>Bank Transfer: BCA 7151851138 - Muhammad Taufan Firdaus</li>
-                    <li>Bank Transfer: CIMB 706444755500 - Muhammad Taufan Firdaus</li>
-                    <li>Gopay : 081294648329</li>
-                    <li>More Payment Methode : Please contact me directly</li>
-                </ul>
-            </div>
-            <div class="method">
-                <h3>Payment Methods (International)</h3>
-                <ul>
-                    <li>PayPal : @quartzgallery or lotancorp@gmail.com</li>
-                    <li>Binance : Please contact me directly</li>
-                </ul>
-            </div>
+
+        <!-- Section Price -->
+        <section class="section">
+            <button class="section-toggle" onclick="toggleSection(this)">Price Account</button>
+            <ul class="links-list">
+                <li>Price for 1 Account : IDR 150.000 or $10</a></li>
+            </ul>
         </section>
+
+<!-- Payment Methods -->
+<section class="payment-methods">
+    <button class="section-toggle" onclick="toggleSection(this)">Payment Method</button>
+    <div class="payment-content">
+        <form class="payment-form">
+            <!-- Pilihan Bank Transfer (Indonesia) -->
+            <label class="payment-option">
+                <input type="radio" name="payment" value="bank-transfer-indonesia">
+                <img src="bank-logo.png" alt="Bank Transfer">
+                <div>
+                    <strong>Pay via Bank Transfer (Indonesia)</strong>
+                    <ul class="payment-details">
+                        <li>BCA: 7151851138 - Muhammad Taufan Firdaus</li>
+                        <li>CIMB: 706444755500 - Muhammad Taufan Firdaus</li>
+                    </ul>
+                </div>
+            </label>
+
+            <!-- Pilihan E-Wallet -->
+            <label class="payment-option">
+                <input type="radio" name="payment" value="e-wallet">
+                <img src="Gopay.png" alt="Gopay">
+                <div>
+                    <strong>Pay via E-Wallet</strong>
+                    <ul class="payment-details">
+                        <li>Gopay: 081294648329</li>
+                    </ul>
+                </div>
+            </label>
+
+            <!-- Pilihan International -->
+            <label class="payment-option">
+                <input type="radio" name="payment" value="international">
+                <img src="paypal-logo.png" alt="International">
+                <div>
+                    <strong>Pay via International</strong>
+                    <ul class="payment-details">
+                        <li>PayPal: lotancorp@gmail.com - @quartzgallery</li>
+                        <li>Binance USDT: BEP20/TRC20</li>
+                    </ul>
+                </div>
+            </label>
+        </form>
+    </div>
+</section>
+
+        <!-- Penempatan Unit Iklan -->
+        <section class="adsense">
+            <div class="adsbygoogle">
+
+                <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-3181228773033613"
+                data-ad-slot="1234567890"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+                <script>
+                   (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </section>       
     </main>
+    <script src="script.js"></script>
 </body>
 </html>
