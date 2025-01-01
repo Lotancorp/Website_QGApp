@@ -1,16 +1,33 @@
+/* === Global Styles === */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f3f3f3; /* Latar belakang abu-abu muda */
+    color: #333; /* Warna teks abu-abu gelap */
+}
+
+/* === Header === */
+header {
+    background-color: #333; /* Latar belakang hitam */
+    color: #fff; /* Warna teks putih */
+    padding: 20px;
+    text-align: center;
+    position: relative;
+}
+
 /* Tombol di kanan atas */
 .top-right-buttons {
     position: absolute;
-    top: 20px; /* Jarak dari atas */
-    right: 20px; /* Jarak dari kanan */
+    top: 20px;
+    right: 20px;
     display: flex;
-    gap: 10px; /* Jarak antar tombol */
+    gap: 10px;
 }
 
-/* Styling tombol Register dan Download */
 #registerButton, #downloadButton {
-    background-color: #28a745; /* Warna hijau */
-    color: #fff;
+    background-color: #057aff; /* Warna abu-abu gelap */
+    color: #fff; /* Warna teks putih */
     border: none;
     padding: 10px 15px;
     border-radius: 5px;
@@ -21,41 +38,60 @@
 }
 
 #registerButton:hover, #downloadButton:hover {
-    background-color: #218838; /* Warna saat hover */
+    background-color: #05ff50; /* Warna abu-abu lebih gelap saat hover */
 }
 
-/* Styling umum */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f9f9f9;
-}
-
-/* Header */
-header {
-    background-color: #007bff;
-    color: #fff;
-    padding: 20px;
-    text-align: center;
-    position: relative;
-}
-
-/* Kontainer utama */
+/* === Container Utama === */
 .container {
     padding: 20px;
     max-width: 1200px;
     margin: auto;
+    background-color: #fff; /* Latar belakang putih untuk konten utama */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Section */
+/* === Section === */
 .section {
-    margin-bottom: 30px;
-    border-bottom: 1px solid #ddd; /* Garis pemisah antar section */
-    padding-bottom: 20px;
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid #ccc; /* Garis pemisah abu-abu */
 }
 
-/* Daftar link */
+/* Tombol Section Toggle */
+.section-toggle {
+    width: 100%;
+    background-color: #444; /* Latar belakang abu-abu gelap */
+    color: white; /* Warna teks putih */
+    border: none;
+    padding: 15px;
+    text-align: left;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-bottom: 1px solid #555; /* Garis abu-abu di bawah tombol */
+}
+
+.section-toggle:hover {
+    background-color: #0c3d86; /* Latar belakang hitam saat hover */
+}
+
+.section-toggle:last-child {
+    border-bottom: none;
+}
+
+/* Konten Section (Disembunyikan secara default) */
+.section ul {
+    display: none;
+    padding: 15px 0;
+}
+
+.section.expanded ul {
+    display: block;
+}
+
+/* === Links List === */
 .links-list {
     list-style: none;
     padding: 0;
@@ -67,137 +103,46 @@ header {
 
 .links-list a {
     text-decoration: none;
-    color: #007bff;
+    color: #555; /* Teks abu-abu gelap */
+    font-weight: bold;
 }
 
 .links-list a:hover {
+    color: #000; /* Teks hitam saat hover */
     text-decoration: underline;
 }
 
-/* Payment Methods */
-.payment-methods {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    margin-top: 20px;
-    border-top: 1px solid #ddd; /* Garis pemisah di atas */
-    padding-top: 20px;
-}
-
-.method {
-    flex: 1;
-    max-width: 45%;
-    text-align: center;
-    padding: 10px;
-    border: 1px solid #ddd; /* Garis luar setiap metode pembayaran */
-    border-radius: 5px;
-    background-color: #fff;
-    margin: 10px;
-}
-
-.method img {
-    margin-top: 10px;
-    max-width: 100%;
-    height: auto;
-    border-radius: 5px;
-}
-/* Gaya tombol section toggle */
-.section-toggle {
-    width: 100%; /* Lebar penuh */
-    margin: 0; /* Hilangkan margin antar tombol */
-    text-align: left; /* Teks rata kiri */
-    background-color: #007bff; /* Warna latar biru */
-    color: #fff; /* Warna teks putih */
-    border: none;
-    padding: 15px; /* Padding untuk spasi */
-    font-size: 16px; /* Ukuran font */
-    font-weight: bold; /* Tebal */
-    cursor: pointer;
-    transition: background-color 0.3s;
-    border-bottom: 1px solid #fff; /* Garis putih di bawah tombol */
-}
-
-/* Menghilangkan garis bawah pada tombol terakhir */
-.section-toggle:last-child {
-    border-bottom: none;
-}
-
-.section-toggle:hover {
-    background-color: #0056b3; /* Warna saat hover */
-}
-
-.section-toggle:focus {
-    outline: none; /* Menghapus outline default tombol */
-}
-
-/* Menghapus jarak antar tombol */
-.section {
-    margin: 0; /* Menghapus margin antar section */
-    padding: 0; /* Menghapus padding antar section */
-}
-
-/* Konten section */
-.section ul {
-    display: none; /* Sembunyikan konten secara default */
-}
-
-/* Tampilkan konten jika expanded */
-.section.expanded ul {
-    display: block;
-}
-
-/* Bagian Payment Methods */
+/* === Payment Methods === */
 .payment-methods {
     width: 100%;
-    margin: 0px 0;
-    padding: 0;
-    background-color: #f9f9f9;
+    background-color: #fff; /* Latar belakang putih */
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 0px;
 }
 
-.section-toggle {
-    background-color: #007bff;
-    color: white;
-    padding: 15px;
-    border: none;
-    width: 100%;
-    text-align: left;
-    cursor: pointer;
-    font-size: 1.1em;
-    font-weight: bold;
-    border-radius: 5px 5px 0 0;
-    transition: background-color 0.3s ease;
+/* Kontainer Grid untuk Payment Options */
+.payment-form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Dua kolom */
+    gap: 15px;
 }
 
-.section-toggle:hover {
-    background-color: #0056b3;
-}
-
-.payment-content {
-    display: none; /* Disembunyikan secara default */
-    padding: 15px;
-}
-
-.payment-methods.expanded .payment-content {
-    display: block; /* Ditampilkan jika di-expand */
-}
-
+/* Setiap Opsi Pembayaran */
 .payment-option {
     display: flex;
     align-items: center;
     gap: 15px;
-    padding: 10px;
-    border: 1px solid #ddd;
+    padding: 15px;
+    border: 1px solid #ddd; /* Garis abu-abu muda */
     border-radius: 5px;
     background-color: white;
     cursor: pointer;
-    margin-bottom: 10px;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .payment-option:hover {
-    background-color: #f0f8ff;
+    background-color: #f5f5f5; /* Latar belakang abu-abu sangat terang saat hover */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -217,17 +162,37 @@ header {
 
 .payment-option strong {
     font-size: 1.1em;
-    color: #333;
+    color: #333; /* Teks abu-abu gelap */
 }
 
+/* Detail Pembayaran */
 .payment-details {
     margin-top: 5px;
     padding-left: 20px;
     font-size: 0.9em;
-    color: #555;
+    color: #666; /* Teks abu-abu */
 }
 
 .payment-details li {
     list-style: none;
     margin-bottom: 5px;
+}
+
+/* Konten default disembunyikan */
+.payment-content {
+    display: none;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+/* Tampilkan konten jika section memiliki kelas 'expanded' */
+.payment-methods.expanded .payment-content {
+    display: block;
+}
+
+/* === Media Query untuk Responsif === */
+@media (max-width: 768px) {
+    .payment-form {
+        grid-template-columns: 1fr; /* Satu kolom untuk layar kecil */
+    }
 }
