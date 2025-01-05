@@ -196,3 +196,44 @@ header {
         grid-template-columns: 1fr; /* Satu kolom untuk layar kecil */
     }
 }
+.sliding-banner {
+    position: relative;
+    width: 100%; /* Sesuaikan lebar dengan header */
+    max-width: 851px; /* Pastikan tidak melebihi dimensi asli */
+    height: 315px; /* Sesuai dengan ukuran gambar asli */
+    margin: 0 auto; /* Pusatkan di tengah */
+    overflow: hidden;
+    border-radius: 10px; /* Tambahkan sedikit lengkungan pada sudut */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Tambahkan bayangan */
+}
+
+.sliding-banner img {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Potong gambar agar sesuai */
+    transition: left 1s ease-in-out;
+}
+
+.sliding-banner img.active {
+    left: 0;
+}
+
+.sliding-banner img.previous {
+    left: -100%;
+}
+
+/* Media Query untuk Responsivitas */
+@media (max-width: 768px) {
+    .sliding-banner {
+        width: 100%;
+        height: auto; /* Sesuaikan tinggi dengan proporsi gambar */
+    }
+
+    .sliding-banner img {
+        object-fit: contain; /* Tampilkan seluruh gambar pada layar kecil */
+    }
+}
+
