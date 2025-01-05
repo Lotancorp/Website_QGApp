@@ -77,7 +77,6 @@
 <header>
     <h1>Gallery - Google Photos</h1>
 </header>
-
 <main>
     <div class="gallery" id="gallery"></div>
     <div class="pagination" id="pagination">
@@ -105,18 +104,21 @@
     }
 
     function initClient() {
+        console.log('Initializing Google API client...');
         gapi.client.init({
             apiKey: "AIzaSyDObZlN1jDkIySkgePI-6InKCOGOnxc8bs",
             clientId: CLIENT_ID,
             discoveryDocs: DISCOVERY_DOCS,
             scope: SCOPES
         }).then(() => {
+            console.log('Google API client initialized successfully.');
             const authInstance = gapi.auth2.getAuthInstance();
 
             // Sign in and fetch images
             authInstance.signIn().then(() => {
                 console.log('Sign-in successful');
                 const accessToken = authInstance.currentUser.get().getAuthResponse().access_token;
+                console.log('Access Token:', accessToken);
                 fetchImages(accessToken);
             }).catch(error => {
                 console.error('Error during sign-in:', error);
