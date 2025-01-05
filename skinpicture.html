@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Google Photos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lightgallery.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f3f3f3;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+            padding: 20px;
+            background-color: white;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.05);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .pagination {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .pagination button {
+            margin: 0 5px;
+            padding: 10px 15px;
+            border: none;
+            background-color: #057aff;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .pagination button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Gallery - Google Photos</h1>
+</header>
+
+<main>
+    <div class="gallery" id="gallery"></div>
+    <div class="pagination" id="pagination">
+        <button id="prevPage" onclick="changePage(-1)" disabled>Previous</button>
+        <button id="nextPage" onclick="changePage(1)" disabled>Next</button>
+    </div>
+</main>
+
+<footer>
+    &copy; 2025 Quartz Gallery
+</footer>
+
+<script src="https://apis.google.com/js/api.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/lightgallery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/plugins/zoom/lg-zoom.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script>
+<script>
+    const CLIENT_ID = "867138729697-kjf41c3guukk2loacfefm3j1ugvqbl8m.apps.googleusercontent.com"; // Replace with your OAuth Client ID
+    const DISCOVERY_DOCS = ["https://photoslibrary.googleapis.com/$discovery/rest?version=v1"];
+    const SCOPES = "https://www.googleapis.com/auth/photoslibrary.readonly";
+
+    function handleClientLoad() {
+        gapi.load('client:auth2', initClient);
+    }
+
+    function initClient() {
+        gapi.client.init({
+            apiKey: "AIzaSyDObZlN1jDkIySkgePI-6InKCOGOnxc8bs",
+            clientId: CLIENT_ID,
+            discoveryDocs: DISCOVERY_DOCS,
+            scope: SCOPES
+        }).then(() => {
+            const authInstance = gapi.auth2.getAuthInstance();
+
+            // Sign in and fetch images
+            authInstance.signIn().then(() => {
+                const accessToken = authInstance.currentUser.get().getAuthResponse().access_token;
+                fetchImages(accessToken);
+            });
+        }, (error) => {
+            console.error('Error initializing Google API client:', error);
+        });
+    }
+
+    async function fetchImages(accessToken) {
+        const gallery = document.getElementById('gallery');
+        const url = "https://photoslibrary.googleapis.com/v1/mediaItems:search";
+
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    albumId: "APAFePscNU9PM2HFWW2by-052dbrRSa_g_bfsu9xiemhCYe7EwlDOPvG0lmHwrg8QiQCo8g7jv6l",
+                    pageSize: 20
+                })
+            });
+
+            const data = await response.json();
+            console.log('API Response:', data);
+
+            if (data.mediaItems) {
+                data.mediaItems.forEach(item => {
+                    const imgElement = document.createElement('img');
+                    imgElement.src = item.baseUrl + '=w300';
+                    imgElement.alt = item.filename;
+                    gallery.appendChild(imgElement);
+                });
+
+                lightGallery(gallery, {
+                    plugins: [lgZoom, lgThumbnail],
+                    speed: 500
+                });
+            } else {
+                console.error('No media items found.');
+            }
+        } catch (error) {
+            console.error('Error fetching images:', error);
+        }
+    }
+
+    handleClientLoad();
+</script>
+
+</body>
+</html>
