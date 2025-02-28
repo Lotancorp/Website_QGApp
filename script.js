@@ -40,3 +40,67 @@ document.addEventListener('DOMContentLoaded', () => {
     setInterval(showNextBanner, 3000);
 });
 
+// Objek konten modal untuk setiap metode payment
+const paymentModalContent = {
+    "bank-transfer-indonesia": `
+      <h2>Bank Transfer (Indonesia)</h2>
+      <p><strong>BCA:</strong> 7151851138 - Muhammad Taufan Firdaus</p>
+      <p><strong>CIMB:</strong> 706444755500 - Muhammad Taufan Firdaus</p>
+      <img src="Images/barcode-bank.png" alt="Barcode Bank Transfer" style="max-width:100%;">
+    `,
+    "e-wallet": `
+      <h2>E-Wallet Payment</h2>
+      <p><strong>Gopay:</strong> 081294648329</p>
+      <img src="Images/barcode-gopay.png" alt="Barcode Gopay" style="max-width:100%;">
+    `,
+    "international": `
+      <h2>International Payment</h2>
+      <p><strong>PayPal:</strong> lotancorp@gmail.com - @quartzgallery</p>
+      <p><strong>Binance USDT:</strong> BEP20/TRC20</p>
+      <!-- Jika ada barcode untuk International, tambahkan di sini -->
+    `,
+    "whatsapp": `
+      <h2>Contact via WhatsApp</h2>
+      <p>Silahkan hubungi melalui WhatsApp: <a href="https://wa.me/6281294648329" target="_blank">081294648329</a></p>
+    `
+  };
+  
+  // Fungsi untuk membuka modal
+  function openModal(content) {
+    document.getElementById("modal-body").innerHTML = content;
+    document.getElementById("paymentModal").style.display = "block";
+  }
+  
+  // Fungsi untuk menutup modal
+  function closeModal() {
+    document.getElementById("paymentModal").style.display = "none";
+  }
+  
+  // Ketika user klik di luar modal, modal tertutup
+  window.addEventListener("click", function(event) {
+    const modal = document.getElementById("paymentModal");
+    if (event.target === modal) {
+      closeModal();
+    }
+  });
+  
+  // Event listener untuk tombol "Continue"
+  document.getElementById("continueBtn").addEventListener("click", function() {
+    // Cari radio button yang sedang dipilih
+    const selectedPayment = document.querySelector('input[name="payment"]:checked');
+    
+    if (!selectedPayment) {
+      alert("Pilih dulu metode pembayaran, Taufan!");
+      return;
+    }
+    
+    const paymentType = selectedPayment.value;
+    
+    // Ambil konten yang sesuai dari objek paymentModalContent
+    if (paymentModalContent[paymentType]) {
+      openModal(paymentModalContent[paymentType]);
+    } else {
+      openModal("<p>Detail pembayaran belum tersedia.</p>");
+    }
+  });
+  

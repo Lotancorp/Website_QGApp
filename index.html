@@ -23,14 +23,20 @@
     <header>
         <h1>Quartz Gallery Software Project</h1>
         <!-- Tombol Register dan Download -->
+        <div class="sliding-banner">
+            <a href="https://linktr.ee/quartzgallery" target="_blank">
+                <img src="Images/Banner1.png" alt="Banner 1">
+            </a>
+            <a href="https://www.facebook.com/uchihadaybringer" target="_blank">
+                <img src="Images/Banner2.png" alt="Banner 2">
+            </a>
+            <a href="https://www.youtube.com/channel/UCqCyP8NIWNl4xjoEmcRSfag" target="_blank">
+                <img src="Images/Banner3.png" alt="Banner 3">
+            </a>
+        </div>
         <div class="top-right-buttons">
             <button id="registerButton" onclick="window.open('https://forms.gle/AW5tZStuq4HpND5x7')">Register</button>
             <button id="downloadButton" onclick="window.open('https://www.mediafire.com/file/c4i49juccxkkur1/Quartz+Gallery+Aplicationt.7z/file')">Download</button>
-        </div>
-        <div class="sliding-banner">
-            <img src="Images/Banner1.png" alt="Banner 1">
-            <img src="Images/Banner2.png" alt="Banner 2">
-            <img src="Images/Banner3.png" alt="Banner 3">
         </div>
     </header>
     
@@ -86,6 +92,7 @@
         </section>
 
 <!-- Payment Methods -->
+ 
 <section class="payment-methods">
     <button class="section-toggle" onclick="toggleSection(this)">Payment Method</button>
     <div class="payment-content">
@@ -139,9 +146,22 @@
                     </ul>
                 </div>
             </label>
+
+            <!-- Tombol Continue -->
+            <div class="continue-button-container">
+                <button type="button" id="continueBtn" class="continue-button">Continue</button>
+            </div>
         </form>
     </div>
 </section>
+
+    <!-- Modal -->
+    <div id="paymentModal" class="modal">
+    <div class="modal-content">
+        <span class="close-button" onclick="closeModal()">&times;</span>
+        <div id="modal-body"></div>
+    </div>
+    </div>
 
         <!-- Penempatan Unit Iklan -->
         <section class="adsense">

@@ -18,12 +18,35 @@ header {
 
 /* Tombol di kanan atas */
 .top-right-buttons {
-    position: absolute;
-    top: 20px;
-    right: 20px;
+    /* Supaya tombol berada di tengah (horizontal) */
     display: flex;
-    gap: 10px;
+    justify-content: center; 
+    align-items: center;
+
+    /* Membuat garis (frame) memanjang di sekitar tombol */
+    border: 2px solid #333; 
+    width: 80%;             /* Atur sesuai selera (80% dari lebar kontainer induk) */
+    margin: 20px auto;      /* Auto untuk men-center-kan div, 20px jarak atas-bawah */
+    padding: 10px;          /* Jarak dalam kontainer */
+    box-sizing: border-box; /* Supaya padding dihitung di dalam width */
 }
+
+/* Styling dasar untuk tombol */
+.top-right-buttons button {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px 20px;
+    margin: 0 10px;         /* Jarak antar tombol */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Efek hover */
+.top-right-buttons button:hover {
+    background-color: #0056b3;
+}
+
 
 #registerButton, #downloadButton {
     background-color: #057aff; /* Warna abu-abu gelap */
@@ -127,7 +150,11 @@ header {
     grid-template-columns: repeat(2, 1fr); /* Dua kolom */
     gap: 15px;
 }
-
+.payment-form .continue-button-container {
+    grid-column: 1 / -1;  /* Supaya membentang dari kolom pertama sampai terakhir */
+    text-align: center;   /* Konten di tengah */
+  }
+  
 /* Setiap Opsi Pembayaran */
 .payment-option {
     display: flex;
@@ -190,6 +217,8 @@ header {
     display: block;
 }
 
+
+
 /* === Media Query untuk Responsif === */
 @media (max-width: 768px) {
     .payment-form {
@@ -237,3 +266,77 @@ header {
     }
 }
 
+/* Modal overlay */
+.modal {
+    display: none; /* Tersembunyi secara default */
+    position: fixed;
+    z-index: 1000; /* Pastikan berada di atas konten lainnya */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5); /* Latar belakang gelap transparan */
+  }
+  
+  /* Konten Modal */
+  .modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px; /* Biar tidak terlalu lebar */
+    border-radius: 8px;
+    position: relative;
+  }
+  
+  /* Tombol close modal */
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #aaa;
+    cursor: pointer;
+  }
+  
+  .close-button:hover {
+    color: #000;
+  }
+  
+  /* Tombol Continue (opsional styling) */
+  .continue-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .continue-button:hover {
+    background-color: #0056b3;
+  }
+  /* Kontainer tombol, posisikan center */
+.continue-button-container {
+    text-align: center;    /* Memastikan isi kontainer di tengah */
+    margin-top: 20px;      /* Jarak dari opsi payment */
+  }
+  
+  /* Style tombol itu sendiri */
+  .continue-button {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .continue-button:hover {
+    background-color: #0056b3;
+  }
+  
