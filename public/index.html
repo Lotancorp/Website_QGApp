@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cloudinary Gallery</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      margin: 20px;
+    }
+    .gallery img {
+      width: 200px;
+      margin: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      transition: transform 0.2s;
+    }
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <h1>Cloudinary Gallery</h1>
+  <div class="gallery" id="galleryContainer"></div>
+
+  <script>
+    // Saat halaman selesai dimuat, panggil endpoint /api/gallery
+    fetch('/api/gallery')
+      .then(response => response.json())
+      .then(data => {
+        const galleryContainer = document.getElementById('galleryContainer');
+
+        // data adalah array object gambar dari Cloudinary
+        data.forEach(item => {
+          // Buat elemen <img> untuk tiap resource
+          const img = document.createElement('img');
+          img.src = item.secure_url; // URL aman (HTTPS) dari Cloudinary
+          img.alt = item.public_id;  // Boleh diisi info lain
+          
+          galleryContainer.appendChild(img);
+        });
+      })
+      .catch(error => {
+        console.error('Error fetching images:', error);
+      });
+  </script>
+</body>
+</html>
