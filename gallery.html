@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+  <!-- Tambahkan ini di bagian <head> -->
+  <script src="https://product-gallery.cloudinary.com/all.js"></script>
+  <link rel="stylesheet" href="https://product-gallery.cloudinary.com/all.min.css" />
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Gallery Portofolio - Quartz Gallery</title>
@@ -139,11 +143,22 @@
         <!-- Tambahkan lebih banyak item sesuai portofolio kamu -->
       </div>
     </section>
+    <div id="my-gallery"></div>
   </main>
   <footer>
     <p>&copy; 2025 Quartz Gallery. All rights reserved.</p>
   </footer>
-  <!-- Jika dibutuhkan fungsionalitas JavaScript khusus untuk halaman gallery, kamu bisa menambahkan file gallery.js di sini -->
-  <!-- <script src="gallery.js"></script> -->
+  <script>
+    const gallery = cloudinary.galleryWidget({
+      container: "#my-gallery",
+      cloudName: "dntgduuyx",
+      mediaAssets: [
+        { tag: "booster" }
+      ],
+    });
+    gallery.render();
+  </script>
+  
+  
 </body>
 </html>
