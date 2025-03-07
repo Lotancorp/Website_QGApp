@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Image Gallery - Quartz Gallery</title>
+  <!-- Memanggil style.css dari repository (opsional) -->
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Container utama gallery */
+    .gallery-container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    .gallery-container h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    .gallery-container p {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    /* Grid gallery responsif */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-gap: 1.5rem;
+    }
+    /* Setiap item gallery */
+    .gallery-item {
+      overflow: hidden;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      background: #fff;
+      text-align: center; /* Agar teks album di tengah */
+      transition: transform 0.3s ease;
+    }
+    .gallery-item:hover {
+      transform: scale(1.02);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+    .album-info {
+      padding: 0.5rem;
+    }
+    .album-info h3 {
+      margin: 0.5rem 0 0.25rem;
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+    .album-info p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: #666;
+    }
+    /* Style untuk header dan navigasi */
+    header {
+      background: #333;
+      color: #fff;
+      padding: 1rem;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      text-align: center;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      padding: 0;
+      margin: 0.5rem 0 0;
+    }
+    nav ul li {
+      margin: 0 1rem;
+    }
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav ul li a.active {
+      text-decoration: underline;
+    }
+    /* Style footer */
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #f2f2f2;
+      margin-top: 2rem;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Quartz Gallery Portofolio</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <!-- Di sini kita aktifkan "Image Gallery" -->
+        <li><a href="gallery.html" class="active">Video Gallery</a></li>
+        <!-- Tambahkan menu navigasi lain jika perlu -->
+      </ul>
+    </nav>
+  </header>
+  <main class="gallery-container">
+    <section>
+      <h2>Quartz Gallery Picture Portofolio</h2>
+      <p></p>
+      <div class="gallery-grid">
+        <!-- Album 1 -->
+        <div class="gallery-item">
+          <a href="https://flic.kr/s/aHBqjApEK1" target="_blank">
+            <img src="https://live.staticflickr.com/65535/52649775629_a2cc41291f_c.jpg" alt="Armor Skin">
+            <div class="album-info">
+              <h3>Armor Skin</h3>
+            </div>
+          </a>
+        </div>
+        <!-- Album 2 -->
+        <div class="gallery-item">
+          <a href="https://flic.kr/s/aHBqjApCWK" target="_blank">
+            <img src="https://live.staticflickr.com/65535/52650106405_c95719e79d_z.jpg" alt="Othek Skin">
+            <div class="album-info">
+              <h3>Weapon SKin</h3>
+            </div>
+          </a>
+        </div>
+        <!-- Album 3 -->
+        <div class="gallery-item">
+          <a href="https://www.flickr.com/photos/197513634@N03/albums/ALBUM_ID_3" target="_blank">
+            <img src="images/album3_thumb.jpg" alt="Shield Skin">
+            <div class="album-info">
+              <h3>Shield Skin</h3>
+              <p>?? foto - ?? tampilan</p>
+            </div>
+          </a>
+        </div>
+        <!-- Album 4 -->
+        <div class="gallery-item">
+          <a href="https://www.flickr.com/photos/197513634@N03/albums/ALBUM_ID_4" target="_blank">
+            <img src="images/album4_thumb.jpg" alt="Weapon Skin">
+            <div class="album-info">
+              <h3>Weapon Skin</h3>
+              <p>?? foto - ?? tampilan</p>
+            </div>
+          </a>
+        </div>
+        <!-- Album 5 -->
+        <div class="gallery-item">
+          <a href="https://www.flickr.com
