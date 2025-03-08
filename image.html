@@ -6,99 +6,8 @@
   <title>Image Gallery - Quartz Gallery</title>
   <!-- Memanggil style.css dari repository (opsional) -->
   <link rel="stylesheet" href="style.css">
-  <style>
-    /* Container utama gallery */
-    .gallery-container {
-      max-width: 1200px;
-      margin: 2rem auto;
-      padding: 0 1rem;
-    }
-    .gallery-container h2 {
-      text-align: center;
-      margin-bottom: 1rem;
-    }
-    .gallery-container p {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-    /* Grid gallery responsif */
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      grid-gap: 1.5rem;
-    }
-    /* Setiap item gallery */
-    .gallery-item {
-      overflow: hidden;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      background: #fff;
-      text-align: center;
-      transition: transform 0.3s ease;
-    }
-    .gallery-item:hover {
-      transform: scale(1.02);
-    }
-    .gallery-item img {
-      width: 100%;
-      height: auto;
-      display: block;
-      transition: transform 0.3s ease;
-    }
-    .gallery-item:hover img {
-      transform: scale(1.05);
-    }
-    .album-info {
-      padding: 0.5rem;
-    }
-    .album-info h3 {
-      margin: 0.5rem 0 0.25rem;
-      font-size: 1.1rem;
-      font-weight: bold;
-    }
-    .album-info p {
-      margin: 0;
-      font-size: 0.9rem;
-      color: #666;
-    }
-    /* Style untuk header dan navigasi */
-    header {
-      background: #333;
-      color: #fff;
-      padding: 1rem;
-    }
-    header h1 {
-      margin: 0;
-      font-size: 1.8rem;
-      text-align: center;
-    }
-    nav ul {
-      list-style: none;
-      display: flex;
-      justify-content: center;
-      padding: 0;
-      margin: 0.5rem 0 0;
-    }
-    nav ul li {
-      margin: 0 1rem;
-    }
-    nav ul li a {
-      color: #fff;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    nav ul li a.active {
-      text-decoration: underline;
-    }
-    /* Style footer */
-    footer {
-      text-align: center;
-      padding: 1rem;
-      background: #f2f2f2;
-      margin-top: 2rem;
-      font-size: 0.9rem;
-    }
-  </style>
+  <link rel="stylesheet" href="imgstyle.css">
+
   <!-- Memuat Google Identity Services Client Library -->
   <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
@@ -156,35 +65,31 @@
             </div>
           </a>
         </div>
-        <!-- Album 5 -->
-        <div class="gallery-item">
-          <a href="https://www.flickr.com" target="_blank">
-            <img src="https://live.staticflickr.com/65535/52650175183_9dea892de1_z.jpg" alt="Others Skin">
-            <div class="album-info">
-              <h3>Others Skin</h3>
-            </div>
-          </a>
-        </div>
-      </div>
     </section>
 
     <!-- Section untuk Google Photos Gallery -->
-    <section id="google-photos-gallery">
-      <h2>Google Photos Gallery</h2>
-      <!-- Tombol otorisasi dan sign out untuk Google API -->
-      <button id="authorize_button">Authorize</button>
-      <button id="signout_button" style="display: none;">Sign Out</button>
-      <div id="content"></div>
+    <!-- Contoh: Mengganti Section Google Photos Gallery menjadi Flickr Album Embed -->
+    <section id="flickr-dynamic-album">
+      <h2>Album Preview</h2>
       
-      <!-- Preview foto dari Google Photos -->
-      <div id="photo-preview">
-        <img id="current-photo" src="" alt="Google Photo" />
+      <!-- Label + Dropdown -->
+      <div class="album-select-wrapper">
+        <label for="albumSelector">Select Skin:</label>
+        <select id="albumSelector">
+          <option value="0">Armor Skin</option>
+          <option value="1">Weapon Skin</option>
+          <option value="2">Booster Skin</option>
+          <option value="3">Shield Skin</option>
+          <option value="4">Others Skin</option>
+          <option value="5">Monster Skin</option>
+        </select>
       </div>
-      <div class="nav-buttons">
-        <button id="prev-button">Prev</button>
-        <button id="next-button">Next</button>
-      </div>
+    
+      <!-- Container untuk embed album -->
+      <div id="albumEmbedContainer"></div>
     </section>
+
+    
   </main>
   <footer>
     <p>&copy; 2025 Quartz Gallery. All rights reserved.</p>
