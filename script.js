@@ -104,3 +104,27 @@ const paymentModalContent = {
     }
   });
   
+  document.getElementById('continueBtn').addEventListener('click', function () {
+  var selectedOption = document.querySelector('input[name="payment"]:checked');
+  if (!selectedOption) {
+    alert("Please select a payment method.");
+    return;
+  }
+
+  var paymentMethod = selectedOption.value;
+  // Update these URLs with your actual payment gateway or processing pages
+  var paymentUrls = {
+    "bank-transfer-indonesia": "accountbank.html", // Replace with your Bank Transfer URL
+    "e-wallet": "accountbank.html",            // Replace with your E-Wallet URL
+    "international": "accountbank.html",    // Replace with your International Payment URL
+    "whatsapp": "accountbank.html"                        // WhatsApp Chat Link
+  };
+
+  // Redirect the user to the chosen payment URL
+  var redirectUrl = paymentUrls[paymentMethod];
+  if (redirectUrl) {
+    window.location.href = redirectUrl;
+  } else {
+    alert("Selected payment method is not available.");
+  }
+});

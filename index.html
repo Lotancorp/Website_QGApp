@@ -39,7 +39,29 @@
             <button id="downloadButton" onclick="window.open('https://www.mediafire.com/file/c4i49juccxkkur1/Quartz+Gallery+Aplicationt.7z/file')">Download</button>
         </div>
     </header>
-    
+    <section id="intro-content" style="max-width: 1200px; margin: 2rem auto; padding: 0 1rem; display: flex; flex-wrap: wrap; align-items: center; gap: 2rem;">
+        <!-- Supporting Image -->
+        <div style="flex: 1; min-width: 300px;">
+          <img src="Images/QG.PNG" alt="Quartz Gallery Logo" style="width: 80%; height: auto; border-radius: 8px;">
+        </div>
+        <!-- Text Content -->
+        <div style="flex: 2; min-width: 300px; text-align: justify;">
+          <h2>A Word from No One</h2>
+          <p>
+            Quartz Gallery (QG) is a freelance graphic design studio dedicated to creativity and innovation. Although I may not be a widely recognized name, my work is driven by passion and a commitment to quality, proving that true artistry often comes from humble beginnings.
+          </p>
+          <p>
+            At QG, we have developed powerful software tools specifically designed to modify RF Online files. These tools not only streamline the game development process but also offer specialized features that assist in configuring and enhancing game skins. Whether you’re a developer or a game enthusiast, our software is built to bring your creative ideas to life.
+          </p>
+          <p>
+            We proudly offer a wide range of custom skin services, including bespoke designs, comprehensive revamps, and precise color modifications. Our approach is tailored to meet your unique vision, ensuring that every custom skin is a perfect blend of innovation and personalization.
+          </p>
+          <p>
+            Quartz Gallery may be modest in scale, but our dedication is immense. I am here to support you in transforming your game concepts into vivid, tangible realities that resonate with players and elevate your game’s visual appeal.
+          </p>
+        </div>
+      </section>
+      
     <div class="container">
 
     <main class="container">
@@ -66,109 +88,191 @@
         </section>
 
         <!-- Section File Resources -->
-        <section class="section">
-            <button class="section-toggle" onclick="toggleSection(this)">Original File Resources</button>
-            <ul class="links-list">
-                <li><a href="https://www.mediafire.com/file/4ifhlfspmnbsq58/Chef.7z/file" target="_blank">Chef File Origin 2.2.3.2</a></li>
-                <li><a href="https://www.mediafire.com/file/lmnxpq35v5bv3q9/QG_FILENAME.xlsx/file" target="_blank">Excel File EFF Sample</a></li>
-            </ul>
-        </section>
-        
-            <!-- Section Portofolio -->
-            <section class="section">
-                <button class="section-toggle" onclick="toggleSection(this)">Skin Portofolio</button>
-                <ul class="links-list">
-                    <li><a href="gallery.html" target="_blank">Video Gallery</a></li>
-                </ul>
-                <ul class="links-list">
-                    <li><a href="image.html" target="_blank">Image Gallery</a></li>
-                </ul>
-                <ul class="links-list">
-                    <li><a href="https://linktr.ee/quartzgallery" target="_blank">Skin Portofolio</a></li>
-                </ul>
-            </section>
+<!-- Original File Resources Section -->
+<section class="section">
+    <button class="section-toggle" onclick="toggleSection(this)">Original File Resources</button>
+    <ul class="thumbnail-list">
+      <li>
+        <a href="https://www.mediafire.com/file/4ifhlfspmnbsq58/Chef.7z/file" target="_blank">
+          <img src="images/DOC.PNG" alt="Chef File" />
+          <span>Chef File Origin 2.2.3.2</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://www.mediafire.com/file/lmnxpq35v5bv3q9/QG_FILENAME.xlsx/file" target="_blank">
+          <img src="images/EXC.PNG" alt="Excel EFF Sample" />
+          <span>Excel File EFF Sample</span>
+        </a>
+      </li>
+    </ul>
+  </section>
+  
+  <!-- Skin Portofolio Section -->
+  <section class="section">
+    <button class="section-toggle" onclick="toggleSection(this)">Skin Portofolio</button>
+    <ul class="thumbnail-list">
+      <li>
+        <a href="gallery.html" target="_blank">
+          <img src="images/YT.png" alt="Video Gallery" />
+          <span>Video Gallery</span>
+        </a>
+      </li>
+      <li>
+        <a href="image.html" target="_blank">
+          <img src="images/IMG.PNG" alt="Image Gallery" />
+          <span>Image Gallery</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://linktr.ee/quartzgallery" target="_blank">
+          <img src="images/QG.PNG" alt="Skin Portofolio" />
+          <span>Skin Portofolio</span>
+        </a>
+      </li>
+    </ul>
+  </section>
+  
 
+<!-- Section Price (HTML) -->
+<!-- Section Price (HTML) -->
+<section class="section price-section">
+    <button class="section-toggle" onclick="toggleSection(this)">Price Information</button>
+    <div class="price-container">
+      <!-- Bagian Harga Akun -->
+      <h2>Software Account Price</h2>
+      <p class="account-price">IDR 175.000 or $12</p>
+  
+      <!-- Bagian RF Online Skin Price (USD) -->
+      <h3>RF Online Skin Price (USD)</h3>
+      <ul class="price-list">
+        <li><strong>Armor:</strong> $80</li>
+        <li><strong>Weapon:</strong> $50 (10 Pcs) / $85 (17 Pcs)</li>
+        <li><strong>Shield:</strong> $7</li>
+        <li><strong>Booster:</strong> $18</li>
+        <li><strong>Mask:</strong> $18</li>
+        <li><strong>Unit (MAU):</strong> $20</li>
+        <li><strong>Unit (Siege Kit):</strong> $20</li>
+        <li><strong>Unit (Animus // 4 Animus):</strong> $80</li>
+        <li><strong>Monster:</strong> $15 - $30 <em>(Depending on difficulty)</em></li>
+        <li><strong>NPC:</strong> $15 - $30 <em>(Depending on difficulty)</em></li>
+      </ul>
+  
+      <!-- Bagian Revamp Price (USD) -->
+      <h3>Revamp Prices (Original RF Skins – Color Change Only)</h3>
+      <ul class="price-list">
+        <li><strong>Armor Revamp:</strong> $30 - $40 <em>(depending on difficulty)</em></li>
+        <li><strong>Weapon Revamp:</strong> $30 - $50 <em>(depending on difficulty and number of weapons)</em></li>
+      </ul>
+  
+      <!-- Catatan Harga USD -->
+      <p class="price-note">
+        The prices listed above are maximum estimates.<br>
+        A 10-15% discount is usually applied at the final pricing.<br>
+        If the item already exists and only requires minor modifications, the minimum estimate applies.<br>
+        These prices apply specifically for RF Online skin modification services.
+      </p>
+  
+      <hr style="margin: 2rem 0;" />
+  
+      <!-- Bagian Harga Skin (IDR) -->
+      <h3>RF Online Skin Price (IDR)</h3>
+      <ul class="price-list">
+        <li><strong>Armor:</strong> Rp1.500.000</li>
+        <li><strong>Weapon:</strong> Rp800.000 (10 Pcs) / Rp1.300.000 (17 Pcs)</li>
+        <li><strong>Shield:</strong> Rp80.000 - Rp110.000</li>
+        <li><strong>Booster:</strong> Rp275.000</li>
+        <li><strong>Mask:</strong> Rp275.000</li>
+        <li><strong>Unit (MAU):</strong> Rp400.000 (2 MAU)</li>
+        <li><strong>Unit (Siege Kit):</strong> Rp150.000 - Rp400.000 <em>(tergantung kesulitan)</em></li>
+        <li><strong>Unit (Animus // 4 Animus):</strong> Rp800.000</li>
+        <li><strong>Monster:</strong> Rp150.000 - Rp300.000 <em>(tergantung kesulitan)</em></li>
+        <li><strong>NPC:</strong> Rp150.000 - Rp300.000 <em>(tergantung kesulitan)</em></li>
+      </ul>
+  
+      <!-- Bagian Revamp Price (IDR) -->
+      <h3>Revamp Prices (Skin RF Online Asli – Ubah Warna/Glow Saja)</h3>
+      <ul class="price-list">
+        <li><strong>Armor Revamp:</strong> Rp500.000 - Rp750.000 <em>(tergantung kesulitan)</em></li>
+        <li><strong>Weapon Revamp:</strong> Rp500.000 - Rp1.000.000 <em>(tergantung kesulitan dan jumlah senjata)</em></li>
+      </ul>
+  
+      <!-- Catatan Harga IDR -->
+      <p class="price-note">
+        Harga di atas adalah estimasi maksimum.<br>
+        Biasanya diberikan diskon 10-15% saat finalisasi harga.<br>
+        Jika item sudah ada dan hanya perlu sedikit modifikasi, harga mengacu pada estimasi minimal.<br>
+        Harga di atas berlaku untuk jasa Skin RF Online.
+      </p>
+    </div>
+  </section>
+  
+  
+  
+            
 
-        <!-- Section Price -->
-        <section class="section">
-            <button class="section-toggle" onclick="toggleSection(this)">Price Account</button>
-            <ul class="links-list">
-                <li>Price for 1 Account : IDR 175.000 or $12</a></li>
-            </ul>
-        </section>
-
-<!-- Payment Methods -->
- 
+<!-- Payment Methods Section -->
 <section class="payment-methods">
     <button class="section-toggle" onclick="toggleSection(this)">Payment Method</button>
     <div class="payment-content">
-        <form class="payment-form">
-            <!-- Pilihan Bank Transfer (Indonesia) -->
-            <label class="payment-option">
-                <input type="radio" name="payment" value="bank-transfer-indonesia">
-                <img src="bank-logo.png" alt="Bank Transfer">
-                <div>
-                    <strong>Pay via Bank Transfer (Indonesia)</strong>
-                    <ul class="payment-details">
-                        <li>BCA: 7151851138 - Muhammad Taufan Firdaus</li>
-                        <li>CIMB: 706444755500 - Muhammad Taufan Firdaus</li>
-                    </ul>
-                </div>
-            </label>
-
-            <!-- Pilihan E-Wallet -->
-            <label class="payment-option">
-                <input type="radio" name="payment" value="e-wallet">
-                <img src="Gopay.png" alt="Gopay">
-                <div>
-                    <strong>Pay via E-Wallet</strong>
-                    <ul class="payment-details">
-                        <li>Gopay: 081294648329</li>
-                    </ul>
-                </div>
-            </label>
-
-            <!-- Pilihan International -->
-            <label class="payment-option">
-                <input type="radio" name="payment" value="international">
-                <img src="paypal-logo.png" alt="International">
-                <div>
-                    <strong>Pay via International</strong>
-                    <ul class="payment-details">
-                        <li>PayPal: lotancorp@gmail.com - @quartzgallery</li>
-                        <li>Binance USDT: BEP20/TRC20</li>
-                    </ul>
-                </div>
-            </label>
-
-            <!-- Pilihan WhatsApp -->
-            <label class="payment-option">
-                <input type="radio" name="payment" value="whatsapp">
-                <img src="whatsapp-logo.png" alt="WhatsApp">
-                <div>
-                    <strong>Contact Me Through WhatsApp</strong>
-                    <ul class="payment-details">
-                        <li>WhatsApp: <a href="https://wa.me/6281294648329" target="_blank">081294648329</a></li>
-                    </ul>
-                </div>
-            </label>
-
-            <!-- Tombol Continue -->
-            <div class="continue-button-container">
-                <button type="button" id="continueBtn" class="continue-button">Continue</button>
-            </div>
-        </form>
+      <form class="payment-form">
+        <!-- Bank Transfer (Indonesia) -->
+        <label class="payment-option">
+          <input type="radio" name="payment" value="bank-transfer-indonesia">
+          <img src="bank-logo.png" alt="Bank Transfer">
+          <div>
+            <strong>Pay via Bank Transfer (Indonesia)</strong>
+            <ul class="payment-details">
+              <li>BCA: 7151851138 - Muhammad Taufan Firdaus</li>
+              <li>CIMB: 706444755500 - Muhammad Taufan Firdaus</li>
+            </ul>
+          </div>
+        </label>
+  
+        <!-- E-Wallet -->
+        <label class="payment-option">
+          <input type="radio" name="payment" value="e-wallet">
+          <img src="Gopay.png" alt="Gopay">
+          <div>
+            <strong>Pay via E-Wallet</strong>
+            <ul class="payment-details">
+              <li>Gopay: 081294648329</li>
+            </ul>
+          </div>
+        </label>
+  
+        <!-- International -->
+        <label class="payment-option">
+          <input type="radio" name="payment" value="international">
+          <img src="paypal-logo.png" alt="International">
+          <div>
+            <strong>Pay via International</strong>
+            <ul class="payment-details">
+              <li>PayPal: lotancorp@gmail.com - @quartzgallery</li>
+              <li>Binance USDT: BEP20/TRC20</li>
+            </ul>
+          </div>
+        </label>
+  
+        <!-- WhatsApp Contact -->
+        <label class="payment-option">
+          <input type="radio" name="payment" value="whatsapp">
+          <img src="whatsapp-logo.png" alt="WhatsApp">
+          <div>
+            <strong>Contact Me Through WhatsApp</strong>
+            <ul class="payment-details">
+              <li>WhatsApp: <a href="https://wa.me/6281294648329" target="_blank">081294648329</a></li>
+            </ul>
+          </div>
+        </label>
+  
+        <!-- Continue Button -->
+        <div class="continue-button-container">
+          <button type="button" id="continueBtn" class="continue-button">Continue</button>
+        </div>
+      </form>
     </div>
-</section>
-
-    <!-- Modal -->
-    <div id="paymentModal" class="modal">
-    <div class="modal-content">
-        <span class="close-button" onclick="closeModal()">&times;</span>
-        <div id="modal-body"></div>
-    </div>
-    </div>
-
+  </section>
+  
         <!-- Penempatan Unit Iklan -->
         <section class="adsense">
             <div class="adsbygoogle">
@@ -185,6 +289,9 @@
             </div>
         </section>       
     </main>
+    <footer>
+        <p>&copy; 2025 Quartz Gallery. All rights reserved.</p>
+    </footer>
     <script src="script.js"></script>
 </body>
 </html>
