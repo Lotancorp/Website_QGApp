@@ -33,7 +33,7 @@
       border-radius: 8px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       background: #fff;
-      text-align: center; /* Agar teks album di tengah */
+      text-align: center;
       transition: transform 0.3s ease;
     }
     .gallery-item:hover {
@@ -99,6 +99,8 @@
       font-size: 0.9rem;
     }
   </style>
+  <!-- Muat Google API client library -->
+  <script src="https://apis.google.com/js/api.js"></script>
 </head>
 <body>
   <header>
@@ -113,7 +115,8 @@
     </nav>
   </header>
   <main class="gallery-container">
-    <section>
+    <!-- Section untuk Gallery Picture -->
+    <section id="picture-gallery">
       <h2>Quartz Gallery Picture Portofolio</h2>
       <p></p>
       <div class="gallery-grid">
@@ -129,32 +132,64 @@
         <!-- Album 2 -->
         <div class="gallery-item">
           <a href="https://flic.kr/s/aHBqjApCWK" target="_blank">
-            <img src="https://live.staticflickr.com/65535/52650106405_c95719e79d_z.jpg" alt="Othek Skin">
+            <img src="https://live.staticflickr.com/65535/52650106405_c95719e79d_z.jpg" alt="Weapon Skin">
             <div class="album-info">
-              <h3>Weapon SKin</h3>
+              <h3>Weapon Skin</h3>
             </div>
           </a>
         </div>
         <!-- Album 3 -->
         <div class="gallery-item">
-          <a href="https://www.flickr.com/photos/197513634@N03/albums/ALBUM_ID_3" target="_blank">
-            <img src="images/album3_thumb.jpg" alt="Shield Skin">
+          <a href="https://flic.kr/s/aHBqjApAS3" target="_blank">
+            <img src="https://live.staticflickr.com/65535/52650029933_2c8fe1b1a4_z.jpg" alt="Booster Skin">
             <div class="album-info">
-              <h3>Shield Skin</h3>
-              <p>?? foto - ?? tampilan</p>
+              <h3>Booster Skin</h3>
             </div>
           </a>
         </div>
         <!-- Album 4 -->
         <div class="gallery-item">
-          <a href="https://www.flickr.com/photos/197513634@N03/albums/ALBUM_ID_4" target="_blank">
-            <img src="images/album4_thumb.jpg" alt="Weapon Skin">
+          <a href="https://flic.kr/s/aHBqjApB51" target="_blank">
+            <img src="https://live.staticflickr.com/65535/52650159553_d0ecb429a3_z.jpg" alt="Shield Skin">
             <div class="album-info">
-              <h3>Weapon Skin</h3>
-              <p>?? foto - ?? tampilan</p>
+              <h3>Shield Skin</h3>
             </div>
           </a>
         </div>
         <!-- Album 5 -->
         <div class="gallery-item">
-          <a href="https://www.flickr.com
+          <a href="https://www.flickr.com" target="_blank">
+            <img src="https://live.staticflickr.com/65535/52650175183_9dea892de1_z.jpg" alt="Others Skin">
+            <div class="album-info">
+              <h3>Others Skin</h3>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section untuk Google Photos Gallery -->
+    <section id="google-photos-gallery">
+      <h2>Google Photos Gallery</h2>
+      <!-- Tombol otorisasi dan sign out untuk Google API -->
+      <button id="authorize_button">Authorize</button>
+      <button id="signout_button" style="display: none;">Sign Out</button>
+      <div id="content"></div>
+      
+      <!-- Preview foto dari Google Photos -->
+      <div id="photo-preview">
+        <img id="current-photo" src="" alt="Google Photo" />
+      </div>
+      <div class="nav-buttons">
+        <button id="prev-button">Prev</button>
+        <button id="next-button">Next</button>
+      </div>
+    </section>     
+  </main>
+  <footer>
+    <p>&copy; 2025 Quartz Gallery. All rights reserved.</p>
+  </footer>
+  <!-- Memanggil file JavaScript untuk Google API -->
+  <script src="google.js"></script>
+</body>
+</html>
