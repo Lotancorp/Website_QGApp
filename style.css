@@ -13,7 +13,7 @@ header {
     color: #fff; /* Warna teks putih */
     padding: 20px;
     text-align: center;
-    position: sticky;
+    position: relative;
     top: 0;            /* Menempel di bagian atas layar */
     z-index: 9999;     /* Pastikan berada di atas elemen lain */
 }
