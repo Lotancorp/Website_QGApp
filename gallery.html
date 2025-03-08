@@ -9,88 +9,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Gallery Portofolio - Quartz Gallery</title>
   <!-- Memanggil style.css dari repository -->
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="vidstyle.css">
   <!-- CSS tambahan khusus halaman gallery -->
-  <style>
-    /* Container utama gallery */
-    .gallery-container {
-      max-width: 1200px;
-      margin: 2rem auto;
-      padding: 0 1rem;
-    }
-    .gallery-container h2 {
-      text-align: center;
-      margin-bottom: 1rem;
-    }
-    .gallery-container p {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-    /* Grid gallery responsif */
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      grid-gap: 1.5rem;
-    }
-    /* Setiap item gallery */
-    .gallery-item {
-      overflow: hidden;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      background: #fff;
-    }
-    .gallery-item img,
-    .gallery-item video,
-    .gallery-item iframe {
-      width: 100%;
-      height: auto;
-      display: block;
-      transition: transform 0.3s ease;
-    }
-    /* Efek hover untuk sedikit zoom */
-    .gallery-item:hover img,
-    .gallery-item:hover video,
-    .gallery-item:hover iframe {
-      transform: scale(1.05);
-    }
-    /* Style untuk header dan navigasi */
-    header {
-      background: #333;
-      color: #fff;
-      padding: 1rem;
-    }
-    header h1 {
-      margin: 0;
-      font-size: 1.8rem;
-      text-align: center;
-    }
-    nav ul {
-      list-style: none;
-      display: flex;
-      justify-content: center;
-      padding: 0;
-      margin: 0.5rem 0 0;
-    }
-    nav ul li {
-      margin: 0 1rem;
-    }
-    nav ul li a {
-      color: #fff;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    nav ul li a.active {
-      text-decoration: underline;
-    }
-    /* Style footer */
-    footer {
-      text-align: center;
-      padding: 1rem;
-      background: #f2f2f2;
-      margin-top: 2rem;
-      font-size: 0.9rem;
-    }
-  </style>
+ 
 </head>
 <body>
   <header>
@@ -98,56 +19,79 @@
     <nav>
       <ul>
         <li><a href="index.html">Home</a></li>
-        <li><a href="image.html" class="active">Image Gallery</a></li>
-        <!-- Tambahkan menu navigasi lain jika perlu -->
+        <li><a href="image.html">Image Gallery</a></li>
+        <li><a href="video.html" class="active">Video Gallery</a></li>
       </ul>
     </nav>
   </header>
-  <main class="gallery-container">
-    <section>
-      <h2>Welcome to Quartz Gallery Portofolio!</h2>
-      <p>Here some Update of our portofolio.</p>
-      <div class="gallery-grid">
-        <!-- Item Gallery Gambar dari Cloudinary -->
-        <div class="gallery-item">
-          <a href="https://www.youtube.com/embed/avOJ-U6sgQw
-          " target="_blank">
-            <iframe width="100%" height="200" src="https://www.youtube.com/embed/avOJ-U6sgQw
-            " frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          </a>
-        </div>
-        <!-- Item Gallery Video dari YouTube -->
-        <div class="gallery-item">
-          <a href="https://www.youtube.com/embed/eOsWCC5JqCg
-          " target="_blank">
-            <iframe width="100%" height="200" src="https://www.youtube.com/embed/eOsWCC5JqCg
-            " frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          </a>
-        </div>
-        <!-- Item Gallery Gambar lokal (contoh) -->
-        <div class="gallery-item">
-          <a href="https://www.youtube.com/embed/iSNwHPQfWuY
-          " target="_blank">
-            <iframe width="100%" height="200" src="https://www.youtube.com/embed/iSNwHPQfWuY
-            " frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          </a>
-        </div>
-        <!-- Item Gallery Video lokal (contoh) -->
-        <div class="gallery-item">
-          <a href="https://www.youtube.com/embed/LRyI_zF7WhA
-          " target="_blank">
-            <iframe width="100%" height="200" src="https://www.youtube.com/embed/LRyI_zF7WhA
-            " frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          </a>
-        </div>
-        <!-- Tambahkan lebih banyak item sesuai portofolio kamu -->
+
+  <main>
+    <h2>Quartz Gallery Video</h2>
+    <p>Choose Play Video to Further Information.</p>
+
+    <!-- Container untuk daftar video yang bisa di-scroll horizontal -->
+    <div class="video-scroll-container">
+      <!-- Video 1 -->
+      <div class="video-item">
+        <img src="https://img.youtube.com/vi/avOJ-U6sgQw/hqdefault.jpg" alt="Thumbnail Video 1">
+        <button data-video="https://www.youtube.com/embed/avOJ-U6sgQw">Play Video</button>
       </div>
-    </section>
-    <div id="my-gallery"></div>
+      <!-- Video 2 -->
+      <div class="video-item">
+        <img src="https://img.youtube.com/vi/eOsWCC5JqCg/hqdefault.jpg" alt="Thumbnail Video 2">
+        <button data-video="https://www.youtube.com/embed/eOsWCC5JqCg">Play Video</button>
+      </div>
+      <!-- Video 3 -->
+      <div class="video-item">
+        <img src="https://img.youtube.com/vi/iSNwHPQfWuY/hqdefault.jpg" alt="Thumbnail Video 3">
+        <button data-video="https://www.youtube.com/embed/iSNwHPQfWuY">Play Video</button>
+      </div>
+      <!-- Video 4 -->
+      <div class="video-item">
+        <img src="https://img.youtube.com/vi/LRyI_zF7WhA/hqdefault.jpg" alt="Thumbnail Video 4">
+        <button data-video="https://www.youtube.com/embed/LRyI_zF7WhA">Play Video</button>
+      </div>
+      <!-- Tambahkan lebih banyak item video sesuai kebutuhan -->
+      <div class="video-item">
+        <img src="https://img.youtube.com/vi/hl0faj5cS0E/hqdefault.jpg" alt="Thumbnail Video 4">
+        <button data-video="https://www.youtube.com/embed/hl0faj5cS0E">Play Video</button>
+      </div>
+      <div class="video-item">
+        <img src="https://img.youtube.com/vi/SiNFoFyJSyE/hqdefault.jpg" alt="Thumbnail Video 4">
+        <button data-video="https://www.youtube.com/embed/SiNFoFyJSyE">Play Video</button>
+      </div>
+    </div>
+
+    <!-- Container untuk memutar video yang dipilih -->
+    <div class="video-player-container">
+      <iframe 
+        id="mainVideoPlayer" 
+        src="" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+        allowfullscreen>
+      </iframe>
+    </div>
   </main>
+
   <footer>
     <p>&copy; 2025 Quartz Gallery. All rights reserved.</p>
-  </footer> 
-  
+  </footer>
+
+  <script>
+    // Ambil semua tombol "Play Video"
+    const buttons = document.querySelectorAll('.video-item button');
+    // Ambil elemen iframe
+    const player = document.getElementById('mainVideoPlayer');
+
+    // Tambahkan event listener untuk setiap tombol
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Ambil link video dari data attribute
+        const videoUrl = btn.dataset.video;
+        // Set src iframe agar memutar video yang dipilih
+        player.src = videoUrl;
+      });
+    });
+  </script>
 </body>
 </html>
