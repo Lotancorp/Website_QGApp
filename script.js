@@ -36,8 +36,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Set initial active image
     bannerImages[currentIndex].classList.add('active');
 
-    // Change banner every 3 seconds
-    setInterval(showNextBanner, 3000);
+    // Change banner every X seconds
+    setInterval(showNextBanner, 10000);
 });
 
 // Objek konten modal untuk setiap metode payment
