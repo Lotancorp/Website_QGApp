@@ -40,6 +40,7 @@
         <div class="top-right-buttons">
             <button id="registerButton" onclick="window.open('https://forms.gle/AW5tZStuq4HpND5x7')">Register</button>
             <button id="downloadButton" onclick="window.open('https://www.mediafire.com/file/c4i49juccxkkur1/Quartz+Gallery+Aplicationt.7z/file')">Download</button>
+
         </div>
     </header>
     <section id="intro-content" style="max-width: 1200px; margin: 2rem auto; padding: 0 1rem; display: flex; flex-wrap: wrap; align-items: center; gap: 2rem;">
@@ -68,9 +69,9 @@
     <div class="container">
 
     <main class="container">
-        <!-- Section Tutorial -->
+       <!-- Section Tutorial -->
         <section class="section">
-            <button class="section-toggle" onclick="toggleSection(this)">Software Tutorial</button>
+            <button class="section-toggle" onclick="toggleSection(this)">Software Tutorial Quartz Gallery</button>
             <ul class="links-list">
                 <li><a href="https://youtu.be/nObpcj7Znf4" target="_blank">Tutorial 1: Getting Started</a></li>
                 <li><a href="https://youtu.be/acAcW_kxJSI" target="_blank">Tutorial 2: Root Function</a></li>
@@ -134,9 +135,20 @@
       </li>
     </ul>
   </section>
-  
-
-<!-- Section Price (HTML) -->
+  <section id="my-application" class="section">
+    <button class="section-toggle" onclick="toggleSection(this)">
+      My Application
+    </button>
+    <div class="application-content" style="padding:1rem;">
+      <p><a href="applauncher.html" target="_blank">Buka App Launcher</a></p>
+      <iframe
+        src="applauncher.html"
+        title="App Launcher"
+        style="width:100%; height:600px; border:1px solid #ccc; border-radius:8px; margin-top:1rem;"
+        loading="lazy"
+      ></iframe>
+    </div>
+  </section>
 <!-- Section Price (HTML) -->
 <section class="section price-section">
     <button class="section-toggle" onclick="toggleSection(this)">Price Information</button>
@@ -208,10 +220,7 @@
       </p>
     </div>
   </section>
-  
-  
-  
-            
+          
 
 <!-- Payment Methods Section -->
 <section class="payment-methods">
