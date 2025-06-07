@@ -107,14 +107,17 @@ header {
 }
 
 /* Konten Section (Disembunyikan secara default) */
-.section ul {
+.section ul,
+.section .application-content {
     display: none;
     padding: 15px 0;
 }
 
-.section.expanded ul {
+.section.expanded ul,
+.section.expanded .application-content {
     display: block;
 }
+
 
 /* === Links List === */
 .links-list {

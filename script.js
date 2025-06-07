@@ -1,8 +1,7 @@
 function toggleSection(button) {
     const section = button.parentElement; // Mengakses parent section
-    const content = section.querySelector('ul, .payment-content'); // Mencari elemen konten terkait
-
-    // Toggle visibilitas konten
+    // const content = section.querySelector('ul, .payment-content'); // Mencari elemen konten terkait
+    const content = section.querySelector('ul, .payment-content, .application-content');
     if (content) {
         if (section.classList.contains('expanded')) {
             section.classList.remove('expanded');
