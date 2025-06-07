@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>QG Commander — Simple and Powerful File Manager</title>
+  <meta name="description" content="A modern, easy-to-use file manager for Windows. Organize files faster, rename many files at once, find anything quickly, and keep your folders tidy.">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Montserrat', Arial, sans-serif;
+      background: #181c20;
+      color: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
+    .hero {
+      padding: 48px 16px 32px 16px;
+      text-align: center;
+      background: linear-gradient(120deg, #1f2937 60%, #374151 100%);
+    }
+    .hero h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      letter-spacing: 2px;
+    }
+    .hero p {
+      font-size: 1.15rem;
+      margin-bottom: 36px;
+      color: #cbd5e1;
+      font-weight: 400;
+    }
+    .download-btn {
+      background: #22d3ee;
+      color: #181c20;
+      border: none;
+      font-size: 1.1rem;
+      font-weight: 600;
+      padding: 16px 44px;
+      border-radius: 16px;
+      text-decoration: none;
+      transition: background 0.25s;
+      box-shadow: 0 4px 24px 0 #0ea5e9a0;
+    }
+    .download-btn:hover {
+      background: #0ea5e9;
+      color: #f5f5f5;
+    }
+    .features {
+      max-width: 900px;
+      margin: 32px auto 0 auto;
+      padding: 24px 16px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 32px;
+    }
+    .feature-card {
+      background: #23272f;
+      border-radius: 18px;
+      padding: 28px 18px 18px 18px;
+      box-shadow: 0 4px 12px #2226;
+      text-align: center;
+      transition: transform .12s;
+    }
+    .feature-card:hover {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 8px 32px #0e749099;
+    }
+    .feature-card svg {
+      width: 36px;
+      height: 36px;
+      margin-bottom: 12px;
+      fill: #38bdf8;
+    }
+    .feature-card h3 {
+      font-size: 1.13rem;
+      margin: 12px 0 8px 0;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: #f0fdfa;
+    }
+    .feature-card p {
+      color: #a6adbb;
+      font-size: 0.97rem;
+      font-weight: 400;
+      line-height: 1.45;
+    }
+    .preview {
+      max-width: 900px;
+      margin: 32px auto;
+      background: #23272f;
+      border-radius: 18px;
+      box-shadow: 0 2px 16px #2228;
+      padding: 16px 0 32px 0;
+      text-align: center;
+    }
+    .preview img {
+      width: 85%;
+      max-width: 680px;
+      margin: 12px 0;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px #0005;
+      border: 2px solid #222d;
+      background: #1a1e22;
+    }
+    .preview p {
+      color: #a3a3a3;
+      font-size: .98rem;
+      margin: 0;
+    }
+    .footer {
+      text-align: center;
+      font-size: .95rem;
+      color: #868fa3;
+      padding: 16px;
+      margin-top: 32px;
+    }
+    @media (max-width: 650px) {
+      .hero h1 { font-size: 1.35rem; }
+      .features { grid-template-columns: 1fr; }
+      .preview img { width: 99%; }
+    }
+  </style>
+</head>
+<body>
+  <section class="hero">
+    <h1>Quartz Commander</h1>
+    <p>
+      Make managing your files easy and fast!<br>
+      QG Commander helps you open many folders at once, move files quickly, rename lots of files in one click, and find anything on your computer in seconds.<br>
+      <span style="color:#38bdf8">Simple, modern, free to use, and no ads.</span>
+    </p>
+    <a class="download-btn" href="https://bit.ly/QuartzCommander" target="_blank" rel="noopener">Download for Windows</a>
+    <div style="margin-top:20px;font-size:.98rem;color:#7dd3fc">
+      <b>No installation needed – just download and run</b>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="feature-card">
+      <svg><use href="#icon-tabs"/></svg>
+      <h3>Work with Many Folders</h3>
+      <p>Open several folders side by side, easily drag and drop files between them, and organize everything faster.</p>
+    </div>
+    <div class="feature-card">
+      <svg><use href="#icon-search"/></svg>
+      <h3>Find Anything Instantly</h3>
+      <p>Use the search bar to find files or folders, even in big folders. Search is super quick and easy to use.</p>
+    </div>
+    <div class="feature-card">
+      <svg><use href="#icon-rename"/></svg>
+      <h3>Rename Many Files at Once</h3>
+      <p>Need to fix messy file names? Change hundreds of names with just a few clicks – see a preview before you do it.</p>
+    </div>
+    <div class="feature-card">
+      <svg><use href="#icon-sync"/></svg>
+      <h3>Keep Your Folders Updated</h3>
+      <p>Copy or update folders easily. You can even set a schedule, so important folders always stay the same everywhere.</p>
+    </div>
+    <div class="feature-card">
+      <svg><use href="#icon-theme"/></svg>
+      <h3>Make it Your Own</h3>
+      <p>Change and Add a background to your folders. Make it feel just right for you.</p>
+    </div>
+    <div class="feature-card">
+      <svg><use href="#icon-tools"/></svg>
+      <h3>Extra Tools Included</h3>
+      <p>Lots of useful features: System Monitor, Sync Backup, Money Converter, Client Database</p>
+    </div>
+  </section>
+
+  <section class="preview">
+    <img src="Images/QC.png" alt="QG Commander app screenshot">
+    <p><i>See your folders side by side, move files easily, and enjoy a clean, modern look.</i></p>
+  </section>
+
+  <div class="footer">
+    © 2025 QG Commander — Made for everyone who wants to manage files easily.<br>
+    <a href="mailto:your@email.com" style="color:#38bdf8">Contact</a>
+  </div>
+
+  <!-- SVG Icons -->
+  <svg style="display:none">
+    <symbol id="icon-tabs" viewBox="0 0 24 24">
+      <rect x="2" y="6" width="7" height="12" rx="2"/><rect x="15" y="6" width="7" height="12" rx="2"/>
+    </symbol>
+    <symbol id="icon-search" viewBox="0 0 24 24">
+      <circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65" stroke="#38bdf8" stroke-width="2"/>
+    </symbol>
+    <symbol id="icon-rename" viewBox="0 0 24 24">
+      <path d="M16 3l5 5-12.5 12.5H3v-5.5L16 3z"/>
+    </symbol>
+    <symbol id="icon-sync" viewBox="0 0 24 24">
+      <path d="M2 12a10 10 0 1 0 3-7.32"/><polyline points="2 2 2 7 7 7"/>
+    </symbol>
+    <symbol id="icon-theme" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="8" stroke="#38bdf8" stroke-width="2" fill="none"/>
+      <path d="M12 4a8 8 0 0 0 8 8" stroke="#38bdf8" stroke-width="2" fill="none"/>
+    </symbol>
+    <symbol id="icon-tools" viewBox="0 0 24 24">
+      <path d="M14.7 6.3a4 4 0 1 0-4.6 6.6M6.3 17.7a4 4 0 1 0 6.6-4.6"/>
+    </symbol>
+  </svg>
+</body>
+</html>
