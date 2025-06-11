@@ -142,84 +142,80 @@ header {
 
 /* === Payment Methods === */
 .payment-methods {
-    width: 100%;
-    background-color: #fff; /* Latar belakang putih */
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-top: 0px;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  margin-top: 0;
 }
-
-/* Kontainer Grid untuk Payment Options */
+.payment-content {
+  display: none;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+.payment-methods.expanded .payment-content {
+  display: block;
+}
 .payment-form {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Dua kolom */
-    gap: 15px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
 }
 .payment-form .continue-button-container {
-    grid-column: 1 / -1;  /* Supaya membentang dari kolom pertama sampai terakhir */
-    text-align: center;   /* Konten di tengah */
-  }
-  
-/* Setiap Opsi Pembayaran */
+  grid-column: 1 / -1;
+  text-align: center;
+}
 .payment-option {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 15px;
-    border: 1px solid #ddd; /* Garis abu-abu muda */
-    border-radius: 5px;
-    background-color: white;
-    cursor: pointer;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
-
 .payment-option:hover {
-    background-color: #f5f5f5; /* Latar belakang abu-abu sangat terang saat hover */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #f5f5f5;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
-
 .payment-option input[type="radio"] {
-    margin: 0;
-    cursor: pointer;
+  margin: 0;
 }
-
 .payment-option img {
-    width: 40px;
-    height: auto;
+  width: 40px;
+  height: auto;
 }
-
 .payment-option div {
-    flex: 1;
+  flex: 1;
 }
-
 .payment-option strong {
-    font-size: 1.1em;
-    color: #333; /* Teks abu-abu gelap */
+  font-size: 1.1em;
+  color: #333;
 }
-
-/* Detail Pembayaran */
 .payment-details {
-    margin-top: 5px;
-    padding-left: 20px;
-    font-size: 0.9em;
-    color: #666; /* Teks abu-abu */
+  margin-top: 5px;
+  padding-left: 20px;
+  font-size: 0.9em;
+  color: #666;
 }
-
 .payment-details li {
-    list-style: none;
-    margin-bottom: 5px;
+  list-style: none;
+  margin-bottom: 5px;
 }
-
-/* Konten default disembunyikan */
 .payment-content {
-    display: none;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
+  /* tambahkan padding kiri-kanan */
+  padding: 0 1.5rem;
 }
 
-/* Tampilkan konten jika section memiliki kelas 'expanded' */
-.payment-methods.expanded .payment-content {
-    display: block;
+.payment-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 2rem;      /* gap horisontal lebih lebar */
+  row-gap: 1rem;
+  max-width: 1000px;     /* batasi lebar total */
+  margin: 0 auto;        /* center di layar */
 }
 
 
@@ -456,4 +452,72 @@ header {
 .thumbnail-list li span {
   font-size: 0.9rem;
   font-weight: bold;
+}
+/* Kontainer horizontal scroll */
+.article-thumbnails {
+  display: flex;               /* susun thumbnail secara berderet */
+  gap: 1rem;                   /* jarak antar item */
+  padding: 1rem 0;             /* spasi atas-bawah */
+  overflow-x: auto;            /* aktifkan scroll horizontal */
+  scroll-snap-type: x mandatory; /* snap ke tiap item */
+}
+
+/* Sembunyikan scrollbar kalau mau */
+.article-thumbnails::-webkit-scrollbar {
+  height: 8px;
+}
+.article-thumbnails::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.2);
+  border-radius: 4px;
+}
+
+/* Gaya per item */
+.thumb-item {
+  flex: 0 0 auto;              /* jangan mengecil */
+  scroll-snap-align: start;    /* snap di awal item */
+  text-align: center;
+  text-decoration: none;
+  color: inherit;
+}
+.thumb-item img {
+  width: 250px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 6px;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+.thumb-item span {
+  display: block;
+  font-size: 0.9rem;
+}
+.app-list {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+.app-list li {
+  margin-bottom: 0.75rem;
+}
+.app-list a {
+  color: #227aee;
+  font-size: 2.1rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+.app-list a:hover {
+  text-decoration: underline;
+}
+/* default: sembunyikan thumbnails di My Thought */
+.section-mythought .article-thumbnails {
+  display: none;
+}
+.section-mythought {
+  border-bottom: 1px solid #fff;
+}
+/* ketika section-mythought di-toggle (bertambah class .expanded), tampilkan */
+.section-mythought.expanded .article-thumbnails {
+  display: flex;       /* atau block, sesuai layout yang kamu inginkan */
+  gap: 1rem;           /* jarak antar item */
+  overflow-x: auto;    /* kalau kamu ingin scroll horizontal */
 }
