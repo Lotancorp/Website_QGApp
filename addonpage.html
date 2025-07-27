@@ -1,0 +1,167 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Add‑Ons Market</title>
+    </head>
+    <body class="bg-gray-900 text-gray-200">
+
+    <!-- HEADER -->
+    <header class="bg-gray-800">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <nav class="flex space-x-6">
+        <a href="#"
+        class="flex items-center text-4xl font-medium hover:text-white">
+        <img src="Images/QG1.png"
+            alt="QG Logo"
+            class="h-16 w-16 mr-2">
+        Extensions
+        </a>
+                <!-- <a href="#" class="font-bold text-white">Add‑ons</a>
+            <a href="#" class="font-medium hover:text-white">Themes</a>
+            <a href="#" class="font-medium hover:text-white">Approval Queue</a>
+            <a href="#" class="font-medium hover:text-white">About</a> -->
+        </nav>
+        <!-- Search wrapper -->
+        <div class="relative w-64">
+            <!-- tambahkan id agar JS bisa hook elemen ini -->
+            <input
+            id="search"
+            type="text"
+            placeholder="Search…"
+            class="w-full bg-gray-700 placeholder-gray-400 text-gray-200 
+                    rounded-full pl-4 pr-10 py-2 focus:outline-none"
+            />
+            <!-- SVG icon sebagai tombol cari -->
+            <svg
+            id="search-btn"
+            class="w-5 h-5 absolute right-3 top-1/2 transform -translate-y-1/2 
+                    text-gray-400 cursor-pointer"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none" viewBox="0 0 24 24"
+            stroke="currentColor"
+            >
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1 0 9.75 17.65z" />
+            </svg>
+        </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="container mx-auto px-6 py-8">
+
+        <!-- Title + Controls -->
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
+        <h2 class="text-2xl font-semibold mb-4 md:mb-0">Quartz Gallery Add‑ons</h2>
+        <div class="flex space-x-4">
+            <div>
+            <label for="filter" class="sr-only">Filter</label>
+            <select id="filter" class="bg-gray-700 text-gray-200 rounded-md px-3 py-2 focus:outline-none">
+                <option>All</option>
+                <option>Free</option>
+                <option>Paid</option>
+            </select>
+            </div>
+        </div>
+        </div>
+
+        <!-- GRID OF ADD‑ONS -->
+        <div id="addons-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+
+        
+        <!-- Card #1: DDS Converter -->
+        <div class="bg-gray-800 rounded-md shadow-lg hover:bg-gray-700 transition overflow-hidden">
+        <img
+            src="Images/DDS_FILe.jpg"
+            alt="DDS Converter"
+            class="w-full h-40 object-cover"
+        />
+        <div class="p-4 flex flex-col">
+            <h3 class="text-lg font-semibold mb-1">DDS Converter</h3>
+            <p class="text-gray-400 text-sm mb-3">
+            Plugin to Convert DXT of DDS file.
+            </p>
+            <div class="flex flex-wrap gap-1 mb-3">
+            <span class="bg-gray-700 text-gray-300 text-xs px-2 py-1 rounded">DDS</span>
+            <span class="bg-gray-700 text-gray-300 text-xs px-2 py-1 rounded">Free Plugin</span>
+            </div>
+            <span class="text-gray-400 text-sm mb-4">
+            This plugin will help you convert DXT type of your DDS.
+            </span>
+            <!-- Download link (dummy) -->
+            <a
+            href="#"
+            class="mt-auto bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-4 py-2 rounded text-center"
+            >
+            Download
+            </a>
+        </div>
+        </div>
+
+        <!-- Card #2: DDS Checker -->
+        <div class="bg-gray-800 rounded-md shadow-lg hover:bg-gray-700 transition overflow-hidden">
+        <img
+            src="Images/DDS_FILe.jpg"
+            alt="DDS Checker"
+            class="w-full h-40 object-cover"
+        />
+        <div class="p-4 flex flex-col">
+            <h3 class="text-lg font-semibold mb-1">DDS Checker</h3>
+            <p class="text-gray-400 text-sm mb-3">
+            Plugin to check DDS file types.
+            </p>
+            <div class="flex flex-wrap gap-1 mb-3">
+            <span class="bg-gray-700 text-gray-300 text-xs px-2 py-1 rounded">DDS</span>
+            <span class="bg-gray-700 text-gray-300 text-xs px-2 py-1 rounded">Free Plugin</span>
+            </div>
+            <span class="text-gray-400 text-sm mb-4">
+            This plugin will help you identify DXT type of your DDS.
+            </span>
+            <!-- Download link (dummy) -->
+            <a
+            href="#"
+            class="mt-auto bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-4 py-2 rounded text-center"
+            >
+            Download
+            </a>
+        </div>
+        </div>
+
+        <!-- Card #3: Icon Creator -->
+        <div class="bg-gray-800 rounded-md shadow-lg hover:bg-gray-700 transition overflow-hidden">
+        <img
+            src="Images/ICONGENERATOR.jpg"
+            alt="Icon Creator"
+            class="w-full h-40 object-cover"
+        />
+        <div class="p-4 flex flex-col">
+            <h3 class="text-lg font-semibold mb-1">Icon Creator</h3>
+            <p class="text-gray-400 text-sm mb-3">
+            Plugin to Create New Icon (64 x 64).
+            </p>
+            <div class="flex flex-wrap gap-1 mb-3">
+            <span class="bg-gray-700 text-gray-300 text-xs px-2 py-1 rounded">Icon Maker</span>
+            <span class="bg-gray-700 text-gray-300 text-xs px-2 py-1 rounded">Paid Plugin</span>
+            </div>
+            <span class="text-gray-400 text-sm mb-4">
+            This plugin will Change color, create glow and background Icon.
+            </span>
+            <!-- Download link (dummy) -->
+            <a
+            href="#"
+            class="mt-auto bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-4 py-2 rounded text-center"
+            >
+            Download
+            </a>
+        </div>
+        </div>
+        <!-- Add more cards here… -->
+
+        </div>
+    </main>
+    <script src="scriptadd.js"></script>
+    </body>
+    </html>
