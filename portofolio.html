@@ -1,0 +1,522 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Quartz Gallery — Game HUD Portfolio</title>
+<style>
+  :root{
+    --bg1:#0a0f1c;
+    --bg2:#121b2f;
+    --accent:#6fe7ff;
+    --accent-soft:#6fe7ff22;
+    --text:#e9f0ff;
+    --muted:#9bb0d3;
+    --card:#0e1628cc;
+    --slot:#0f1730;
+    --slot-border:#4a5f8c;
+    --gold:#ffdb6e;
+    --epic:#b07cff;
+    --rare:#6fe7ff;
+    --uncommon:#75ffa1;
+    --danger:#ff7b7b;
+    --ok:#7bffa9;
+    --shadow:#0008;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;background:radial-gradient(1200px 700px at 70% -10%, #1a2a55 0%, #0a0f1c 55%, #060913 100%); color:var(--text); font:500 15px/1.6 "Segoe UI",system-ui,-apple-system,Roboto,Arial;}
+  /* canvas background */
+  #bg{
+    position:fixed; inset:0; z-index:-1; display:block;
+    background: radial-gradient(900px 600px at 15% 10%, #1a2342 0%, #0a0f1c 60%, #05070c 100%);
+  }
+
+  /* top HUD bar */
+  .hud{
+    position:sticky; top:0; z-index:5; backdrop-filter: blur(6px);
+    background: linear-gradient(180deg, #0b1225ee, #0b1225c2 60%, transparent);
+    border-bottom:1px solid #1e2b4f; padding:10px 16px;
+  }
+  .hud-inner{display:flex; align-items:center; gap:16px;}
+  .logo{
+    display:flex; align-items:center; gap:10px; letter-spacing:.5px;
+    font-weight:800; text-transform:uppercase;
+  }
+  .logo .crystal{
+    width:22px;height:22px;border-radius:6px; transform:rotate(45deg);
+    background:
+      conic-gradient(from 0deg, #3cf, #69f, #b7f, #3cf);
+    box-shadow:0 0 18px #6fe7ff90, inset 0 0 10px #fff3;
+  }
+  .tabs{display:flex; gap:6px; flex-wrap:wrap}
+  .tab{
+    padding:8px 12px; border:1px solid #2a3b63; border-radius:8px;
+    background:linear-gradient(180deg,#102047,#0c1733);
+    color:var(--muted); cursor:pointer; transition:.15s;
+  }
+  .tab.active, .tab:hover{
+    color:var(--text); border-color:#4a69a8;
+    box-shadow:0 0 0 2px var(--accent-soft);
+  }
+  .spacer{flex:1}
+  .toggle{
+    display:flex; align-items:center; gap:8px; cursor:pointer; user-select:none;
+    color:var(--muted)
+  }
+  .toggle input{appearance:none; width:36px; height:20px; border-radius:20px; border:1px solid #2a3b63; background:#0f1730; position:relative; outline:none; transition:.2s}
+  .toggle input:after{
+    content:""; position:absolute; width:16px;height:16px; border-radius:50%;
+    left:2px; top:1px; background:#9bb0d3; transition:.2s; box-shadow:0 0 6px #000a;
+  }
+  .toggle input:checked{background:#19345f; border-color:#3e6db1;}
+  .toggle input:checked:after{left:18px; background:#6fe7ff}
+
+  /* layout */
+  .wrap{
+    max-width:1200px; margin:24px auto; padding:0 16px; display:grid; grid-template-columns: 1fr 360px; gap:20px;
+  }
+  @media (max-width:1060px){ .wrap{grid-template-columns:1fr} .inspector{order:-1} }
+
+  /* left: inventory grid */
+  .panel{
+    border:1px solid #223154; border-radius:14px; padding:14px;
+    background:linear-gradient(180deg, #0f1831cc, #0c1428cc);
+    box-shadow: 0 0 0 2px #0a1122 inset, 0 12px 40px #0005;
+  }
+  .panel h2{
+    margin:0 0 12px; font-size:18px; letter-spacing:.4px; display:flex; align-items:center; gap:10px;
+  }
+  .panel h2 .led{
+    width:8px;height:8px;border-radius:50%; background:var(--accent);
+    box-shadow:0 0 10px var(--accent), 0 0 20px var(--accent);
+  }
+  .filters{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px}
+  .chip{
+    font-size:13px; padding:6px 10px; border-radius:999px; border:1px solid #2a3b63; color:#bcd;
+    background:#0f1730; cursor:pointer; transition:.15s;
+  }
+  .chip.active, .chip:hover{ border-color:#4a69a8; box-shadow:0 0 0 2px var(--accent-soft) }
+
+  .grid{
+    display:grid; grid-template-columns: repeat(6, 1fr); gap:10px;
+  }
+  @media (max-width:920px){ .grid{grid-template-columns: repeat(4, 1fr);} }
+  @media (max-width:560px){ .grid{grid-template-columns: repeat(3, 1fr);} }
+
+  .slot{
+    position:relative; aspect-ratio:1/1; border-radius:12px; overflow:hidden;
+    background: radial-gradient(140% 100% at 50% 0%, #16224a 0%, var(--slot) 60%);
+    border:1px solid var(--slot-border); cursor:pointer; transition: transform .08s ease-out, box-shadow .15s;
+    box-shadow: inset 0 0 24px #000a, 0 2px 0 #000a;
+  }
+  .slot:hover{ transform: translateY(-2px); box-shadow: inset 0 0 24px #000a, 0 6px 18px #0008; }
+  .slot .thumb{
+    position:absolute; inset:0;
+    background-repeat:no-repeat; background-position:center; background-size:cover;
+    filter: saturate(1.05) contrast(1.05) brightness(0.95);
+  }
+  .slot .glow{
+    position:absolute; inset:-2px; border-radius:12px; pointer-events:none; opacity:.8;
+    box-shadow: 0 0 16px 2px transparent;
+  }
+  .slot[data-rarity="legendary"]{ border-color:#d1a44a }
+  .slot[data-rarity="legendary"] .glow{ box-shadow: inset 0 0 20px #ffeb9a22, 0 0 16px #ffdb6e80; }
+  .slot[data-rarity="epic"]{ border-color:#8f6bff }
+  .slot[data-rarity="epic"] .glow{ box-shadow: inset 0 0 20px #b07cff22, 0 0 16px #b07cff80; }
+  .slot[data-rarity="rare"]{ border-color:#51c9ff }
+  .slot[data-rarity="rare"] .glow{ box-shadow: inset 0 0 20px #6fe7ff22, 0 0 16px #6fe7ff80; }
+  .slot[data-rarity="uncommon"]{ border-color:#60ff98 }
+  .slot[data-rarity="uncommon"] .glow{ box-shadow: inset 0 0 20px #75ffa122, 0 0 16px #75ffa180; }
+
+  .slot .badge{
+    position:absolute; top:8px; left:8px; font-size:11px; padding:3px 8px; border-radius:999px;
+    border:1px solid #2a3b63; background:#0b1328bb; color:#cfe3ff;
+    text-transform:uppercase; letter-spacing:.5px;
+  }
+  .slot .name{
+    position:absolute; left:8px; right:8px; bottom:8px; font-size:13px; font-weight:700;
+    text-shadow:0 1px 0 #000c, 0 0 10px #000c;
+  }
+
+  /* tooltip */
+  .tooltip{
+    position:absolute; pointer-events:none; z-index:10; min-width:220px; max-width:280px;
+    background:linear-gradient(180deg,#101a35,#0b1326); border:1px solid #2a3b63; border-radius:10px;
+    padding:10px 12px; box-shadow:0 10px 30px #000b, 0 0 0 2px #0a1122 inset; display:none;
+  }
+  .tooltip h4{margin:0 0 6px; font-size:14px}
+  .meta{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:6px}
+  .pill{
+    font-size:11px; padding:3px 8px; border:1px solid #2a3b63; border-radius:999px; color:#cfe3ff; background:#0e1833;
+  }
+  .stats{font-size:12px; color:#b7c6e8}
+  .rarity-legendary{ color:var(--gold) }
+  .rarity-epic{ color:var(--epic) }
+  .rarity-rare{ color:var(--rare) }
+  .rarity-uncommon{ color:var(--uncommon) }
+
+  /* right: inspector */
+  .inspector{
+    position:relative; display:flex; flex-direction:column; gap:12px;
+  }
+  .card{
+    border:1px solid #223154; border-radius:14px; overflow:hidden;
+    background:linear-gradient(180deg, #121c38, #0c1428);
+    box-shadow: 0 0 0 2px #0a1122 inset, 0 12px 40px #0005;
+  }
+  .hero{
+    position:relative; height:220px; background: radial-gradient(100% 70% at 70% 10%, #1b3566, #0d1224 60%);
+    display:flex; align-items:flex-end; padding:12px;
+  }
+  .hero .hero-thumb{
+    position:absolute; inset:0; background-position:center; background-size:cover; opacity:.25; filter:blur(1px);
+  }
+  .hero h3{position:relative; margin:0; font-size:18px}
+  .hero .rar{position:absolute; top:12px; right:12px; font-size:12px; padding:6px 10px; border:1px solid #2a3b63; border-radius:999px; background:#0b1328bb}
+  .body{padding:12px}
+  .body p{margin:0 0 10px; color:#c9d6f4}
+  .kv{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:8px}
+  .kv .k{font-size:12px; color:#9bb0d3; width:110px}
+  .kv .v{font-size:13px; color:#e9f0ff}
+  .actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:8px}
+  .btn{
+    padding:10px 14px; border-radius:10px; border:1px solid #2a3b63; background:#0e1833; color:#cfe3ff; cursor:pointer;
+    transition:.15s; font-weight:700; letter-spacing:.3px;
+  }
+  .btn.primary{ border-color:#4a69a8; box-shadow:0 0 0 2px var(--accent-soft) }
+  .btn:hover{ transform:translateY(-1px) }
+
+  .note{
+    font-size:12px; color:#9bb0d3; padding:10px 12px; border:1px dashed #2a3b63; border-radius:10px; background:#0c1428aa
+  }
+
+  /* small footer */
+  footer{opacity:.6; text-align:center; padding:30px 0 60px; font-size:12px; color:#a9badc}
+</style>
+</head>
+<body>
+<canvas id="bg"></canvas>
+
+<header class="hud">
+  <div class="hud-inner">
+    <div class="logo"><span class="crystal"></span> QUARTZ GALLERY</div>
+    <div class="tabs" id="tabs">
+      <div class="tab active" data-filter="all">All</div>
+      <div class="tab" data-filter="armor">Armor</div>
+      <div class="tab" data-filter="weapon">Weapon</div>
+      <div class="tab" data-filter="cloak">Cloak</div>
+      <div class="tab" data-filter="set">Full Set</div>
+    </div>
+    <div class="spacer"></div>
+    <label class="toggle" title="Mode latar partikel">
+      <span>Particles</span>
+      <input id="particlesToggle" type="checkbox" checked>
+    </label>
+  </div>
+</header>
+
+<main class="wrap">
+  <!-- Left: Inventory -->
+  <section class="panel">
+    <h2><span class="led"></span> Inventory</h2>
+    <div class="filters" id="chips">
+      <div class="chip active" data-rarity="any">Semua Rarity</div>
+      <div class="chip" data-rarity="legendary">Legendary</div>
+      <div class="chip" data-rarity="epic">Epic</div>
+      <div class="chip" data-rarity="rare">Rare</div>
+      <div class="chip" data-rarity="uncommon">Uncommon</div>
+    </div>
+
+    <div class="grid" id="grid"></div>
+
+    <div class="tooltip" id="tooltip"></div>
+  </section>
+
+  <!-- Right: Inspector -->
+  <aside class="inspector">
+    <div class="card" id="inspectorCard">
+      <div class="hero">
+        <div class="hero-thumb" id="inspectorHero"></div>
+        <h3 id="inspectorName">Pilih item di kiri</h3>
+        <div class="rar" id="inspectorRarity">—</div>
+      </div>
+      <div class="body">
+        <p id="inspectorDesc">Hover slot untuk lihat tooltip. Klik untuk *inspect* seperti di menu game.</p>
+        <div class="kv"><div class="k">Kategori</div><div class="v" id="inspectorCat">—</div></div>
+        <div class="kv"><div class="k">Fraksi/Job</div><div class="v" id="inspectorClass">—</div></div>
+        <div class="kv"><div class="k">Compat</div><div class="v" id="inspectorCompat">—</div></div>
+        <div class="actions">
+          <button class="btn primary" id="btnPreview">Preview 3D (stub)</button>
+          <button class="btn" id="btnBuy">Buy / Download (stub)</button>
+        </div>
+      </div>
+    </div>
+    <div class="note">
+      Tip teknis: gambar di slot saat ini pakai gradient (tanpa asset). Ganti `thumb` dengan `background-image:url(...)` untuk screenshot in-game / render Blender. Rarity & filter tinggal diubah dari dataset.
+    </div>
+  </aside>
+</main>
+
+<footer>
+  © Quartz Gallery — RF Online Skins HUD Showcase
+</footer>
+
+<script>
+/* ---------- Demo data (ganti dengan data real) ---------- */
+const ITEMS = [
+  {
+    id:"sm01", name:"Shadow Monarch — Armor", category:"armor", rarity:"legendary",
+    desc:"Armor ikonik—relief ungu gelap, silhouette tajam, aura partikel halus.",
+    cls:"Cora / Bellato / Accretia", compat:"ANI v4, EFF idle",
+    thumb:"linear-gradient(140deg, #1d0f2a, #130c2e 40%, #22143b), radial-gradient(50% 60% at 60% 20%, #6c47ff66, transparent 60%), radial-gradient(60% 50% at 40% 80%, #8b62ff44, transparent 60%)"
+  },
+  {
+    id:"dk01", name:"Dimensional Knight — Sword", category:"weapon", rarity:"epic",
+    desc:"Pedang energi dimensi—edge glow cyan, core ungu lembut.",
+    cls:"All Warrior", compat:"MSH v3, EFF swing",
+    thumb:"linear-gradient(140deg, #072237, #0a324a 40%, #0b193d), radial-gradient(60% 60% at 65% 20%, #74e5ff66, transparent 60%), radial-gradient(70% 60% at 30% 80%, #b07cff55, transparent 60%)"
+  },
+  {
+    id:"cw01", name:"Cora White Cloak", category:"cloak", rarity:"rare",
+    desc:"Jubah putih-biru, lipatan tajam, trim metalik tipis.",
+    cls:"Cora Female", compat:"SPR v2, cloth fake sim",
+    thumb:"linear-gradient(140deg, #e9f1ff, #cfe1ff 50%, #a8c7ff), radial-gradient(50% 60% at 70% 30%, #7fd0ff55, transparent 60%)"
+  },
+  {
+    id:"bl01", name:"Bellato Dimensional Set", category:"set", rarity:"epic",
+    desc:"Full set Bellato: helm, chest, greaves—aksen cyan ungu.",
+    cls:"Bellato", compat:"ANI v4, multiple parts",
+    thumb:"linear-gradient(140deg, #0b1630, #132a54 50%, #0e1e41), radial-gradient(60% 60% at 35% 20%, #74e5ff44, transparent 60%), radial-gradient(60% 60% at 70% 80%, #b07cff33, transparent 60%)"
+  },
+  {
+    id:"ac01", name:"Accretia Dimensional Armor", category:"armor", rarity:"uncommon",
+    desc:"Plating modular—feel mech, panel reflektif ringan.",
+    cls:"Accretia", compat:"MSH v2",
+    thumb:"linear-gradient(140deg, #131a25, #1c2633 50%, #0e1520), radial-gradient(60% 60% at 60% 20%, #6fe7ff33, transparent 60%)"
+  },
+  {
+    id:"cw02", name:"Cora Azure Cloak", category:"cloak", rarity:"epic",
+    desc:"Varian cloak azure—lebih panjang, ujung berpotongan V.",
+    cls:"Cora Female", compat:"SPR v2",
+    thumb:"linear-gradient(140deg, #d8ecff, #bcdcff 55%, #90c5ff), radial-gradient(70% 60% at 35% 25%, #6fe7ff55, transparent 60%)"
+  },
+  {
+    id:"dk02", name:"Dimensional Lance", category:"weapon", rarity:"rare",
+    desc:"Tombak panjang—core biru, trail partikel pendek.",
+    cls:"Warrior/Ranger", compat:"MSH v3",
+    thumb:"linear-gradient(140deg, #0a2235, #102c46 50%, #0a1c35), radial-gradient(60% 60% at 70% 30%, #6fe7ff55, transparent 60%)"
+  },
+  {
+    id:"sm02", name:"Shadow Monarch — Cloak", category:"cloak", rarity:"legendary",
+    desc:"Cape gelap dengan glow ungu samar—ikonik ‘QG’ tersembunyi.",
+    cls:"All", compat:"SPR v2, EFF idle",
+    thumb:"linear-gradient(140deg, #120a1c, #1b0f2f 50%, #0a0815), radial-gradient(60% 60% at 65% 25%, #8a5bff55, transparent 60%)"
+  },
+];
+
+/* ---------- DOM refs ---------- */
+const grid = document.getElementById('grid');
+const tooltip = document.getElementById('tooltip');
+const tabs = document.getElementById('tabs');
+const chips = document.getElementById('chips');
+const particlesToggle = document.getElementById('particlesToggle');
+
+/* Inspector refs */
+const inspectorName = document.getElementById('inspectorName');
+const inspectorRarity = document.getElementById('inspectorRarity');
+const inspectorDesc = document.getElementById('inspectorDesc');
+const inspectorCat = document.getElementById('inspectorCat');
+const inspectorClass = document.getElementById('inspectorClass');
+const inspectorCompat = document.getElementById('inspectorCompat');
+const inspectorHero = document.getElementById('inspectorHero');
+const btnPreview = document.getElementById('btnPreview');
+const btnBuy = document.getElementById('btnBuy');
+
+/* ---------- Render grid ---------- */
+let currentCategory = 'all';
+let currentRarity = 'any';
+
+function rarityLabel(r){
+  return r[0].toUpperCase()+r.slice(1);
+}
+function rarityClass(r){
+  return 'rarity-'+r;
+}
+
+function renderGrid(){
+  grid.innerHTML = '';
+  ITEMS.filter(it=>{
+    const catOK = currentCategory==='all' || it.category===currentCategory;
+    const rarOK = currentRarity==='any' || it.rarity===currentRarity;
+    return catOK && rarOK;
+  }).forEach(it=>{
+    const d = document.createElement('div');
+    d.className = 'slot';
+    d.dataset.id = it.id;
+    d.dataset.category = it.category;
+    d.dataset-rarity = it.rarity; // for CSS attr selector (dash-safe)
+    d.setAttribute('data-rarity', it.rarity);
+
+    const thumb = document.createElement('div');
+    thumb.className = 'thumb';
+    thumb.style.background = it.thumb;
+
+    const glow = document.createElement('div');
+    glow.className = 'glow';
+
+    const badge = document.createElement('div');
+    badge.className = 'badge';
+    badge.textContent = rarityLabel(it.rarity);
+
+    const name = document.createElement('div');
+    name.className = 'name';
+    name.textContent = it.name;
+
+    d.appendChild(thumb);
+    d.appendChild(glow);
+    d.appendChild(badge);
+    d.appendChild(name);
+    grid.appendChild(d);
+
+    // hover tooltip
+    d.addEventListener('mousemove', (e)=>{
+      showTooltip(it, e.pageX, e.pageY);
+    });
+    d.addEventListener('mouseleave', hideTooltip);
+
+    // click -> inspector
+    d.addEventListener('click', ()=>{
+      updateInspector(it);
+    });
+  });
+}
+renderGrid();
+
+/* ---------- Tooltip ---------- */
+function showTooltip(it, x, y){
+  tooltip.style.display = 'block';
+  tooltip.innerHTML = `
+    <h4 class="${rarityClass(it.rarity)}">${it.name}</h4>
+    <div class="meta">
+      <span class="pill">${rarityLabel(it.rarity)}</span>
+      <span class="pill">${it.category.toUpperCase()}</span>
+    </div>
+    <div class="stats">${it.desc}</div>
+  `;
+  // offset to avoid cursor overlap
+  const pad = 14;
+  const maxX = window.scrollX + document.documentElement.clientWidth - tooltip.offsetWidth - pad;
+  const maxY = window.scrollY + document.documentElement.clientHeight - tooltip.offsetHeight - pad;
+  const nx = Math.min(x + 18, maxX);
+  const ny = Math.min(y + 18, maxY);
+  tooltip.style.left = nx + 'px';
+  tooltip.style.top = ny + 'px';
+}
+function hideTooltip(){
+  tooltip.style.display = 'none';
+}
+
+/* ---------- Inspector ---------- */
+function updateInspector(it){
+  inspectorName.textContent = it.name;
+  inspectorRarity.textContent = rarityLabel(it.rarity);
+  inspectorRarity.className = 'rar ' + rarityClass(it.rarity);
+  inspectorDesc.textContent = it.desc;
+  inspectorCat.textContent = it.category.toUpperCase();
+  inspectorClass.textContent = it.cls;
+  inspectorCompat.textContent = it.compat;
+  inspectorHero.style.background = it.thumb;
+}
+btnPreview.addEventListener('click', ()=>alert('Preview 3D — dihubungkan ke viewer (Three.js/Sketchfab) nanti.'));
+btnBuy.addEventListener('click', ()=>alert('Buy/Download — sambungkan ke halaman produk / payment.'));
+
+tabs.addEventListener('click', (e)=>{
+  const el = e.target.closest('.tab');
+  if(!el) return;
+  [...tabs.children].forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  currentCategory = el.dataset.filter;
+  renderGrid();
+});
+chips.addEventListener('click', (e)=>{
+  const el = e.target.closest('.chip');
+  if(!el) return;
+  [...chips.children].forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  currentRarity = el.dataset.rarity;
+  renderGrid();
+});
+
+/* ---------- Canvas particles (bisa dimatikan) ---------- */
+const cv = document.getElementById('bg');
+const ctx = cv.getContext('2d', {alpha:true});
+let W=0, H=0, DPR=Math.min(2, window.devicePixelRatio||1);
+let particles=[], enabled=true;
+
+function resize(){
+  W = cv.width = Math.floor(innerWidth*DPR);
+  H = cv.height = Math.floor(innerHeight*DPR);
+  cv.style.width = innerWidth+'px';
+  cv.style.height = innerHeight+'px';
+}
+addEventListener('resize', resize);
+resize();
+
+function spawn(n=80){
+  particles = [];
+  for(let i=0;i<n;i++){
+    particles.push({
+      x: Math.random()*W,
+      y: Math.random()*H,
+      r: (Math.random()*1.2+0.6)*DPR,
+      vx: (Math.random()*0.2 - 0.1)*DPR,
+      vy: (Math.random()*0.25 + 0.05)*DPR,
+      a: Math.random()*Math.PI*2,
+      tw: Math.random()*0.6+0.4
+    });
+  }
+}
+spawn(100);
+
+function step(){
+  if(!enabled){ requestAnimationFrame(step); return; }
+  ctx.clearRect(0,0,W,H);
+  // faint nebula
+  const grad = ctx.createRadialGradient(W*0.7, H*0.05, 50, W*0.7, H*0.05, Math.max(W,H)*0.8);
+  grad.addColorStop(0, 'rgba(111,231,255,0.05)');
+  grad.addColorStop(1, 'rgba(0,0,0,0)');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0,0,W,H);
+
+  // particles
+  for(const p of particles){
+    p.x += p.vx;
+    p.y += p.vy;
+    p.a += 0.02*p.tw;
+
+    // wrap
+    if(p.x<-10) p.x=W+10;
+    if(p.x>W+10) p.x=-10;
+    if(p.y>H+10){ p.y=-10; p.x=Math.random()*W; }
+
+    const pulse = (Math.sin(p.a)+1)/2; // 0..1
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r*(0.9 + pulse*0.3), 0, Math.PI*2);
+    ctx.closePath();
+    ctx.fillStyle = `rgba(111,231,255,${0.35 + pulse*0.35})`;
+    ctx.shadowColor = 'rgba(111,231,255,0.4)';
+    ctx.shadowBlur = 10*DPR;
+    ctx.fill();
+    ctx.shadowBlur = 0;
+  }
+  requestAnimationFrame(step);
+}
+step();
+
+particlesToggle.addEventListener('change', (e)=>{
+  enabled = e.target.checked;
+  if(enabled) step();
+});
+</script>
+</body>
+</html>
