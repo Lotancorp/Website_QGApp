@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Quartz Gallery — Skin Portfolio</title>
+  <link rel="stylesheet" href="storepage.css" />
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="logo">QG</div>
+        <div>
+          <h1>Quartz Gallery</h1>
+          <p class="muted">Skin Portfolio</p>
+        </div>
+      </div>
+
+      <div class="filters">
+        <label class="label">Search</label>
+        <input id="search" type="search" placeholder="Search skins, name, tags..." />
+
+        <label class="label">Categories</label>
+        <ul class="categories" id="categoryList">
+          <li data-cat="all" class="active">All</li>
+          <li data-cat="helmet">Helmet</li>
+          <li data-cat="armor">Armor</li>
+          <li data-cat="weapon">Weapon</li>
+          <li data-cat="pet">Pet</li>
+          <li data-cat="faces">Faces</li>
+        </ul>
+
+        <label class="label">Price</label>
+        <div class="price-range">
+          <button id="priceBtn" class="btn-primary" style="padding:10px 14px;">Price List</button>
+        </div>
+
+        <div class="spacer"></div>
+
+        <button id="contactBtn" class="btn-primary">Contact Me</button>
+      </div>
+
+      <footer class="sidebar-foot">
+        <small>© <span id="year"></span> Quartz • made by Taufan</small>
+      </footer>
+    </aside>
+
+    <main class="content">
+     <!-- Banner Slider (insert before <main class="content">) -->
+      <section class="banner-slider" id="bannerSlider" aria-hidden="true">
+        <div class="banner-track" id="bannerTrack" role="list"></div>
+      
+        <!-- controls -->
+        <button class="banner-nav left" id="bannerPrev" aria-label="Previous slide">&larr;</button>
+        <button class="banner-nav right" id="bannerNext" aria-label="Next slide">&rarr;</button>
+      
+        <!-- indicators -->
+        <div class="banner-indicators" id="bannerIndicators" role="tablist"></div>
+      </section>
+      <!-- End Banner Slider -->
+      
+      <header class="topbar">
+        <div class="left">
+          <h2>Skin Portfolio</h2>
+          <p class="muted">Showcase — click an item to view gallery or contact for purchase</p>
+        </div>
+        <div class="right">
+          <div class="sort">
+            <label class="muted">Sort</label>
+            <select id="sortSelect">
+              <option value="relevance">Relevance</option>
+              <option value="price-asc">Price ↑</option>
+              <option value="price-desc">Price ↓</option>
+            </select>
+          </div>
+
+          <div class="currency">
+            <label class="muted">Currency</label>
+            <select id="currencySelect" title="Choose currency">
+              <option value="usd" selected>USD</option>
+              <option value="idr">IDR</option>
+            </select>
+          </div>
+        </div>
+      </header>
+
+      <section class="grid" id="productGrid">
+        <!-- Cards inserted by JS -->
+      </section>
+
+      <div class="empty" id="emptyState" hidden>
+        <h3>No products found</h3>
+        <p class="muted">Try clearing filters or use a different search term.</p>
+      </div>
+
+    </main>
+  </div>
+<!-- Price Modal -->
+<div class="modal" id="priceModal" aria-hidden="true">
+    <div class="modal-panel">
+      <button class="modal-close" id="closePriceModal">&times;</button>
+      <h3>Skin Price List</h3>
+      <p class="muted">Showing prices in <span id="priceCurrencyLabel">USD</span></p>
+  
+      <div id="priceContent" style="margin-top:12px; max-height:50vh; overflow:auto;">
+        <!-- Filled dynamically by JS -->
+      </div>
+  
+      <div style="display:flex;justify-content:flex-end;margin-top:12px;gap:8px;">
+        <button id="closePriceBtn" class="btn-secondary">Close</button>
+      </div>
+    </div>
+  </div>
+  
+<!-- Contact Modal -->
+<div class="modal" id="contactModal" aria-hidden="true">
+    <div class="modal-panel">
+      <button class="modal-close" id="closeModal">&times;</button>
+      <h3>Contact Me</h3>
+      <p class="muted">Choose a channel to contact me:</p>
+  
+      <div class="contact-channels" style="margin-top:12px">
+        <button id="whatsappBtn" class="btn-social whatsapp">WhatsApp</button>
+        <a id="facebookBtn" class="btn-social facebook" target="_blank" rel="noopener">Facebook</a>
+        <a id="instagramBtn" class="btn-social instagram" target="_blank" rel="noopener">Instagram</a>
+      </div>
+  
+      <hr style="border:none;border-top:1px solid rgba(255,255,255,0.04);margin:12px 0"/>
+  
+      <div style="display:flex;gap:8px;justify-content:flex-end;">
+        <button id="copyLinkBtn" class="btn-secondary">Copy Link</button>
+        <button id="mailtoBtn" class="btn-secondary">Open Email</button>
+        <button id="closeModal" class="btn-primary">Close</button>
+      </div>
+    </div>
+  </div>
+  
+  
+  
+
+  <!-- Gallery Modal -->
+  <div class="gallery-modal" id="galleryModal" aria-hidden="true">
+    <div class="gallery-panel">
+      <button class="gallery-close" id="closeGallery">&times;</button>
+      <div class="gallery-body">
+        <button class="nav prev" id="galleryPrev" aria-label="Previous">&larr;</button>
+        <div class="gallery-image-wrap">
+          <img id="galleryImage" src="" alt="skin image" />
+        </div>
+        <button class="nav next" id="galleryNext" aria-label="Next">&rarr;</button>
+      </div>
+      <div class="gallery-thumbs" id="galleryThumbs"></div>
+      <div class="gallery-caption" id="galleryCaption"></div>
+    </div>
+  </div>
+
+  <script src="storepage.js"></script>
+</body>
+</html>
