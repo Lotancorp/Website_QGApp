@@ -332,12 +332,14 @@ function attachEvents() {
       const url = id ? `${location.origin}${location.pathname}?product=${encodeURIComponent(id)}` : `${location.href}`;
       try {
         await navigator.clipboard.writeText(url);
-        // give feedback (simple alert — you can replace with toast)
-        alert('Link copied to clipboard:\n' + url);
+        // show near button (use event or the button element)
+        showToastAt('Link copied to clipboard!', copyLinkBtn, { type: 'success', duration: 2800, offsetY: -36 });
       } catch (err) {
-        // fallback: prompt
+        // fallback: prompt + toast at center
         prompt('Copy this link', url);
+        showToastAt('Could not auto-copy — please copy manually.', null, { type:'error', duration:3500 });
       }
+      
     });
   }
 
@@ -559,6 +561,68 @@ function attachEvents() {
       applyFilters();
     });
   }
+// ---- Toast notification ----
+// ---- Dynamic toast: show near element or click event ----
+function showToastAt(message, elOrEvent = null, opts = {}) {
+  // opts: { type: 'success'|'error'|'info', duration: ms, offsetY: px }
+  const type = opts.type || 'success';
+  const duration = typeof opts.duration === 'number' ? opts.duration : 3000;
+  const offsetY = typeof opts.offsetY === 'number' ? opts.offsetY : -18; // lift above click
+
+  // ensure toast container exists in DOM
+  let toast = document.getElementById('toast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'toast';
+    document.body.appendChild(toast);
+  }
+
+  // set content (icon + text)
+  toast.innerHTML = `<div class="icon">${type==='success' ? '✔' : (type==='error' ? '⌧' : 'i')}</div><div class="msg">${message}</div>`;
+
+  // compute position: prefer element center or event coords
+  let x = window.innerWidth - 120; // fallback bottom-right-ish
+  let y = window.innerHeight - 80;
+
+  if (elOrEvent) {
+    if (elOrEvent instanceof Event && typeof elOrEvent.clientX === 'number') {
+      x = elOrEvent.clientX;
+      y = elOrEvent.clientY;
+    } else if (elOrEvent instanceof Element) {
+      const rect = elOrEvent.getBoundingClientRect();
+      x = rect.left + rect.width / 2;
+      y = rect.top + rect.height / 2;
+    } else if (typeof elOrEvent === 'object' && elOrEvent.x && elOrEvent.y) {
+      x = elOrEvent.x; y = elOrEvent.y;
+    }
+  }
+
+  // prefer to show above the point, so shift Y
+  let top = y + offsetY;
+  let left = x;
+
+  // clamp to viewport with padding
+  const pad = 12;
+  const estimatedWidth = 300; // conservative
+  if (left < pad) left = pad;
+  if (left + estimatedWidth / 2 > window.innerWidth - pad) left = window.innerWidth - pad - estimatedWidth / 2;
+  if (top < pad) top = pad;
+  if (top > window.innerHeight - pad) top = window.innerHeight - pad;
+
+  // apply style
+  toast.style.left = `${left}px`;
+  toast.style.top = `${top}px`;
+  toast.className = `toast show ${type}`;
+
+  // clear previous timer
+  if (window.__toastTimer) { clearTimeout(window.__toastTimer); window.__toastTimer = null; }
+
+  // auto-hide
+  window.__toastTimer = setTimeout(() => {
+    toast.classList.remove('show');
+    // leave DOM for reuse
+  }, duration);
+}
 
 // ----------------- INIT -----------------
 async function init() {

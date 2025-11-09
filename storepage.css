@@ -315,4 +315,42 @@
     .card.featured{grid-column:auto}
     .gallery-image-wrap{width:92%;height:360px}
   }
-  
+  /* ---- Toast Notification (dynamic) ---- */
+.toast {
+  position: fixed; /* we will set left/top inline */
+  min-width: 160px;
+  max-width: 360px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 10px 30px rgba(2,6,23,0.6);
+  opacity: 0;
+  transform: translate(-50%, -10px) scale(0.98);
+  transition: opacity 260ms cubic-bezier(.2,.9,.2,1), transform 260ms cubic-bezier(.2,.9,.2,1);
+  z-index: 9999;
+  pointer-events: none;
+  display: flex;
+  gap:10px;
+  align-items:center;
+}
+
+/* toast visible */
+.toast.show {
+  opacity: 1;
+  transform: translate(-50%, 0) scale(1);
+  pointer-events: auto;
+}
+
+/* variants */
+.toast.success { background: linear-gradient(135deg,#10b981,#059669); }
+.toast.error   { background: linear-gradient(135deg,#ef4444,#dc2626); }
+.toast.info    { background: linear-gradient(135deg,#2563eb,#4f46e5); }
+
+/* small "check" icon box */
+.toast .icon {
+  width:28px;height:28px;border-radius:6px;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;
+  flex:0 0 28px;
+}
+.toast .msg { line-height:1.1; font-weight:600; font-size:14px; color: #fff; }
