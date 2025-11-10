@@ -10,7 +10,10 @@
   <div class="app">
     <aside class="sidebar">
       <div class="brand">
-        <div class="logo">QG</div>
+        <div class="logo">
+          <img src="Images/qg.png" alt="Quartz Gallery Logo">
+        </div>
+        
         <div>
           <h1>Quartz Gallery</h1>
           <p class="muted">Skin Portfolio</p>
@@ -23,12 +26,15 @@
 
         <label class="label">Categories</label>
         <ul class="categories" id="categoryList">
-          <li data-cat="all" class="active">All</li>
-          <li data-cat="helmet">Helmet</li>
+          <li data-cat="all" class="active">All Collections</li>
           <li data-cat="armor">Armor</li>
           <li data-cat="weapon">Weapon</li>
-          <li data-cat="pet">Pet</li>
-          <li data-cat="faces">Faces</li>
+          <li data-cat="helmet">Mask</li>
+          <li data-cat="cape">Booster</li>
+          <li data-cat="wind">Wind/Injure</li>
+          <li data-cat="monster">Monster</li>
+          <li data-cat="unit">Unit</li>
+          <li data-cat="default">Character Custom</li>
         </ul>
 
         <label class="label">Price</label>
@@ -38,7 +44,7 @@
 
         <div class="spacer"></div>
 
-        <button id="contactBtn" class="btn-primary">Contact Me</button>
+        <button id="contactBtn" class="btn-contact">Contact Me</button>
       </div>
 
       <footer class="sidebar-foot">
@@ -61,6 +67,8 @@
       <!-- End Banner Slider -->
       
       <header class="topbar">
+      <!-- ADD: Mobile quick toggle (tambah tepat di dalam <header class="topbar"> bersama elemen .left) -->
+      <button id="mobileControlsToggle" class="mobile-controls-toggle" aria-expanded="false" aria-label="Open controls">☰</button>
         <div class="left">
           <h2>Skin Portfolio</h2>
           <p class="muted">Showcase — click an item to view gallery or contact for purchase</p>
@@ -74,7 +82,13 @@
               <option value="price-desc">Price ↓</option>
             </select>
           </div>
-
+          <div class="view-toggle" style="margin-left:12px;display:flex;align-items:center;gap:8px;">
+            <label class="muted" style="margin-right:4px">View</label>
+            <select id="gridViewSelect" title="Choose grid view" style="padding:8px;border-radius:6px;background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--text)">
+              <option value="compact">Smalll</option>
+              <option value="large">Large</option>
+            </select>
+          </div>
           <div class="currency">
             <label class="muted">Currency</label>
             <select id="currencySelect" title="Choose currency">
@@ -131,7 +145,7 @@
       <div style="display:flex;gap:8px;justify-content:flex-end;">
         <button id="copyLinkBtn" class="btn-secondary">Copy Link</button>
         <button id="mailtoBtn" class="btn-secondary">Open Email</button>
-        <button id="closeModal" class="btn-primary">Close</button>
+        <button id="closeModalBottom" class="btn-primary">Close</button>
       </div>
     </div>
   </div>
@@ -139,21 +153,113 @@
   
   
 
-  <!-- Gallery Modal -->
-  <div class="gallery-modal" id="galleryModal" aria-hidden="true">
-    <div class="gallery-panel">
-      <button class="gallery-close" id="closeGallery">&times;</button>
-      <div class="gallery-body">
-        <button class="nav prev" id="galleryPrev" aria-label="Previous">&larr;</button>
-        <div class="gallery-image-wrap">
-          <img id="galleryImage" src="" alt="skin image" />
+<!-- Product Modal (Steam-like layout) -->
+<div class="product-modal" id="productModal" aria-hidden="true">
+  <div class="product-panel">
+    <button class="product-close" id="closeProductModal">&times;</button>
+
+    <div class="product-body">
+      <!-- LEFT: Big gallery -->
+      <div class="product-left">
+        <div class="product-main-wrap">
+          <button class="gallery-nav prev" id="productPrev" aria-label="Previous">&larr;</button>
+          <div class="product-main-image">
+            <img id="productMainImage" src="" alt="Product main view" />
+          </div>
+          <button class="gallery-nav next" id="productNext" aria-label="Next">&rarr;</button>
         </div>
-        <button class="nav next" id="galleryNext" aria-label="Next">&rarr;</button>
+
+        <div class="product-thumbs" id="productThumbs" role="list"></div>
+        <div class="product-caption" id="productCaption"></div>
       </div>
-      <div class="gallery-thumbs" id="galleryThumbs"></div>
-      <div class="gallery-caption" id="galleryCaption"></div>
+
+      <!-- RIGHT: Details -->
+      <aside class="product-right">
+        <div class="product-meta">
+          <img id="productRightThumb" src="" alt="Product thumbnail"
+            style="width:100%;height:140px;object-fit:contain;border-radius:8px;margin-bottom:12px;border:1px solid rgba(255,255,255,0.03);background:#050608" />
+
+          <h2 id="productTitle">Product name</h2>
+          <p class="muted" id="productRarity">Rarity</p>
+          <div class="product-price" id="productPrice">$0.00</div>
+          <div class="product-release muted" id="productRelease">Release: -</div>
+        </div>
+
+        <div class="product-desc" id="productDesc">Description here...</div>
+        <div id="productTags" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px"></div>
+        <div class="product-actions" style="margin-top:18px">
+          <a id="productYoutube" class="btn-youtube" target="_blank" rel="noopener" style="display:none">YouTube</a>
+          <button id="productContactBtn" class="btn-primary">Contact Me</button>
+        </div>
+
+        <div id="productSKUWrap" style="margin-top:18px;color:var(--muted);font-size:13px">
+          <div><strong>SKU / ID:</strong> <span id="productSKU">-</span></div>
+          <div style="margin-top:6px"><strong>Rate:</strong> <span id="productRate" class="muted">-</span></div>
+        </div>
+      </aside>
     </div>
   </div>
+</div>
+
+<!-- ADD: Mobile controls off-canvas panel -->
+<div id="mobileControlsPanel" class="mobile-controls-panel" aria-hidden="true">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+    <strong style="font-size:16px">Menu</strong>
+    <button id="mobileControlsClose" class="mobile-controls-toggle" aria-label="Close">✕</button>
+  </div>
+
+  <!-- SEARCH -->
+  <div class="section">
+    <label class="muted">Search</label>
+    <input id="searchMobile" type="search" placeholder="Search skins, name, tags..." style="width:100%; padding:10px; border-radius:8px; background:var(--glass); border:1px solid rgba(255,255,255,0.03); color:var(--text)">
+  </div>
+
+  <!-- CATEGORIES -->
+  <div class="section">
+    <label class="muted">Categories</label>
+    <ul id="categoryListMobile"></ul>
+  </div>
+
+  <!-- Sort / View / Currency (kept) -->
+  <div class="section">
+    <label class="muted">Sort</label>
+    <select id="sortSelectMobile">
+      <option value="relevance">Relevance</option>
+      <option value="price-asc">Price ↑</option>
+      <option value="price-desc">Price ↓</option>
+    </select>
+  </div>
+
+  <div class="section">
+    <label class="muted">View</label>
+    <select id="gridViewSelectMobile">
+      <option value="compact">Compact (5)</option>
+      <option value="large">Large (3)</option>
+    </select>
+  </div>
+
+  <div class="section">
+    <label class="muted">Currency</label>
+    <select id="currencySelectMobile">
+      <option value="usd">USD</option>
+      <option value="idr">IDR</option>
+    </select>
+  </div>
+
+  <div class="section" style="margin-top:12px">
+    <button id="priceBtnMobile" class="btn-primary" style="width:100%">Price List</button>
+  </div>
+
+  <div class="section">
+    <button id="contactBtnMobile" class="btn-contact" style="width:100%">Contact Me</button>
+  </div>
+</div>
+
+<div id="mobileOverlay" class="mobile-overlay" aria-hidden="true"></div>
+
+<!-- small handle tab (optional) -->
+<button id="mobileHandle" class="mobile-controls-handle" aria-label="Open controls" style="display:none;">☰</button>
+
 
   <script src="storepage.js"></script>
   <!-- Toast Notification -->
