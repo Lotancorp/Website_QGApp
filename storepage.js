@@ -519,7 +519,7 @@ document.body.addEventListener('click', async (e) => {
       <div class="about-wrap">
         <div class="about-inner">
           <div class="about-media">
-            <img src="Images/qg.png" alt="Quartz Gallery Logo">
+            <img src="https://res.cloudinary.com/do1nbyqv0/image/upload/v1762764250/QG_wbkhpe.png" alt="Quartz Gallery Logo">
           </div>
           <div class="about-content">
             <h1>WELCOME !</h1>
