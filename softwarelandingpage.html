@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Quartz Gallery — Software</title>
+  <link rel="icon" type="image/png" href="Images/qg.png" sizes="32x32">
+  <link rel="stylesheet" href="software.css" />
+  <style>
+    /* Small landing-specific overrides */
+    .hero {
+      display:flex;
+      gap:20px;
+      align-items:center;
+      justify-content:space-between;
+      padding:36px;
+      border-radius:12px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
+      border:1px solid rgba(255,255,255,0.03);
+      margin:20px 0;
+    }
+    .hero-left { max-width:720px; }
+    .hero h1 { margin:0 0 6px 0; font-size:28px; }
+    .hero p.lead { margin:0 0 14px 0; color:var(--muted); line-height:1.5; }
+    .cta-group { display:flex; gap:12px; align-items:center; }
+    .btn-download { background: linear-gradient(90deg,#ff7a59,#ff5a9e); color:#fff; padding:12px 18px; border-radius:10px; font-weight:700; text-decoration:none; }
+    .btn-register { background: linear-gradient(90deg,#7b5cff,#3467FF); color:#fff; padding:12px 18px; border-radius:10px; font-weight:700; text-decoration:none; }
+
+    .features { display:grid; grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); gap:12px; margin:18px 0; }
+    .feature { background: rgba(255,255,255,0.02); padding:14px; border-radius:10px; border:1px solid rgba(255,255,255,0.02); }
+    .feature h4 { margin:0 0 6px 0; }
+    .screenshot-slides { position:relative; border-radius:10px; overflow:hidden; border:1px solid rgba(255,255,255,0.03); background:var(--glass); }
+    .slides { display:flex; transition:transform .45s ease; width:100%; }
+    .slide { min-width:100%; display:flex; align-items:center; justify-content:center; padding:18px; }
+    .slide img { max-width:100%; max-height:420px; object-fit:contain; }
+    .slides-nav { display:flex; justify-content:center; gap:8px; margin-top:10px; }
+    .slides-nav button { padding:8px 10px; border-radius:8px; border:none; cursor:pointer; background:rgba(255,255,255,0.03); color:var(--text); }
+
+    .tutorials { margin-top:18px; display:flex; gap:18px; flex-wrap:wrap; }
+    .tutorials .links { flex:1 1 320px; background:rgba(255,255,255,0.02); padding:12px; border-radius:10px; border:1px solid rgba(255,255,255,0.02); }
+    footer.landing-foot { margin-top:28px; color:var(--muted); text-align:center; font-size:13px; }
+    @media (max-width:980px){
+      .hero { flex-direction:column; align-items:flex-start; }
+      .hero-left { max-width:100%; }
+      .cta-group { width:100%; justify-content:stretch; gap:8px; }
+      .cta-group a { flex:1; text-align:center; }
+    }
+  </style>
+</head>
+<body>
+  <div style="max-width:1120px;margin:18px auto;padding:12px;">
+    <header style="display:flex;align-items:center;gap:12px;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <img src="Images/qg.png" alt="Quartz Gallery" style="width:56px;height:56px;object-fit:contain;border-radius:8px;">
+        <div>
+          <h2 style="margin:0">Quartz Gallery — Toolkit</h2>
+          <div class="muted" style="font-size:13px;">Power tools for RF Online skin & effect editing</div>
+        </div>
+      </div>
+      <div style="margin-left:auto;display:flex;gap:10px;">
+        <!-- These open in new tab -->
+        <a class="btn-register" href="https://forms.gle/AW5tZStuq4HpND5x7" target="_blank" rel="noopener">Register</a>
+        <a class="btn-download" href="https://drive.google.com/file/d/1YYxdRgsWoTZGdrdVG6P-PjXec_v0iCgT/view?usp=drive_link" target="_blank" rel="noopener">Download</a>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-left">
+        <h1>Quartz Toolkit — RF Online Modding Utility</h1>
+        <p class="lead">A cohesive suite of tools designed to streamline RF Online content creation — from EFF/SPR handling to icon and particle indexing. Built for modders, creators and server maintainers who need speed, accuracy and batch-processing power.</p>
+
+        <div style="display:flex;gap:10px;align-items:center">
+          <a class="btn-download" href="https://drive.google.com/file/d/1YYxdRgsWoTZGdrdVG6P-PjXec_v0iCgT/view?usp=drive_link" target="_blank" rel="noopener">Download</a>
+          <a class="btn-register" href="https://forms.gle/AW5tZStuq4HpND5x7" target="_blank" rel="noopener">Register</a>
+          <div style="margin-left:12px;color:var(--muted);font-size:13px">v1.0 • last update: 2025</div>
+        </div>
+      </div>
+
+      <div style="width:360px;text-align:center">
+        <div class="screenshot-slides" aria-hidden="false">
+          <div class="slides" id="slides">
+            <div class="slide"><img src="Images/software-shot-1.png" alt="Screenshot 1"></div>
+            <div class="slide"><img src="Images/software-shot-2.png" alt="Screenshot 2"></div>
+            <div class="slide"><img src="Images/software-shot-3.png" alt="Screenshot 3"></div>
+          </div>
+        </div>
+        <div class="slides-nav" style="margin-top:12px;">
+          <button id="prevSlide">&larr;</button>
+          <button id="nextSlide">&rarr;</button>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h3 style="margin-top:6px">Core Features</h3>
+      <div class="features">
+        <div class="feature">
+          <h4>Index Number SPR</h4>
+          <div class="muted">Scan and generate reliable index maps for SPR collections, ensuring consistent referencing for skins and animations.</div>
+        </div>
+
+        <div class="feature">
+          <h4>Join & Extract Icon</h4>
+          <div class="muted">Join multiple icon sources into single sheets and extract icons with accurate cropping for game-ready assets.</div>
+        </div>
+
+        <div class="feature">
+          <h4>Custom Icon Creator (Add-On)</h4>
+          <div class="muted">Create icons with customizable backgrounds via an Add-On module — batch create or tweak per-item assets quickly.</div>
+        </div>
+
+        <div class="feature">
+          <h4>EFF ⇄ Excel Converter</h4>
+          <div class="muted">Convert EFF files into Excel for easier editing, and reconvert modified spreadsheets back into EFF with structural integrity.</div>
+        </div>
+
+        <div class="feature">
+          <h4>Chef RF Folder Generator</h4>
+          <div class="muted">Automated folder configuration tailored for RF Online server file structures to speed up deployment and testing.</div>
+        </div>
+
+        <div class="feature">
+          <h4>Particle.ini Resource Indexer</h4>
+          <div class="muted">Index and validate particle resource numbers to check availability and avoid collisions in particle lists.</div>
+        </div>
+
+        <div class="feature">
+          <h4>EFF Structorian</h4>
+          <div class="muted">A structural inspector and fixer for EFF files — validates format, repairs common inconsistencies, and reports issues.</div>
+        </div>
+
+        <div class="feature">
+          <h4>Mass Entity & SPT Color Editor</h4>
+          <div class="muted">Bulk edit entity definitions and SPT color tables with preview and batch-apply operations for massive content updates.</div>
+        </div>
+
+        <div class="feature">
+          <h4>DDS DXT Type Converter (Add-On)</h4>
+          <div class="muted">Convert DDS textures between DXT compression types via an Add-On for compatibility and performance testing.</div>
+        </div>
+
+        <div class="feature">
+          <h4>DDS DXT Type Checker (Add-On)</h4>
+          <div class="muted">Quickly scan and report DDS compression types to ensure assets meet server/client expectations.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="tutorials-section">
+        <div class="tutorials-panel">
+          <h3>Tutorials</h3>
+      
+          <div class="tutorials-wrapper">
+            <ul class="links-list">
+              <li><a href="https://youtu.be/nObpcj7Znf4" target="_blank" rel="noopener">
+                <svg class="yt-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+                <div class="txt"><strong>Tutorial 1:</strong> Getting Started</div>
+              </a></li>
+      
+              <li><a href="https://youtu.be/acAcW_kxJSI" target="_blank" rel="noopener">
+                <svg class="yt-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+                <div class="txt"><strong>Tutorial 2:</strong> Root Function</div>
+              </a></li>
+      
+              <li><a href="https://youtu.be/CGjyiMDCCSE" target="_blank" rel="noopener">
+                <svg class="yt-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+                <div class="txt"><strong>Tutorial 3:</strong> Writer tools - EffectFileList</div>
+              </a></li>
+      
+              <li><a href="https://youtu.be/M_jSbIiGKfQ" target="_blank" rel="noopener">
+                <svg class="yt-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+                <div class="txt"><strong>Tutorial 4:</strong> Writer tools - ItemEffectlist</div>
+              </a></li>
+      
+              <li><a href="https://youtu.be/eoRB6W5oBbc" target="_blank" rel="noopener">
+                <svg class="yt-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+                <div class="txt"><strong>Tutorial 5:</strong> Writer tools - PatternList</div>
+              </a></li>
+      
+              <li><a href="https://youtu.be/iMIQYYItX6U" target="_blank" rel="noopener">
+                <svg class="yt-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+                <div class="txt"><strong>Tutorial 6:</strong> Writer tools - Particle Writer</div>
+              </a></li>
+      
+              <li><a href="https://youtu.be/vABPyRAv60M" target="_blank" rel="noopener">
+                <svg class="yt-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+                <div class="txt"><strong>Tutorial 7:</strong> Writer tools - Particle Editor</div>
+              </a></li>
+      
+              <li><a href="https://youtu.be/xRzWFXPqfiI" target="_blank" rel="noopener">
+                <svg class="yt-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+                <div class="txt"><strong>Tutorial 8:</strong> Function - Folder Generator</div>
+              </a></li>
+      
+              <li><a href="https://youtu.be/ASf5W_M3pFA" target="_blank" rel="noopener">
+                <svg class="yt-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+                <div class="txt"><strong>Tutorial 9:</strong> Function - Mass SPT Editor</div>
+              </a></li>
+      
+              <li><a href="https://youtu.be/LrYAWXR6vTY" target="_blank" rel="noopener">
+                <svg class="yt-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+                <div class="txt"><strong>Tutorial 10:</strong> Function - Entity Editor</div>
+              </a></li>
+      
+              <li><a href="https://youtu.be/K4bzf-gJjtw" target="_blank" rel="noopener">
+                <svg class="yt-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+                <div class="txt"><strong>Tutorial 11:</strong> Function - Filter Effect</div>
+              </a></li>
+      
+              <li><a href="https://youtu.be/4viBUMq5M9U" target="_blank" rel="noopener">
+                <svg class="yt-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+                <div class="txt"><strong>Tutorial 12:</strong> Function - EFF Editor</div>
+              </a></li>
+      
+              <li><a href="https://youtu.be/GOzMCtsaWa8" target="_blank" rel="noopener">
+                <svg class="yt-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+                <div class="txt"><strong>Tutorial 13:</strong> Function - EFF Converter</div>
+              </a></li>
+      
+              <li><a href="https://youtu.be/8_YkH0OtCb4" target="_blank" rel="noopener">
+                <svg class="yt-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+                <div class="txt"><strong>Tutorial 14:</strong> Function - Change Logs</div>
+              </a></li>
+      
+              <li><a href="https://youtu.be/8dJOkJnO63Y" target="_blank" rel="noopener">
+                <svg class="yt-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+                <div class="txt"><strong>Tutorial 15:</strong> Function - Batch Icon Creator</div>
+              </a></li>
+            </ul>
+          </div>
+        </div>
+      
+        <aside class="quick-specs">
+          <h3>Quick Specs</h3>
+          <div class="spec-card">
+            <ul>
+              <li>Platform: Windows (x64)</li>
+              <li>License: Free (donations welcome)</li>
+              <li>Plugins: Icon Creator / DDS Converter / DXT Checker</li>
+              <li>Batch: Yes — bulk SPT / Entity edits</li>
+              <li>Excel support: XLSX import/export</li>
+            </ul>
+      
+            <div style="margin-top:12px">
+              <a class="btn-register" href="register.html" target="_blank" rel="noopener" style="display:block;text-align:center">Register</a>
+              <a class="btn-download" href="downloads/quartz_toolkit_setup.zip" target="_blank" rel="noopener" style="display:block;text-align:center;margin-top:8px">Download</a>
+            </div>
+          </div>
+        </aside>
+      </section>
+      
+      
+    <footer class="landing-foot">
+      © Quartz Gallery • Made by Taufan — Tools intended for modding, backup your files before use.
+    </footer>
+  </div>
+
+  <script>
+    // Simple slideshow (no external lib)
+    (function(){
+      const slides = document.getElementById('slides');
+      const total = slides.children.length;
+      let idx = 0;
+      const prev = document.getElementById('prevSlide');
+      const next = document.getElementById('nextSlide');
+
+      function update() {
+        slides.style.transform = 'translateX(' + (-idx * 100) + '%)';
+      }
+      prev.addEventListener('click', ()=> { idx = (idx - 1 + total) % total; update(); });
+      next.addEventListener('click', ()=> { idx = (idx + 1) % total; update(); });
+      // auto rotate
+      setInterval(()=> { idx = (idx + 1) % total; update(); }, 6000);
+    })();
+  </script>
+</body>
+</html>

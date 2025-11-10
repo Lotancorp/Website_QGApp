@@ -295,10 +295,43 @@
   }
   .thumb img{max-width:100%;max-height:100%;object-fit:cover}
   .card h4{margin:0;font-size:15px}
-  .price{
-    margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:8px;
-  }
+/* ===== Price alignment: badge kiri, harga+rating rata kanan ===== */
+.price {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+
+  /* pastikan area mengambil lebar penuh dan item diatur ke kanan */
+  justify-content: flex-end;
+  gap: 12px;               /* jarak antar elemen */
+}
+
+/* Biarkan badge tetap di kiri dengan "push" menggunakan margin-right:auto */
+.price .badge {
+  margin-right: auto;      /* badge akan tetap di kiri, harga/rating di kanan */
+  background: rgba(255,255,255,0.04);
+  padding: 6px 8px;
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* Kolom meta: harga + rating, di-align ke kanan */
+.price .meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;   /* arahkan isi ke kanan */
+  text-align: right;
+}
+
+/* styling harga (opsional keep existing weight) */
+.price .value {
+  font-weight: 700;
+  white-space: nowrap;     /* mencegah price pecah bila sempit */
+}
+
   .price .value{font-weight:700}
+
   .badge{background:rgba(255,255,255,0.04);padding:6px 8px;border-radius:8px;font-size:13px;color:var(--muted)}
   .actions{display:flex;gap:8px}
   .btn-outline{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px;border-radius:8px;color:var(--text);cursor:pointer}
@@ -794,28 +827,105 @@ button.view-btn:hover {
   .product-thumbs img { width:72px; height:48px; }
 }
 /* Card description excerpt: potong jadi 3 baris, tampil rapi dengan ellipsis */
+/* Card description excerpt: potong jadi 3 baris, tampil rapi dengan ellipsis */
 .card .excerpt {
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3; /* ganti angka ini untuk jumlah baris yang diinginkan */
+
+  /* vendor + standard: tambahkan keduanya untuk menghilangkan warning editor */
+  -webkit-line-clamp: 3;   /* ganti angka ini untuk jumlah baris yang diinginkan */
+  line-clamp: 3;
+
   overflow: hidden;
   text-overflow: ellipsis;
+
   font-size: 13px;
   margin: 0;
   line-height: 1.45;
   color: var(--muted);
 }
 
-/* Kalau ingin tampilkan "read more" kecil di bawah excerpt (opsional)
-.card .excerpt + .read-more {
-  display:block;
-  margin-top:6px;
-  font-size:12px;
-  color:var(--muted);
-  cursor:pointer;
-  text-decoration:underline;
+
+/* ===== About modal tweaks (paste near the end of storepage.css) ===== */
+.modal-panel .about-wrap { width: 100%; }
+.about-inner {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  flex-wrap: wrap;          /* responsive: will stack on narrow screens */
 }
-*/
+
+/* left media */
+.about-media {
+  flex: 0 0 160px;          /* fixed but modest width */
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.about-media img {
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+  border-radius: 10px;
+  border: 4px solid rgba(0,0,0,0.35);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+}
+
+/* content area (scroll inside if tall) */
+.about-content {
+  flex: 1 1 320px;
+  min-width: 200px;
+  max-height: 62vh;         /* keep modal height reasonable */
+  overflow: auto;           /* internal scroll for long text */
+  padding-right: 6px;
+}
+.about-content h2 { margin: 0 0 8px 0; }
+.about-text { color: var(--muted); line-height: 1.6; font-size: 14px; }
+
+/* buttons row */
+.about-actions { margin-top: 12px; display:flex; gap:10px; flex-wrap:wrap; }
+
+/* ensure close button is visible and placed */
+.modal-panel .modal-close {
+  right: 16px;
+  top: 10px;
+  z-index: 5;
+}
+
+/* widen modal-panel for About (but keep product modal layout intact) */
+.modal-panel {
+  max-width: 920px;        /* allow wide modal for About / Price */
+  width: min(920px, 96%);
+}
+#aboutModal .about-content {
+  max-height: 60vh;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.btn-software {
+  display:inline-block;
+  width:100%;
+  padding:10px;
+  border-radius:8px;
+  text-align:center;
+  font-weight:700;
+  text-decoration:none;
+  color: #fff;
+  background: linear-gradient(135deg, #1040b9, #041d5c); /* hijau pekat -> lembut */
+  border: 1px solid rgba(255,255,255,0.03);
+  box-shadow: 0 6px 18px rgba(16,185,129,0.12);
+}
+.btn-software:hover {
+  transform: translateY(-2px);
+}
+
+/* fallback for small screens */
+@media (max-width: 760px) {
+  .about-media { flex: 0 0 120px; }
+  .about-media img { width: 110px; height:110px; }
+  .modal-panel { width: calc(100% - 24px); margin: 0 12px; }
+}
 
 
 

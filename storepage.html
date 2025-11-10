@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <!-- Favicon -->
-  <title>Quartz Gallery N</title>
+  <title>Quartz Gallery</title>
   <link rel="icon" type="image/png" href="Images/qg.png" sizes="32x32">
   <link rel="shortcut icon" href="Images/qg.png">
 
@@ -41,14 +41,27 @@
           <li data-cat="default">Character Custom</li>
         </ul>
 
-        <label class="label">Price</label>
+        <!--label class="label">Price</label-->
         <div class="price-range">
           <button id="priceBtn" class="btn-primary" style="padding:10px 14px;">Price List</button>
         </div>
-
+        
+        <!-- new: software button -->
+        <div style="margin-top:8px;">
+          <a id="softwareBtn"
+             class="btn-software"
+             href="softwarelandingpage.html"
+             target="_blank"
+             rel="noopener">
+            Software
+          </a>
+        </div>
+        
+        
         <div class="spacer"></div>
-
-        <button id="contactBtn" class="btn-contact">Contact Me</button>
+        
+        <!-- header/top-level About (terpisah dari product Contact) -->
+        <button id="aboutBtn" class="btn-contact">About Me</button>
       </div>
 
       <footer class="sidebar-foot">
@@ -255,7 +268,7 @@
   </div>
 
   <div class="section">
-    <button id="contactBtnMobile" class="btn-contact" style="width:100%">Contact Me</button>
+    <button id="aboutBtn" class="btn-contact" style="width:100%">About Me</button>
   </div>
 </div>
 

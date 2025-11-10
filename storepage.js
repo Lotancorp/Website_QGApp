@@ -508,11 +508,58 @@ document.body.addEventListener('click', async (e) => {
     // reset contact modal z-index agar CSS kembali menjadi sumber kebenaran
     contactModal.style.zIndex = '';
   }
+   
+  const aboutBtnMain = document.getElementById('aboutBtn');
+  const aboutModal = document.createElement('div');
+  aboutModal.className = 'modal';
+  aboutModal.id = 'aboutModal';
+  aboutModal.innerHTML = `
+    <div class="modal-panel">
+      <button class="modal-close" id="closeAboutModal">&times;</button>
+      <div class="about-wrap">
+        <div class="about-inner">
+          <div class="about-media">
+            <img src="Images/qg.png" alt="Quartz Gallery Logo">
+          </div>
+          <div class="about-content">
+            <h1>WELCOME !</h1>
+            <h3>A Note from the Unknown</h3>
+            <div class="about-text">
+              <p><strong>Quartz Gallery (QG)</strong> is a freelance graphic design studio dedicated to creativity and innovation. 
+              Although I may not be a widely recognized name, my work is driven by passion and a commitment to quality, 
+              proving that true artistry often comes from humble beginnings.</p>
   
-
-  // sidebar contact button (opens modal)
-  if (contactBtnMain) contactBtnMain.addEventListener('click', () => openContact());
-
+              <p>At QG, we have developed powerful software tools specifically designed to modify RF Online files. 
+              These tools not only streamline the game development process but also assist in configuring and enhancing 
+              game skins. Whether you’re a developer or a game enthusiast, our software is built to bring your creative ideas to life.</p>
+  
+              <p>We proudly provide a broad spectrum of skin design services—from original creations and complete overhauls 
+              to fine-tuned color adjustments. Every project is crafted to reflect your vision, combining fresh ideas 
+              with a personal touch that makes each skin truly your own.</p>
+  
+              <p>We may be modest in scale, yet our passion knows no limits. 
+              I am here to support you in transforming your game concepts into vivid, tangible realities 
+              that resonate with players and elevate your game’s visual appeal.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+  
+  document.body.appendChild(aboutModal);
+  
+  aboutBtnMain.addEventListener('click', () => {
+    aboutModal.setAttribute('aria-hidden', 'false');
+  });
+  
+  document.body.addEventListener('click', (e) => {
+    if (e.target.id === 'closeAboutModal' || e.target.id === 'aboutModal') {
+      aboutModal.setAttribute('aria-hidden', 'true');
+    }
+  });
+  
+ // sidebar contact button (opens modal)
   if (closeModalBtn) closeModalBtn.addEventListener('click', closeContact);
   if (contactModal) {
     contactModal.addEventListener('click', (ev) => { if (ev.target === contactModal) closeContact(); });
