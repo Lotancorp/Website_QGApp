@@ -1294,3 +1294,71 @@ document.addEventListener('DOMContentLoaded', () => {
     mobileList.querySelectorAll('li').forEach(x => x.classList.toggle('active', x.dataset.cat === activeDesktop));
   }
 });
+/* ========== Mobile buttons glue (paste di akhir storepage.js) ========== */
+(function(){
+  // helper: simulate desktop button click if handler exists there
+  function hookByClick(mobileId, desktopId) {
+    const m = document.getElementById(mobileId);
+    const d = document.getElementById(desktopId);
+    if (!m) return;
+    if (d) {
+      m.addEventListener('click', function(e){
+        e.preventDefault();
+        // if desktop button is a real element, trigger click to reuse its handler
+        d.click();
+        // close mobile panel if present (nice UX)
+        const mobilePanel = document.getElementById('mobileControlsPanel');
+        if (mobilePanel) mobilePanel.setAttribute('aria-hidden','true');
+        const mobileToggle = document.getElementById('mobileControlsToggle');
+        if (mobileToggle) mobileToggle.setAttribute('aria-expanded','false');
+      }, {passive: true});
+    } else {
+      // fallback: if desktop handler is exposed as function, try call it
+      const fnName = 'openPriceModal'; // common name used by many patterns
+      if (typeof window[fnName] === 'function') {
+        m.addEventListener('click', function(e){
+          e.preventDefault();
+          window[fnName]();
+          const mobilePanel = document.getElementById('mobileControlsPanel');
+          if (mobilePanel) mobilePanel.setAttribute('aria-hidden','true');
+        }, {passive: true});
+      }
+    }
+  }
+
+  // Connect mobile Price button to desktop Price button
+  hookByClick('priceBtnMobile', 'priceBtn');
+
+  // Connect mobile About button (mobile panel) to desktop About handler
+  // Note: there are two elements that may use id="aboutBtn" — desktop and mobile.
+  // We attempt to map the one inside the mobile panel (if exists) to trigger desktop about.
+  const aboutMobileInPanel = document.querySelector('#mobileControlsPanel #aboutBtn');
+  if (aboutMobileInPanel) {
+    aboutMobileInPanel.addEventListener('click', function(e){
+      e.preventDefault();
+      const desktopAbout = document.getElementById('aboutBtn');
+      if (desktopAbout && desktopAbout !== aboutMobileInPanel) {
+        desktopAbout.click();
+      } else {
+        // fallback: open about page if desktop handler missing
+        window.location.href = 'about.html';
+      }
+      const mobilePanel = document.getElementById('mobileControlsPanel');
+      if (mobilePanel) mobilePanel.setAttribute('aria-hidden','true');
+    }, {passive: true});
+  }
+
+  // softwareBtn: ensure it behaves like a button on mobile and closes the panel after click
+  const softwareBtn = document.getElementById('softwareBtn');
+  if (softwareBtn) {
+    softwareBtn.addEventListener('click', function(){
+      // Close mobile controls panel (if open) to avoid stuck overlay
+      const mobilePanel = document.getElementById('mobileControlsPanel');
+      if (mobilePanel) mobilePanel.setAttribute('aria-hidden','true');
+      const mobileToggle = document.getElementById('mobileControlsToggle');
+      if (mobileToggle) mobileToggle.setAttribute('aria-expanded','false');
+      // allow the link to navigate
+    }, {passive: true});
+  }
+
+})();

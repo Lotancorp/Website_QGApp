@@ -1209,3 +1209,142 @@ button.view-btn:hover {
   /* reduce modal shadow & spacing a bit for small screens */
   .product-panel { box-shadow: 0 14px 40px rgba(2,6,23,0.6); }
 }
+/* ========== Mobile button styling inside mobile controls panel ========== */
+@media (max-width: 480px) {
+  /* ensure mobile control panel spacing is consistent */
+  #mobileControlsPanel .section,
+  #mobileControlsPanel > div {
+    margin-bottom: 10px;
+  }
+
+  /* Price List mobile button already uses btn-primary; make sure full width */
+  #priceBtnMobile.btn-primary {
+    width: 100%;
+    display: block;
+    padding: 12px 14px;
+    border-radius: 10px;
+    box-shadow: none;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  /* Software link: make it look & behave like same full-width button */
+  #mobileControlsPanel #softwareBtn.btn-software {
+    display: block;
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    text-align: center;
+    text-decoration: none;
+    color: #fff; /* ensure readable */
+    background: linear-gradient(180deg, #0b66c2, #063a7a); /* blue gradient */
+    border: none;
+    box-shadow: none;
+    font-weight: 600;
+    margin: 1px 0;
+  }
+
+  /* About button in mobile panel */
+  #mobileControlsPanel #aboutBtn.btn-contact {
+    width: 100%;
+    display: block;
+    padding: 12px 14px;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: 600;
+  }
+
+  /* small tweak: enlarge touch targets for accessibility */
+  #mobileControlsPanel button, #mobileControlsPanel a {
+    min-height: 44px;
+    line-height: 1.1;
+  }
+}
+/* ===== MOBILE: Force-unify all control panel buttons (final override) ===== */
+@media (max-width: 480px) {
+  /* target semua tombol/anchor yang muncul di mobile controls panel */
+  #mobileControlsPanel,
+  #mobileControlsPanel button,
+  #mobileControlsPanel a#softwareBtn,
+  #mobileControlsPanel .btn-social,
+  #mobileControlsPanel .btn-primary,
+  #mobileControlsPanel .btn-contact {
+    /* ensure panel base */
+    color: #fff !important;
+    font-family: inherit !important;
+  }
+
+  /* unified button base */
+  #mobileControlsPanel button,
+  #mobileControlsPanel a#softwareBtn,
+  #mobileControlsPanel .btn-social {
+    display: block !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 12px 14px !important;
+    margin: 8px 0 !important;
+    border-radius: 12px !important;
+    font-weight: 700 !important;
+    font-size: 15px !important;
+    text-align: center !important;
+    text-decoration: none !important;
+    cursor: pointer !important;
+    border: none !important;
+    -webkit-tap-highlight-color: transparent !important;
+    transition: transform 150ms ease, box-shadow 150ms ease, opacity 120ms ease !important;
+    box-shadow: 0 10px 28px rgba(2,6,23,0.45) !important;
+    color: #fff !important;
+  }
+
+  /* neutralize odd inherited backgrounds: set neutral base then per-variant colors below */
+  #mobileControlsPanel button,
+  #mobileControlsPanel a#softwareBtn,
+  #mobileControlsPanel .btn-social {
+    background: linear-gradient(90deg, #222428, #1b1d20) !important;
+    opacity: 1 !important;
+  }
+
+  /* variant colors (explicit, high-specificity) */
+  #mobileControlsPanel #priceBtnMobile,
+  #mobileControlsPanel .price-variant {
+    background: linear-gradient(90deg, #6d5cff, #7b7dff) !important;
+  }
+
+  #mobileControlsPanel a#softwareBtn,
+  #mobileControlsPanel .software-variant {
+    background: linear-gradient(90deg, #0f5fb8, #063a7a) !important;
+  }
+
+  #mobileControlsPanel #aboutBtn,
+  #mobileControlsPanel .about-variant {
+    background: linear-gradient(90deg, #10b981, #059669) !important;
+  }
+
+  /* subtle press effect */
+  #mobileControlsPanel button:active,
+  #mobileControlsPanel a#softwareBtn:active,
+  #mobileControlsPanel .btn-social:active {
+    transform: translateY(1px) !important;
+    box-shadow: 0 6px 18px rgba(2,6,23,0.34) !important;
+    opacity: 0.98 !important;
+  }
+
+  /* ensure anchors behave like buttons on mobile (prevent default underline) */
+  #mobileControlsPanel a#softwareBtn { text-decoration: none !important; display:block !important; }
+
+  /* keep accessibility: minimum hit area */
+  #mobileControlsPanel button, #mobileControlsPanel a#softwareBtn { min-height: 48px !important; line-height: 1.2 !important; }
+
+  /* remove conflicting shadows or borders from previous rules */
+  #mobileControlsPanel button,
+  #mobileControlsPanel a#softwareBtn {
+    border: none !important;
+    outline: none !important;
+  }
+
+  /* optional: if desktop styles leak, force font color for icons inside */
+  #mobileControlsPanel button svg, #mobileControlsPanel a#softwareBtn svg {
+    fill: #fff !important;
+    color: #fff !important;
+  }
+}
