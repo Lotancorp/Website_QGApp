@@ -1064,7 +1064,7 @@ button.view-btn:hover {
     border-radius: 10px;
     font-weight: 700;
     font-size: 15px;
-    box-shadow: 0 8px 28px rgba(2,6,23,0.4);
+    box-shadow: 0 8px 20px rgba(2,6,23,0.4);
     border: none;
     cursor: pointer;
   }
@@ -1347,4 +1347,29 @@ button.view-btn:hover {
     fill: #fff !important;
     color: #fff !important;
   }
+}
+/* ===== MOBILE: normalize spacing for mobile controls panel ===== */
+@media (max-width: 480px) {
+  /* Buat semua direct child di panel konsisten spacing-nya */
+  #mobileControlsPanel > * {
+    margin: 0 0 1px 0;            /* jarak vertikal konsisten */
+    padding: 0;
+  }
+
+  /* Pastikan setiap tombol/anchor fill width dan tidak mewarisi margin wrapper */
+  #mobileControlsPanel button {
+    display: block !important;
+    width: 100% !important;
+    margin: 0 !important;         /* hilangkan margin ganda */
+    padding: 12px 14px !important;
+    border-radius: 12px !important;
+  }
+
+  /* Jika ada wrapper <div> tanpa kelas buat kerapihan, jangan biarkan dia beri extra spacing */
+  #mobileControlsPanel > div:not(.section) {
+    margin-bottom: 0;
+  }
+
+  /* Pastikan ikon / elemen dalam tidak mempengaruhi tinggi visual */
+  #mobileControlsPanel > * > * { margin: 0; }
 }

@@ -1420,3 +1420,114 @@
   .tutorials-wrapper { min-height: auto; max-height: none; }
   .quick-specs .spec-card { position: relative; top: auto; }
 }
+/* ======================
+   MOBILE-ONLY OVERRIDES
+   Tempelkan di akhir software.css
+   (GUNAKAN untuk layar kecil: <= 680px)
+   ====================== */
+   @media (max-width: 680px) {
+    /* Root tweak: sedikit lebih kontras untuk layar kecil */
+    :root {
+      --radius: 10px;
+    }
+  
+    /* Layout: single-column, scroll natural */
+    .app { flex-direction: column; padding: 12px !important; height: auto !important; overflow: visible !important; }
+    .sidebar { display: none !important; } /* tetap sembunyikan sidebar */
+    .content { padding: 8px 6px !important; height: auto !important; overflow: visible !important; }
+  
+    /* Tipografi: perbesar agar nyaman dibaca di ponsel */
+    html, body { font-size: 15px; line-height: 1.45; }
+    h1, h2, h3 { line-height: 1.08; }
+    .hero h1 { font-size: 20px !important; }
+    .hero p.lead { font-size: 14px !important; }
+  
+    /* Hero: bentuk vertikal, gambar disamakan ukuran, prioritaskan teks */
+    .hero { padding: 18px !important; gap: 12px !important; align-items: flex-start !important; }
+    .hero-left { width: 100% !important; }
+    .hero > div[style*="width:360px"] { width: 100% !important; max-width: 420px; margin: 0 auto; }
+  
+    /* Screenshot slides: batasi tinggi, gunakan object-fit contain, disable pointer-heavy effects */
+    .screenshot-slides { max-height: 260px; min-height: 160px; }
+    .slides .slide img { max-height: 240px; width: auto; height: auto; object-fit: contain; display:block; margin:0 auto; }
+    .slides-nav { display:flex; gap:8px; justify-content:center; margin-top:8px; }
+    .slides-nav button { padding:10px 12px; border-radius:8px; }
+  
+    /* Buttons: buat touch targets besar & full width pada CTA area */
+    .cta-group { width:100%; gap:8px; display:flex; flex-direction:row; }
+    .cta-group a, .cta-group .btn-download, .cta-group .btn-register {
+      flex: 1 1 auto; padding:12px; font-size:15px; border-radius:12px; text-align:center;
+    }
+  
+    /* Features grid: 1 kolom agar tidak padat */
+    .features { grid-template-columns: 1fr !important; gap:10px !important; }
+    .feature { padding:12px !important; font-size:14px; }
+  
+    /* Produk / Grid: satu kolom, card jadi lebih tinggi, klik mudah */
+    .grid { grid-template-columns: 1fr !important; gap:12px !important; }
+    .card { padding:12px !important; border-radius:10px !important; }
+    .thumb { height: 180px !important; border-radius:10px; }
+  
+    /* Banner slider / hero slider: kurangi visual berat */
+    .banner-slider, .banner-slide { min-height: 140px !important; max-height: 260px !important; }
+    .banner-nav { width:36px; height:36px; }
+  
+    /* Tutorials section: list full-width, touch-friendly list items */
+    .links-list { grid-template-columns: 1fr !important; gap:10px !important; }
+    .links-list li { height: auto !important; padding:12px !important; align-items:flex-start; }
+    .links-list .txt { font-size:15px; }
+  
+    /* Quick-specs:, letakkan di bawah tutorials agar satu kolom */
+    .tutorials-section { display:block !important; }
+    .quick-specs { margin-top:14px !important; }
+    .quick-specs .spec-card { position: relative !important; top: auto !important; padding:12px !important; }
+  
+    /* Modals: full-screen card with safe padding, vertical scroll if perlu */
+    .modal, .gallery-modal, .product-modal {
+      align-items: flex-end !important; /* pop up dari bawah (native mobile feel) */
+    }
+    .modal-panel, .gallery-panel, .product-panel {
+      width: 100% !important;
+      max-width: 100% !important;
+      border-radius: 14px 14px 0 0 !important;
+      margin: 0 !important;
+      padding: 14px !important;
+      box-shadow: 0 -8px 30px rgba(2,6,23,0.6) !important;
+      max-height: 88vh !important;
+      overflow: auto !important;
+    }
+    .modal-close, .product-close, .gallery-close { top: 8px !important; right: 12px !important; font-size:22px !important; }
+  
+    /* Product modal body: kolom -> baris, gambar di atas, teks di bawah */
+    .product-body { flex-direction: column !important; gap:10px !important; }
+    .product-main-image { height: 240px !important; }
+    .product-right { width: 100% !important; min-width: auto !important; }
+  
+    /* Thumbnails: horizontal scroll lebih lebar */
+    .gallery-thumbs img, .product-thumbs img { width: 84px !important; height: 56px !important; }
+  
+    /* Mobile controls: pastikan toggle mudah dijangkau */
+    .mobile-controls-handle { left: 10px; top: 80px; padding:10px 12px; border-radius:12px; }
+  
+    /* Toast: pindah ke atas bawah agar tidak tertutup oleh keyboard */
+    .toast { left: 50% !important; bottom: 20px !important; top: auto !important; transform: translateX(-50%) !important; }
+  
+    /* Remove heavy hover/transform for perf on mobile */
+    .card:hover, .btn-outline:hover, .btn-youtube:hover, .btn-contact:hover { transform: none !important; box-shadow: none !important; }
+  
+    /* Accessibility: lebih besar spasi klik untuk tombol di card */
+    .actions button, .actions a { min-width: 120px !important; height:44px !important; padding:0 14px !important; font-size:15px !important; }
+  
+    /* Prevent unexpected large min-heights from desktop rules */
+    .tutorials-wrapper, .content, .tutorials-panel { min-height: auto !important; max-height: none !important; overflow: visible !important; }
+  
+    /* Disable pointer heavy transitions to save CPU on low-end devices */
+    * { transition-duration: 140ms !important; transition-timing-function: cubic-bezier(.2,.9,.2,1) !important; }
+  
+    /* Small spacing tweak to footer */
+    footer.landing-foot { padding-bottom: 20px; font-size:13px; text-align:center; }
+  
+    /* Fix for inconsistent viewport on some Android webviews */
+    html, body { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+  }
+  
