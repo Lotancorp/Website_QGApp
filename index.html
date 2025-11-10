@@ -1,383 +1,286 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="RF Online - QuartzGallery Regulator - A comprehensive toolkit for SPT and EFF file management.">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <!-- Favicon -->
+  <title>Quartz Gallery</title>
+  <link rel="icon" type="image/png" href="Images/qg.png" sizes="32x32">
+  <link rel="shortcut icon" href="Images/qg.png">
 
-    <title>Quartz Gallery</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3181228773033613"
-        crossorigin="anonymous"></script>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-30X30XGTMT"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-30X30XGTMT');
-    </script>   
-
+  <link rel="stylesheet" href="storepage.css" />
 </head>
 <body>
-    <header>
-        <h1>Quartz Gallery Official Website</h1>
-        <!-- Tombol Register dan Download -->
-        <div class="sliding-banner">
-            <a href="https://linktr.ee/quartzgallery" target="_blank">
-                <img src="Images/Banner1.png" alt="Banner 1">
-            </a>
-            <a href="https://www.facebook.com/uchihadaybringer" target="_blank">
-                <img src="Images/Banner2.png" alt="Banner 2">
-            </a>
-            <a href="https://www.youtube.com/channel/UCqCyP8NIWNl4xjoEmcRSfag" target="_blank">
-                <img src="Images/Banner3.png" alt="Banner 3">
-            </a>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="logo">
+          <img src="Images/qg.png" alt="Quartz Gallery Logo">
         </div>
-        <div class="top-right-buttons">
-            <button id="registerButton" onclick="window.open('https://forms.gle/AW5tZStuq4HpND5x7')">Register</button>
-            <button id="downloadButton" onclick="window.open('https://drive.google.com/file/d/1YYxdRgsWoTZGdrdVG6P-PjXec_v0iCgT/view?usp=drive_link')">Download</button>
-
+        
+        <div>
+          <h1>Quartz Gallery</h1>
+          <p class="muted">Skin Portfolio</p>
         </div>
-    </header>
-    <section id="intro-content" style="max-width: 1200px; margin: 2rem auto; padding: 0 1rem; display: flex; flex-wrap: wrap; align-items: center; gap: 2rem;">
-        <!-- Supporting Image -->
-        <div style="flex: 1; min-width: 300px;">
-          <img src="Images/QG.png" alt="Quartz Gallery Logo" style="width: 80%; height: auto; border-radius: 8px;">
-        </div>
-        <!-- Text Content -->
-        <div style="flex: 2; min-width: 300px; text-align: justify;">
-          <h2>A Note from the Unknown</h2>
-          <p>
-            Quartz Gallery (QG) is a freelance graphic design studio dedicated to creativity and innovation. Although I may not be a widely recognized name, my work is driven by passion and a commitment to quality, proving that true artistry often comes from humble beginnings.
-          </p>
-          <p>
-            At QG, we have developed powerful software tools specifically designed to modify RF Online files. These tools not only streamline the game development process but also offer specialized features that assist in configuring and enhancing game skins. Whether you’re a developer or a game enthusiast, our software is built to bring your creative ideas to life.
-          </p>
-          <p>
-            We proudly provide a broad spectrum of skin design services—from original creations and complete overhauls to fine-tuned color adjustments. Every project is crafted to reflect your vision, combining fresh ideas with a personal touch that makes each skin truly your own.
-          </p>
-          <p>
-            We may be modest in scale, yet our passion knows no limits. I am here to support you in transforming your game concepts into vivid, tangible realities that resonate with players and elevate your game’s visual appeal.
-          </p>
-        </div>
-      </section>
-      
-    <div class="container">
-
-    <main class="container">
-       <!-- Section Tutorial -->
-        <section class="section">
-            <button class="section-toggle" onclick="toggleSection(this)">Software Tutorial | Quartz Gallery Application</button>
-            <ul class="links-list">
-                <li><a href="https://youtu.be/nObpcj7Znf4" target="_blank">Tutorial 1: Getting Started</a></li>
-                <li><a href="https://youtu.be/acAcW_kxJSI" target="_blank">Tutorial 2: Root Function</a></li>
-                <li><a href="https://youtu.be/CGjyiMDCCSE" target="_blank">Tutorial 3: Writer tools - EffectFileList</a></li>
-                <li><a href="https://youtu.be/M_jSbIiGKfQ" target="_blank">Tutorial 4: Writer tools - ItemEffectlist</a></li>
-                <li><a href="https://youtu.be/eoRB6W5oBbc" target="_blank">Tutorial 5: Writer tools - PatternList</a></li>
-                <li><a href="https://youtu.be/iMIQYYItX6U" target="_blank">Tutorial 6: Writer tools - Particle Writer</a></li>
-                <li><a href="https://youtu.be/vABPyRAv60M" target="_blank">Tutorial 7: Writer tools - Particle Editor</a></li>
-                <li><a href="https://youtu.be/xRzWFXPqfiI" target="_blank">Tutorial 8: Function - Folder Generator</a></li>
-                <li><a href="https://youtu.be/ASf5W_M3pFA" target="_blank">Tutorial 9: Function - Mass SPT Editor</a></li>
-                <li><a href="https://youtu.be/LrYAWXR6vTY" target="_blank">Tutorial 10: Function - Entity Editor</a></li>
-                <li><a href="https://youtu.be/K4bzf-gJjtw" target="_blank">Tutorial 11: Function - Filter Effect</a></li>
-                <li><a href="https://youtu.be/4viBUMq5M9U" target="_blank">Tutorial 12: Function - EFF Editor</a></li>
-                <li><a href="https://youtu.be/GOzMCtsaWa8" target="_blank">Tutorial 13: Function - EFF Converter</a></li>   
-                <li><a href="https://youtu.be/8_YkH0OtCb4" target="_blank">Tutorial 14: Function - Change Logs</a></li>
-                <li><a href="https://youtu.be/8dJOkJnO63Y" target="_blank">Tutorial 15: Function - Batch Icon Creator</a></li> 
-            </ul>
-        </section>
-
-  <!-- Section  -->
-<section id="my-application" class="section">
-  <button class="section-toggle" onclick="toggleSection(this)">
-    My Others Application | Quartz Universe App
-  </button>
-
-  <div class="section-content application-content">
-    <ul class="app-list">
-      <li>
-        <a href="addonpage.html" target="_blank">
-          Open Page : Quartz App Add-On Market
-        </a>
-      </li>
-      <li>
-        <a href="applauncher.html" target="_blank">
-          Open Page : Quartz Launcher App 
-        </a>
-      </li>
-      <li>
-        <a href="quartzcommander.html" target="_blank">
-          Open Page : Quartz Commander App
-        </a>
-      </li>
-    </ul>
-  </div>
-</section>
-
-<!-- Original File Resources Section -->
-<section class="section">
-    <button class="section-toggle" onclick="toggleSection(this)">Original File Resources | Chef & Excel EFF</button>
-    <ul class="thumbnail-list">
-      <li>
-        <a href="https://www.mediafire.com/file/4ifhlfspmnbsq58/Chef.7z/file" target="_blank">
-          <img src="Images/DOC.png" alt="Chef File" />
-          <span>Chef File Origin 2.2.3.2</span>
-        </a>
-      </li>
-      <li>
-        <a href="https://www.mediafire.com/file/lmnxpq35v5bv3q9/QG_FILENAME.xlsx/file" target="_blank">
-          <img src="Images/EXC.png" alt="Excel EFF Sample" />
-          <span>Excel File EFF Sample</span>
-        </a>
-      </li>
-    </ul>
-  </section>
-  
-  <!-- Skin Portofolio Section -->
-  <section class="section">
-    <button class="section-toggle" onclick="toggleSection(this)">Skin Portofolio | Image - Video - Link</button>
-    <ul class="thumbnail-list">
-      <li>
-        <a href="gallery.html" target="_blank">
-          <img src="Images/YT.png" alt="Video Gallery" />
-          <span>Video Gallery</span>
-        </a>
-      </li>
-      <li>
-        <a href="image.html" target="_blank">
-          <img src="Images/img.png" alt="Image Gallery" />
-          <span>Image Gallery</span>
-        </a>
-      </li>
-      <li>
-        <a href="https://linktr.ee/quartzgallery" target="_blank">
-          <img src="Images/QG.png" alt="Skin Portofolio" />
-          <span>Skin Portofolio</span>
-        </a>
-      </li>
-    </ul>
-  </section>
-  <!-- Article Section -->
-  <section class="section-mythought">
-    <button class="section-toggle" onclick="toggleSection(this)">My Thought | Short Article about Everything</button>
-    
-    <div class="article-thumbnails">
-      <a href="artikel1.html" class="thumb-item" target="_blank" rel="noopener noreferrer">
-        <img src="Images/sleepparalysis.png" alt="Sleep Paralysis">
-        <span>Sleep Paralysis</span>
-      </a>
-      <a href="artikel2.html" class="thumb-item" target="_blank" rel="noopener noreferrer">
-        <img src="Images/HypnicJerk.png" alt="Hypnic Jerk">
-        <span>Hypnic Jerk</span>
-      </a>
-      <a href="artikel3.html" class="thumb-item" target="_blank" rel="noopener noreferrer">
-        <img src="Images/brainworks.png" alt="Brain Works">
-        <span>Brain Works</span>
-      </a>
-      <!-- Tambah item artikel sesuai kebutuhan -->
-      <a href="artikel4.html" class="thumb-item" target="_blank" rel="noopener noreferrer">
-        <img src="Images/brain_dream.png" alt="Behind the Dream">
-        <span>Behind the Dream</span>
-      </a>
-    </div>
-  </section>
-<section class="section price-section">
-  <button class="section-toggle" onclick="toggleSection(this)">
-    Price Information | USD & IDR
-  </button>
-  <div class="price-container">
-    <!-- BARIS 1: USD -->
-    <div class="price-row usd">
-      <h2>Software Account Price (Quartz Gallery App)</h2>
-      <p class="account-price">US$ 12</p>
-
-      <h3>RF Online Skin Price (USD)</h3>
-      <ul class="price-list">
-        <li><strong>Armor:</strong> $100</li>
-        <li><strong>Weapon:</strong> $50 (10 Pcs) / $90 (17 Pcs)</li>
-        <li><strong>Shield:</strong> $7</li>
-        <li><strong>Booster:</strong> $18</li>
-        <li><strong>Mask:</strong> $18</li>
-        <li><strong>Unit (MAU):</strong> $60</li>
-        <li><strong>Unit (Siege Kit):</strong> $30</li>
-        <li><strong>Unit (Animus // 4 Animus):</strong> $120</li>
-        <li>
-          <strong>Monster:</strong> $15 – $30
-          <em>(Depending on difficulty)</em>
-        </li>
-        <li>
-          <strong>NPC:</strong> $15 – $30
-          <em>(Depending on difficulty)</em>
-        </li>
-      </ul>
-
-      <h3>Revamp Prices (Original RF Skins – Color Change Only)</h3>
-      <ul class="price-list">
-        <li>
-          <strong>Armor Revamp:</strong> $30 – $40
-          <em>(depending on difficulty)</em>
-        </li>
-        <li>
-          <strong>Weapon Revamp:</strong> $30 – $50
-          <em>(depending on difficulty &amp; number of weapons)</em>
-        </li>
-      </ul>
-
-      <p class="price-note">
-        The prices listed above are maximum estimates.<br>
-        A 10–15% discount is usually applied at final pricing.<br>
-        If the item already exists and only minor mods are needed, the minimum estimate applies.<br>
-        These prices apply specifically for RF Online skin-modification services.
-      </p>
-    </div>
-
-    <!-- BARIS 2: IDR -->
-
-    <div class="price-row idr">
-    <h2>Software Account Price (Quartz Gallery App)</h2>
-    <p class="account-price">IDR 175.000</p>
-      <h3>RF Online Skin Price (IDR)</h3>
-      <ul class="price-list">
-        <li><strong>Armor:</strong> Rp 1.500.000</li>
-        <li>
-          <strong>Weapon:</strong> Rp 800.000 (10 Pcs) / Rp 1.300.000 (17 Pcs)
-        </li>
-        <li><strong>Shield:</strong> Rp 80.000 – Rp 110.000</li>
-        <li><strong>Booster:</strong> Rp 275.000</li>
-        <li><strong>Mask:</strong> Rp 275.000</li>
-        <li><strong>Unit (MAU):</strong> Rp 600.000 (2 MAU)</li>
-        <li>
-          <strong>Unit (Siege Kit):</strong> Rp 150.000 – Rp 400.000
-          <em>(tergantung kesulitan)</em>
-        </li>
-        <li><strong>Unit (Animus // 4 Animus):</strong> Rp 800.000</li>
-        <li>
-          <strong>Monster:</strong> Rp 150.000 – Rp 300.000
-          <em>(tergantung kesulitan)</em>
-        </li>
-        <li>
-          <strong>NPC:</strong> Rp 150.000 – Rp 300.000
-          <em>(tergantung kesulitan)</em>
-        </li>
-      </ul>
-
-      <h3>Revamp Prices (Skin RF Online Asli – Ubah Warna/Glow Saja)</h3>
-      <ul class="price-list">
-        <li>
-          <strong>Armor Revamp:</strong> Rp 500.000 – Rp 750.000
-          <em>(tergantung kesulitan)</em>
-        </li>
-        <li>
-          <strong>Weapon Revamp:</strong> Rp 500.000 – Rp 1.000.000
-          <em>(tergantung kesulitan &amp; jumlah senjata)</em>
-        </li>
-      </ul>
-
-      <p class="price-note">
-        Harga di atas adalah estimasi maksimum.<br>
-        Biasanya diberi diskon 10–15% saat finalisasi.<br>
-        Jika item sudah ada dan hanya perlu sedikit modifikasi, harga mengacu estimasi minimal.<br>
-        Berlaku untuk jasa Skin RF Online.
-      </p>
-    </div>
-  </div>
-</section>
-
-          
-
-<!-- Payment Methods Section -->
-<section class="section payment-section">
-  <button class="section-toggle" onclick="toggleSection(this)">
-    Payment Method | Bank Transfer, E-Wallet, International, WhatsApp
-  </button>
-
-  <div class="section-content payment-content">
-    <form class="payment-form">
-      <!-- 4 opsi langsung sebagai grid item -->
-      <label class="payment-option">
-        <input type="radio" name="payment" value="bank-transfer-indonesia">
-        <img src="bank-logo.png" alt="Bank Transfer">
-        <div class="payment-details">
-          <strong>Pay via Bank Transfer (Indonesia)</strong>
-          <ul>
-            <li>BCA: 7151851138 – Muhammad Taufan Firdaus</li>
-            <li>CIMB: 706444755500 – Muhammad Taufan Firdaus</li>
-          </ul>
-        </div>
-      </label>
-
-      <label class="payment-option">
-        <input type="radio" name="payment" value="e-wallet">
-        <img src="gopay.png" alt="Gopay">
-        <div class="payment-details">
-          <strong>Pay via E-Wallet</strong>
-          <ul>
-            <li>Gopay: 0812 9464 8329</li>
-          </ul>
-        </div>
-      </label>
-
-      <label class="payment-option">
-        <input type="radio" name="payment" value="international">
-        <img src="paypal-logo.png" alt="PayPal">
-        <div class="payment-details">
-          <strong>Pay via International</strong>
-          <ul>
-            <li>PayPal: lotancorp@gmail.com (@quartzgallery)</li>
-            <li>USDT: BEP20/TRC20</li>
-          </ul>
-        </div>
-      </label>
-
-      <label class="payment-option">
-        <input type="radio" name="payment" value="whatsapp">
-        <img src="whatsapp-logo.png" alt="WhatsApp">
-        <div class="payment-details">
-          <strong>Contact via WhatsApp</strong>
-          <ul>
-            <li>
-              <a href="https://wa.me/6281294648329"
-                 target="_blank"
-                 rel="noopener noreferrer">
-                0812 9464 8329
-              </a>
-            </li>
-          </ul>
-        </div>
-      </label>
-
-      <!-- tombol span dua kolom -->
-      <div class="continue-button-container">
-        <button type="button" class="continue-button">Continue</button>
       </div>
-    </form>
-  </div>
-</section>
 
-  
-        <!-- Penempatan Unit Iklan -->
-        <section class="adsense">
-            <div class="adsbygoogle">
+      <div class="filters">
+        <label class="label">Search</label>
+        <input id="search" type="search" placeholder="Search skins, name, tags..." />
 
-                <ins class="adsbygoogle"
-                style="display:block"
-                data-ad-client="ca-pub-3181228773033613"
-                data-ad-slot="1234567890"
-                data-ad-format="auto"
-                data-full-width-responsive="true"></ins>
-                <script>
-                   (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
-            </div>
-        </section>       
+        <label class="label">Categories</label>
+        <ul class="categories" id="categoryList">
+          <li data-cat="all" class="active">All Collections</li>
+          <li data-cat="armor">Armor</li>
+          <li data-cat="weapon">Weapon</li>
+          <li data-cat="helmet">Mask</li>
+          <li data-cat="cape">Booster</li>
+          <li data-cat="wind">Wind/Injure</li>
+          <li data-cat="monster">Monster</li>
+          <li data-cat="unit">Unit</li>
+          <li data-cat="default">Character Custom</li>
+        </ul>
+
+        <!--label class="label">Price</label-->
+        <div class="price-range">
+          <button id="priceBtn" class="btn-primary" style="padding:10px 14px;">Price List</button>
+        </div>
+        
+        <!-- new: software button -->
+        <div style="margin-top:8px;">
+          <a id="softwareBtn"
+             class="btn-software"
+             href="softwarelandingpage.html"
+             target="_blank"
+             rel="noopener">
+            Software
+          </a>
+        </div>
+        
+        
+        <div class="spacer"></div>
+        
+        <!-- header/top-level About (terpisah dari product Contact) -->
+        <button id="aboutBtn" class="btn-contact">About Me</button>
+      </div>
+
+      <footer class="sidebar-foot">
+        <small>© <span id="year"></span> Quartz • made by Taufan</small>
+      </footer>
+    </aside>
+
+    <main class="content">
+     <!-- Banner Slider (insert before <main class="content">) -->
+      <section class="banner-slider" id="bannerSlider" aria-hidden="true">
+        <div class="banner-track" id="bannerTrack" role="list"></div>
+      
+        <!-- controls -->
+        <button class="banner-nav left" id="bannerPrev" aria-label="Previous slide">&larr;</button>
+        <button class="banner-nav right" id="bannerNext" aria-label="Next slide">&rarr;</button>
+      
+        <!-- indicators -->
+        <div class="banner-indicators" id="bannerIndicators" role="tablist"></div>
+      </section>
+      <!-- End Banner Slider -->
+      
+      <header class="topbar">
+      <!-- ADD: Mobile quick toggle (tambah tepat di dalam <header class="topbar"> bersama elemen .left) -->
+      <button id="mobileControlsToggle" class="mobile-controls-toggle" aria-expanded="false" aria-label="Open controls">☰</button>
+        <div class="left">
+          <h2>Skin Portfolio</h2>
+          <p class="muted">Showcase — click an item to view gallery or contact for purchase</p>
+        </div>
+        <div class="right">
+          <div class="sort">
+            <label class="muted">Sort</label>
+            <select id="sortSelect">
+              <option value="relevance">Relevance</option>
+              <option value="price-asc">Price ↑</option>
+              <option value="price-desc">Price ↓</option>
+            </select>
+          </div>
+          <div class="view-toggle" style="margin-left:12px;display:flex;align-items:center;gap:8px;">
+            <label class="muted" style="margin-right:4px">View</label>
+            <select id="gridViewSelect" title="Choose grid view" style="padding:8px;border-radius:6px;background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--text)">
+              <option value="compact">Smalll</option>
+              <option value="large">Large</option>
+            </select>
+          </div>
+          <div class="currency">
+            <label class="muted">Currency</label>
+            <select id="currencySelect" title="Choose currency">
+              <option value="usd" selected>USD</option>
+              <option value="idr">IDR</option>
+            </select>
+          </div>
+        </div>
+      </header>
+
+      <section class="grid" id="productGrid">
+        <!-- Cards inserted by JS -->
+      </section>
+
+      <div class="empty" id="emptyState" hidden>
+        <h3>No products found</h3>
+        <p class="muted">Try clearing filters or use a different search term.</p>
+      </div>
+
     </main>
-    <footer>
-        <p>&copy; 2025 Quartz Gallery. All rights reserved.</p>
-    </footer>
-    <script src="script.js"></script>
+  </div>
+<!-- Price Modal -->
+<div class="modal" id="priceModal" aria-hidden="true">
+    <div class="modal-panel">
+      <button class="modal-close" id="closePriceModal">&times;</button>
+      <h3>Skin Price List</h3>
+      <p class="muted">Showing prices in <span id="priceCurrencyLabel">USD</span></p>
+  
+      <div id="priceContent" style="margin-top:12px; max-height:50vh; overflow:auto;">
+        <!-- Filled dynamically by JS -->
+      </div>
+  
+      <div style="display:flex;justify-content:flex-end;margin-top:12px;gap:8px;">
+        <button id="closePriceBtn" class="btn-secondary">Close</button>
+      </div>
+    </div>
+  </div>
+  
+<!-- Contact Modal -->
+<div class="modal" id="contactModal" aria-hidden="true">
+    <div class="modal-panel">
+      <button class="modal-close" id="closeModal">&times;</button>
+      <h3>Contact Me</h3>
+      <p class="muted">Choose a channel to contact me:</p>
+  
+      <div class="contact-channels" style="margin-top:12px">
+        <button id="whatsappBtn" class="btn-social whatsapp">WhatsApp</button>
+        <a id="facebookBtn" class="btn-social facebook" target="_blank" rel="noopener">Facebook</a>
+        <a id="instagramBtn" class="btn-social instagram" target="_blank" rel="noopener">Instagram</a>
+      </div>
+  
+      <hr style="border:none;border-top:1px solid rgba(255,255,255,0.04);margin:12px 0"/>
+  
+      <div style="display:flex;gap:8px;justify-content:flex-end;">
+        <button id="copyLinkBtn" class="btn-secondary">Copy Link</button>
+        <button id="mailtoBtn" class="btn-secondary">Open Email</button>
+        <button id="closeModalBottom" class="btn-primary">Close</button>
+      </div>
+    </div>
+  </div>
+  
+  
+  
+
+<!-- Product Modal (Steam-like layout) -->
+<div class="product-modal" id="productModal" aria-hidden="true">
+  <div class="product-panel">
+    <button class="product-close" id="closeProductModal">&times;</button>
+
+    <div class="product-body">
+      <!-- LEFT: Big gallery -->
+      <div class="product-left">
+        <div class="product-main-wrap">
+          <button class="gallery-nav prev" id="productPrev" aria-label="Previous">&larr;</button>
+          <div class="product-main-image">
+            <img id="productMainImage" src="" alt="Product main view" />
+          </div>
+          <button class="gallery-nav next" id="productNext" aria-label="Next">&rarr;</button>
+        </div>
+
+        <div class="product-thumbs" id="productThumbs" role="list"></div>
+        <div class="product-caption" id="productCaption"></div>
+      </div>
+
+      <!-- RIGHT: Details -->
+      <aside class="product-right">
+        <div class="product-meta">
+          <img id="productRightThumb" src="" alt="Product thumbnail"
+            style="width:100%;height:140px;object-fit:contain;border-radius:8px;margin-bottom:12px;border:1px solid rgba(255,255,255,0.03);background:#050608" />
+
+          <h2 id="productTitle">Product name</h2>
+          <p class="muted" id="productRarity">Rarity</p>
+          <div class="product-price" id="productPrice">$0.00</div>
+          <div class="product-release muted" id="productRelease">Release: -</div>
+        </div>
+
+        <div class="product-desc" id="productDesc">Description here...</div>
+        <div id="productTags" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px"></div>
+        <div class="product-actions" style="margin-top:18px">
+          <a id="productYoutube" class="btn-youtube" target="_blank" rel="noopener" style="display:none">YouTube</a>
+          <button id="productContactBtn" class="btn-primary">Contact Me</button>
+        </div>
+
+        <div id="productSKUWrap" style="margin-top:18px;color:var(--muted);font-size:13px">
+          <div><strong>SKU / ID:</strong> <span id="productSKU">-</span></div>
+          <div style="margin-top:6px"><strong>Rate:</strong> <span id="productRate" class="muted">-</span></div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</div>
+
+<!-- ADD: Mobile controls off-canvas panel -->
+<div id="mobileControlsPanel" class="mobile-controls-panel" aria-hidden="true">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+    <strong style="font-size:16px">Menu</strong>
+    <button id="mobileControlsClose" class="mobile-controls-toggle" aria-label="Close">✕</button>
+  </div>
+
+  <!-- SEARCH -->
+  <div class="section">
+    <label class="muted">Search</label>
+    <input id="searchMobile" type="search" placeholder="Search skins, name, tags..." style="width:100%; padding:10px; border-radius:8px; background:var(--glass); border:1px solid rgba(255,255,255,0.03); color:var(--text)">
+  </div>
+
+  <!-- CATEGORIES -->
+  <div class="section">
+    <label class="muted">Categories</label>
+    <ul id="categoryListMobile"></ul>
+  </div>
+
+  <!-- Sort / View / Currency (kept) -->
+  <div class="section">
+    <label class="muted">Sort</label>
+    <select id="sortSelectMobile">
+      <option value="relevance">Relevance</option>
+      <option value="price-asc">Price ↑</option>
+      <option value="price-desc">Price ↓</option>
+    </select>
+  </div>
+
+  <div class="section">
+    <label class="muted">View</label>
+    <select id="gridViewSelectMobile">
+      <option value="compact">Compact (5)</option>
+      <option value="large">Large (3)</option>
+    </select>
+  </div>
+
+  <div class="section">
+    <label class="muted">Currency</label>
+    <select id="currencySelectMobile">
+      <option value="usd">USD</option>
+      <option value="idr">IDR</option>
+    </select>
+  </div>
+
+  <div class="section" style="margin-top:12px">
+    <button id="priceBtnMobile" class="btn-primary" style="width:100%">Price List</button>
+  </div>
+
+  <div class="section">
+    <button id="aboutBtn" class="btn-contact" style="width:100%">About Me</button>
+  </div>
+</div>
+
+<div id="mobileOverlay" class="mobile-overlay" aria-hidden="true"></div>
+
+<!-- small handle tab (optional) -->
+<button id="mobileHandle" class="mobile-controls-handle" aria-label="Open controls" style="display:none;">☰</button>
+
+
+  <script src="storepage.js"></script>
+  <!-- Toast Notification -->
+<div id="toast" class="toast" aria-live="polite" aria-hidden="true"></div>
+
 </body>
 </html>

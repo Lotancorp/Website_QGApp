@@ -21,6 +21,7 @@
   "homepage": "https://github.com/Lotancorp/Website_QGApp#readme",
   "dependencies": {
     "axios": "^1.13.2",
+    "cloudinary": "^2.8.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.1.0"
