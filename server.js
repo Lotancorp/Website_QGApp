@@ -120,7 +120,7 @@ app.get('/api/list/:folderName', async (req, res) => {
     // cari pakai Search API (ini yang tadi berhasil)
     const result = await cloudinary.search
       .expression(`folder:"${folder}"`)
-      .max_results(100)
+      .max_results(400)
       .execute();
 
     // ambil hanya bagian secure_url
