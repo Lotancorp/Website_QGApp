@@ -679,5 +679,20 @@
       "release_date": "1 January 2025",
       "tags": ["booster","heroes","set"],
       "rate": 4.6
+    },
+    { "_comment": "Products 17",
+      "id": 17,
+      "name": "MAU - NEXT & PREV",
+      "cat": "unit",
+      "price_usd": 40,
+      "price_idr": 650000,
+      "rarity": "NEW RELEASE",            
+      "desc": "MAU NEXT & PREV is a high-performance mechanized unit developed by Quartz Gallery, engineered to provide superior battlefield dominance through enhanced firepower, reinforced armor, and advanced mobility systems. Designed as a piloted combat platform, it offers seamless integration between operator and machine, enabling precise control and rapid response in high-intensity scenarios. Ideal for elite operatives who demand overwhelming force and tactical versatility in every operation.",
+      "thumbnail": "https://res.cloudinary.com/do1nbyqv0/image/upload/v1762922650/UNIT_SET_1_jolvyv.png",
+      "images": ["https://res.cloudinary.com/do1nbyqv0/image/upload/v1762922650/UNIT_SET_1_jolvyv.png"],
+      "youtube": "https://youtu.be/zfeYpu9gloc",
+      "release_date": "8 November 2025",
+      "tags": ["unit","MAU","set"],
+      "rate": 4.3
     }
   ]
