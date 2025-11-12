@@ -9,41 +9,32 @@ let currency = 'usd'; // default
 let filtered = [];
 
 // ----------------- load products -----------------
+// ----------------- load products -----------------
 async function loadProducts() {
-  // 1) coba cari script langsung di halaman
-  const inline = document.getElementById('product-data');
-  if (inline) {
-    try {
-      products = JSON.parse(inline.textContent);
-      window.products = products;
-      return;
-    } catch (e) {
-      console.error('Invalid JSON in product-data script', e);
-    }
-  }
-
-  // 2) kalau tidak ada, ambil dari file products.html
   try {
-    const res = await fetch('products.html', { cache: 'no-store' });
-    const text = await res.text();
-
-    // ambil isi di dalam <script id="product-data">...</script>
-    const match = text.match(/<script[^>]+id=["']product-data["'][^>]*>([\s\S]*?)<\/script>/);
-    if (match) {
-      products = JSON.parse(match[1]);
-      window.products = products;
-      return;
-    } else {
-      console.warn('product-data tag not found in products.html');
-    }
+    const res = await fetch('products.json', { cache: 'no-store' });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    products = await res.json();
+    window.products = products;
+    console.log('Loaded from products.json:', products);
   } catch (err) {
-    console.error('Error loading products.html:', err);
+    console.warn('Error loading products.json, fallback to inline:', err);
+    // fallback jika ada <script id="product-data">
+    const inline = document.getElementById('product-data');
+    if (inline) {
+      try {
+        products = JSON.parse(inline.textContent);
+        window.products = products;
+      } catch (e) {
+        console.error('Invalid JSON in inline product-data', e);
+        products = [];
+      }
+    } else {
+      products = [];
+    }
   }
-
-  // 3) fallback: kosong
-  products = [];
-  window.products = products;
 }
+
 
 
 
