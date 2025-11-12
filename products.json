@@ -1,5 +1,5 @@
 [
-    { "_comment": "Products 1",
+    { "_comment": "Products 1 Future Armor",
       "id": 1,
       "name": "Futuristic",
       "cat": "armor",
@@ -24,7 +24,7 @@
       "tags": ["armor","futuristic","set"],
       "rate": 4.1
     },
-    { "_comment": "Products 2",
+    { "_comment": "Products 2 Shadow Armor",
       "id": 2,
       "name": "Shadow",
       "cat": "armor",
@@ -47,7 +47,7 @@
       "tags": ["armor","shadow","set"],
       "rate": 4.5
     },
-    { "_comment": "Products 3",
+    { "_comment": "Products 3 Samurai Armor",
       "id": 3,
       "name": "Samurai Domain Armor",
       "cat": "armor",
@@ -70,7 +70,7 @@
       "tags": ["armor","samurai","set"],
       "rate": 3.7
     },
-    { "_comment": "Products 4",
+    { "_comment": "Products 4 Dragon Knight Armor",
       "id": 4,
       "name": "Dragon Knight Saga",
       "cat": "Armor",
@@ -93,7 +93,7 @@
       "tags": ["armor","DragonKnight","set"],
       "rate": 4.4
     },
-    { "_comment": "Products 5",
+    { "_comment": "Products 5 The Shadow knight Armor",
       "id": 5,
       "name": "The Shadow knight",
       "cat": "armor",
@@ -116,7 +116,7 @@
       "tags": ["armor","shadow","set"],
       "rate": 4.3
     },
-    { "_comment": "Products 6",
+    { "_comment": "Products 6 Future Weapon Set",
       "id": 6,
       "name": "Future Weapon Set",
       "cat": "weapon",
@@ -131,7 +131,7 @@
       "tags": ["weapon","futuristic","set"],
       "rate": 4.2
     },
-    { "_comment": "Products 7",
+    { "_comment": "Products 7 Shadow Weapon Set",
       "id": 7,
       "name": "Shadow Weapon Set",
       "cat": "weapon",
@@ -146,7 +146,7 @@
       "tags": ["weapon","shadow","set"],
       "rate": 4.8
     },
-    { "_comment": "Products 8",
+    { "_comment": "Products 8 Dragon Knight Weapon Set",
       "id": 8,
       "name": "Dragon Knight Weapon Set",
       "cat": "weapon",
@@ -161,7 +161,7 @@
       "tags": ["weapon","DragonKnight","set"],
       "rate": 4.9
     },
-    { "_comment": "Products 9",
+    { "_comment": "Products 9 Shadow Knight Weapon Set",
       "id": 9,
       "name": "Shadow Knight Weapon Set",
       "cat": "weapon",
@@ -176,7 +176,7 @@
       "tags": ["weapon","shadow","set"],
       "rate": 4.3
     },
-    { "_comment": "Products 10",
+    { "_comment": "Products 10 Mask Collection Set",
       "id": 10,
       "name": "Mask Collection Set",
       "cat": "helmet",
@@ -265,7 +265,7 @@
       "tags": ["helmet","collection","set"],
       "rate": 4.9
     },
-    { "_comment": "Products 11",
+    { "_comment": "Products 11 Empire Armor Set",
       "id": 11,
       "name": "Empire Armor Set",
       "cat": "Armor",
@@ -288,7 +288,7 @@
       "tags": ["armor","Empire","set"],
       "rate": 4.2
     },
-    { "_comment": "Products 12",
+    { "_comment": "Products 12 Ice Talon Set",
       "id": 12,
       "name": "Ice Talon Set",
       "cat": "collector",
@@ -303,7 +303,7 @@
       "tags": ["collector","weapon","booster","mask","set"],
       "rate": 4.8
     },
-    { "_comment": "Products 13",
+    { "_comment": "Products 13 Booster Collection Set",
       "id": 13,
       "name": "Booster Collection Set",
       "cat": "cape",
@@ -508,7 +508,7 @@
       "tags": ["booster","collection","set"],
       "rate": 4.9
     },
-    { "_comment": "Products 14",
+    { "_comment": "Products 14 Crazy Rich Fortune Booster",
       "id": 14,
       "name": "Crazy Rich Fortune Booster",
       "cat": "cape",
@@ -527,7 +527,7 @@
       "tags": ["booster","crazy rich","set"],
       "rate": 4.4
     },
-    { "_comment": "Products 15",
+    { "_comment": "Products 15 Wind Collection Set",
       "id": 15,
       "name": "Wind Collection Set",
       "cat": "weapon",
@@ -661,7 +661,7 @@
       "tags": ["weapon","collection","set"],
       "rate": 4.9
     },
-    { "_comment": "Products 16",
+    { "_comment": "Products 16 Heroes Booster",
       "id": 16,
       "name": "Heroes Booster",
       "cat": "cape",
@@ -680,7 +680,7 @@
       "tags": ["booster","heroes","set"],
       "rate": 4.6
     },
-    { "_comment": "Products 17",
+    { "_comment": "Products 17 MAU - NEXT & PREV",
       "id": 17,
       "name": "MAU - NEXT & PREV",
       "cat": "unit",
@@ -694,5 +694,24 @@
       "release_date": "8 November 2025",
       "tags": ["unit","MAU","set"],
       "rate": 4.3
+    },
+    { "_comment": "Products 18 Monster GodFather",
+      "id": 18,
+      "name": "The GodFather",
+      "cat": "monster",
+      "price_usd": 50,
+      "price_idr": 800000,
+      "rarity": "NEW RELEASE",            
+      "desc": "The Godfather is a next-generation bio-engineered monster unveiled by Quartz Gallery, created to challenge even the most seasoned combatants. Fused with adaptive instincts and raw power, it exhibits unpredictable behavior and formidable resistance across all attack types. Its evolved anatomy allows for rapid regeneration and devastating counterstrikes, making it a relentless force on the battlefield. Ideal as a high-threat opponent in elite-level operations.",      
+      "thumbnail": "https://res.cloudinary.com/do1nbyqv0/image/upload/v1762932676/THEGODFATHER_MONSTER_SET_gxrk2q.png",
+      "images": 
+      [
+      "https://res.cloudinary.com/do1nbyqv0/image/upload/v1762932749/RF_Online_2025-11-10_23-44-19-530_dvjwm4.jpg",
+      "https://res.cloudinary.com/do1nbyqv0/image/upload/v1762932752/RF_Online_2025-11-11_20-23-28-844_cpr2oo.jpg"
+      ],
+      "youtube": "https://youtu.be/iUkHvnTH_hI",
+      "release_date": "12 November 2025",
+      "tags": ["monster","duo","set"],
+      "rate": 4.6
     }
   ]
