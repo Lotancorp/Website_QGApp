@@ -95,7 +95,7 @@
   overflow: hidden !important;
 }
 
-/* Target iframe youtube & video, gunakan !important untuk kalahkan inline attr */
+/* Target iframe youtube & video, gunakan !important untuk kalahkan inline attr untuk pemutaran youtube */
 .product-main-image iframe[src*="youtube.com"],
 .product-main-image iframe[src*="youtu.be"],
 .product-main-image video,

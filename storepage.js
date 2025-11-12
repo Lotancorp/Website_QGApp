@@ -770,7 +770,7 @@ document.body.addEventListener('click', async (e) => {
   function openProductModal(prod) {
     if (!productModal) return;
     currentOpenProduct = prod;
-  
+    // Now open youtube
     // build productMedia: put video FIRST if ada, kemudian gambar-gambar (tanpa mengubah prod.images)
     productMedia = [];
   
