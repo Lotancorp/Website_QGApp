@@ -84,7 +84,50 @@
     padding:10px;border-radius:8px;cursor:pointer;color:var(--muted);font-size:14px;
   }
   .categories li.active{background:linear-gradient(90deg, rgba(123,92,255,0.08), rgba(74,217,200,0.03)); color:var(--text);border:1px solid rgba(255,255,255,0.03)}
-  
+/* ---------- FORCE FULL MEDIA - AGGRESSIVE OVERRIDE ---------- */
+.product-main-image,
+.gallery-image-wrap {
+  position: relative !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 320px !important; /* sesuaikan */
+  display: block !important;
+  overflow: hidden !important;
+}
+
+/* Target iframe youtube & video, gunakan !important untuk kalahkan inline attr */
+.product-main-image iframe[src*="youtube.com"],
+.product-main-image iframe[src*="youtu.be"],
+.product-main-image video,
+.product-main-image embed,
+.product-main-image object,
+.gallery-image-wrap iframe,
+.gallery-image-wrap video {
+  position: absolute !important;
+  inset: 0 !important;            /* top:0; left:0; right:0; bottom:0; */
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
+  border: 0 !important;
+  display: block !important;
+  object-fit: contain !important; /* atau cover sesuai kebutuhan */
+}
+
+/* Buat wadah responsif dengan rasio 16:9 agar ukuran konsisten */
+.product-main-image .media-aspect {
+  width: 100% !important;
+  height: 0 !important;
+  padding-top: 56.25% !important; /* 16:9 */
+  position: relative !important;
+}
+.product-main-image .media-aspect > * {
+  position: absolute !important;
+  top: 0; left: 0; right: 0; bottom: 0;
+  width: 100% !important;
+  height: 100% !important;
+}
+
   /* price range */
 /* Refined Price List Button */
 #priceBtn {
@@ -770,6 +813,7 @@ button.view-btn:hover {
   display: flex; flex-direction: column; gap: 10px;
   min-width: 420px;
 }
+
 .product-main-wrap {
   display:flex; align-items:center; gap:12px; justify-content:center;
 }
@@ -1209,6 +1253,29 @@ button.view-btn:hover {
   /* reduce modal shadow & spacing a bit for small screens */
   .product-panel { box-shadow: 0 14px 40px rgba(2,6,23,0.6); }
 }
+  .product-thumb-mini {
+    width: 86px; height: 54px; object-fit: cover;
+    filter: blur(6px);
+    transition: filter .28s ease, transform .12s ease;
+  }
+  .product-thumb-mini.loaded { filter: none; }
+  .product-thumb-mini[data-type="video"] {
+    position: relative;
+    /* optionally add a darker overlay to indicate video */
+  }
+  .product-thumb-mini[data-type="video"]::after {
+    content: '▶';
+    position: absolute;
+    color: white;
+    font-size: 18px;
+    left: 6px;
+    top: 6px;
+    background: rgba(0,0,0,0.35);
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+
+
 /* ========== Mobile button styling inside mobile controls panel ========== */
 @media (max-width: 480px) {
   /* ensure mobile control panel spacing is consistent */

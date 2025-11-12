@@ -622,39 +622,189 @@ document.body.addEventListener('click', async (e) => {
   const productPrev = $('#productPrev');
   const productNext = $('#productNext');
 
-  let productImages = [];
-  let productIndex = 0;
-  let currentOpenProduct = null;
-
-  function showProductAt(i) {
-    if (!productImages || !productImages.length) return;
-    productIndex = ((i % productImages.length) + productImages.length) % productImages.length;
-    if (productMainImage) productMainImage.src = productImages[productIndex];
-    if (productThumbs) {
-      Array.from(productThumbs.children).forEach((img, idx) => img.classList.toggle('active', idx === productIndex));
-    }
-    if (productCaption) productCaption.textContent = `${productIndex + 1} / ${productImages.length}`;
+  function extractYouTubeId(url) {
+    if (!url) return null;
+    // contoh: https://youtu.be/ID  atau https://www.youtube.com/watch?v=ID  atau /embed/ID
+    const m = url.match(/(?:youtu\.be\/|v=|\/embed\/)([A-Za-z0-9_-]{6,})/);
+    return m ? m[1] : null;
   }
 
+  let productMedia = []; // array of {type:'video'|'image', src:..., thumb:...}
+  let productIndex = 0;
+  let currentOpenProduct = null;
+  //let productImages = [];
+  //let productIndex = 0;
+  //let currentOpenProduct = null;
+  // simple Cloudinary-friendly thumb helper (naive replace)
+  function cloudThumb(src, width = 320) {
+    try {
+      if (!src || !src.includes('res.cloudinary.com')) return src || '';
+      // insert transformations after /upload/
+      return src.replace('/upload/', `/upload/w_${width},f_auto,q_auto/`);
+    } catch (e) {
+      return src || '';
+    }
+  }
+
+  // helper lazy loader (call once)
+  function setupLazyObserver() {
+    if (window.__lazyObserver) return window.__lazyObserver;
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        const img = e.target;
+        if (e.isIntersecting) {
+          const ds = img.dataset && img.dataset.src;
+          if (ds) img.src = ds;
+          // img.removeAttribute('data-src') // optional
+          img.setAttribute('loading', 'lazy');
+          obs.unobserve(img);
+        }
+      });
+    }, { root: null, rootMargin: '200px', threshold: 0.01 });
+    window.__lazyObserver = obs;
+    return obs;
+  }
+
+  function showProductAt(i) {
+    if (!productMedia || !productMedia.length) return;
+    productIndex = ((i % productMedia.length) + productMedia.length) % productMedia.length;
+    const item = productMedia[productIndex];
+  
+    const videoWrap = document.getElementById('productVideoWrap');
+    const videoFrame = document.getElementById('productVideo'); // iframe
+    const mainImg = document.getElementById('productMainImage'); // <img>
+  
+    // hide both first, then show whichever type
+    if (videoWrap) {
+      videoWrap.style.display = 'none';
+      // reset inline sizing to avoid leftover styles
+      videoWrap.style.position = '';
+      videoWrap.style.width = '';
+      videoWrap.style.height = '';
+    }
+    if (videoFrame) {
+      // always stop previous video by clearing src, then clear style attrs too
+      try { videoFrame.src = ''; } catch(e){}
+      videoFrame.removeAttribute('width');
+      videoFrame.removeAttribute('height');
+      videoFrame.style.width = '';
+      videoFrame.style.height = '';
+      videoFrame.style.position = '';
+      videoFrame.style.inset = '';
+    }
+    if (mainImg) {
+      mainImg.style.display = 'none';
+      mainImg.src = '';
+      mainImg.style.width = '';
+      mainImg.style.height = '';
+      mainImg.style.objectFit = '';
+    }
+  
+    // Helper: force-fill iframe into its wrapper (aggressive but reliable)
+    function forceFillVideoWrapper() {
+      if (!videoWrap || !videoFrame) return;
+      // ensure wrapper occupies space and is relative for absolute children
+      videoWrap.style.position = 'relative';
+      // set wrapper dimension to match container (100% of its parent's content area)
+      videoWrap.style.width = '100%';
+      // set a sensible min-height on desktop to avoid very narrow box
+      videoWrap.style.minHeight = (window.innerWidth > 980) ? '360px' : '200px';
+      videoWrap.style.height = 'auto';
+  
+      // apply absolute fill to iframe so it always fills wrapper
+      videoFrame.style.position = 'absolute';
+      videoFrame.style.inset = '0'; // top:0; right:0; bottom:0; left:0
+      videoFrame.style.width = '100%';
+      videoFrame.style.height = '100%';
+      videoFrame.style.maxWidth = 'none';
+      videoFrame.style.maxHeight = 'none';
+      videoFrame.style.border = '0';
+    }
+  
+    if (item.type === 'video') {
+      if (videoWrap && videoFrame) {
+        // remove inline width/height attributes just in case embed library added them
+        videoFrame.removeAttribute('width');
+        videoFrame.removeAttribute('height');
+  
+        // build embed url and assign (stop previous first)
+        // add autoplay param only if you want autoplay
+        videoFrame.src = item.src + '?rel=0&showinfo=0';
+        // ensure allow attributes for fullscreen & autoplay
+        videoFrame.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen');
+  
+        // Force-fill so it won't remain small due to other CSS
+        forceFillVideoWrapper();
+  
+        // finally show wrapper
+        videoWrap.style.display = 'block';
+      }
+    } else {
+      // image
+      if (mainImg) {
+        mainImg.src = item.src || '';
+        mainImg.style.display = 'block';
+        // ensure it can shrink/grow nicely in flex/grid containers
+        mainImg.style.width = '100%';
+        mainImg.style.height = '100%';
+        mainImg.style.objectFit = 'contain';
+        mainImg.style.maxWidth = '100%';
+        mainImg.style.maxHeight = '100%';
+        // fallback on error
+        mainImg.onerror = () => { mainImg.onerror = null; mainImg.src = 'assets/placeholder-thumb.jpg'; };
+      }
+    }
+  
+    // update thumbs active state
+    if (productThumbs) {
+      Array.from(productThumbs.children).forEach((imgEl, idx) => {
+        imgEl.classList.toggle('active', idx === productIndex);
+      });
+    }
+  
+    // update caption / counter
+    if (productCaption) productCaption.textContent = `${productIndex + 1} / ${productMedia.length}`;
+  }
+  
+  
   function openProductModal(prod) {
     if (!productModal) return;
     currentOpenProduct = prod;
   
-    // images (prod.images expected)
-    productImages = (Array.isArray(prod.images) && prod.images.length) ? prod.images : [];
-
+    // build productMedia: put video FIRST if ada, kemudian gambar-gambar (tanpa mengubah prod.images)
+    productMedia = [];
   
-    // --- RIGHT THUMB: prioritaskan prod.thumbnail, lalu first productImages, lalu placeholder
+    if (prod.youtube) {
+      const yid = extractYouTubeId(prod.youtube);
+      if (yid) {
+        const embed = `https://www.youtube.com/embed/${yid}`;
+        const thumb = `https://img.youtube.com/vi/${yid}/hqdefault.jpg`; // thumbnail for video
+        productMedia.push({ type: 'video', src: embed, thumb: thumb });
+      }
+    }
+  
+    // now images
+    (Array.isArray(prod.images) ? prod.images : []).forEach(src => {
+      if (src && src.trim()) {
+        productMedia.push({ type: 'image', src: src.trim(), thumb: src.trim() });
+      }
+    });
+  
+    // fallback: if no media, still show thumbnail as image
+    if (!productMedia.length) {
+      const placeholder = 'assets/placeholder-thumb.jpg';
+      productMedia.push({ type: 'image', src: prod.thumbnail || placeholder, thumb: prod.thumbnail || placeholder });
+    }
+  
+    // --- RIGHT THUMB (sidebar) logic (keep as before) ---
     const rightThumbEl = document.getElementById('productRightThumb');
-    const placeholder = 'assets/placeholder-thumb.jpg'; // pastikan file ini ada atau ganti path
+    const placeholder = 'assets/placeholder-thumb.jpg';
     const rightSrc = (prod && prod.thumbnail && prod.thumbnail.trim()) ? prod.thumbnail.trim()
-                    : (productImages.length ? productImages[0] : '');
-  
+                  : (productMedia.length ? (productMedia.find(m => m.type === 'image')?.src || productMedia[0].src) : '');
     if (rightThumbEl) {
       if (rightSrc) {
         rightThumbEl.src = rightSrc;
         rightThumbEl.style.display = 'block';
-        // if image fails to load, fallback to placeholder
         rightThumbEl.onerror = () => { rightThumbEl.onerror = null; rightThumbEl.src = placeholder; rightThumbEl.style.display = 'block'; };
       } else {
         rightThumbEl.src = placeholder;
@@ -662,83 +812,73 @@ document.body.addEventListener('click', async (e) => {
       }
     }
   
-    // --- Do NOT unshift thumbnail into productImages (avoid duplication/side-effect)
-    // productImages remains only prod.images
-  
-    // if still empty, show toast but continue (do not crash)
-    if (!productImages.length) {
-      showToastAt && showToastAt('No gallery images available for this item. Showing thumbnail only.', null, { type: 'info' });
-    }
-  
-    // fill left gallery
-    productThumbs.innerHTML = '';
-    const mainSrc = (productImages.length ? productImages[0] : (prod.thumbnail || ''));
-    if (productMainImage) {
-      productMainImage.src = mainSrc || placeholder;
-      productMainImage.onerror = () => { productMainImage.onerror = null; productMainImage.src = placeholder; };
-    }
-  
-    // build thumbs (jika ada)
-    productImages.forEach((src, idx) => {
+
+    // build thumbs (left gallery) — replacement
+    if (productThumbs) productThumbs.innerHTML = '';
+    const lazyObs = setupLazyObserver();
+    productMedia.forEach((m, idx) => {
       const t = document.createElement('img');
-      t.src = src;
+      t.className = 'product-thumb-mini';
       t.dataset.index = idx;
+      t.dataset.type = m.type; // 'image' or 'video'
+      // show tiny placeholder first for fast paint
+      t.src = 'assets/placeholder-thumb.jpg';
+      // actual optimized thumb will be loaded lazily
+      t.dataset.src = (m.type === 'video') ? (m.thumb || cloudThumb(m.src || '', 320)) : cloudThumb(m.src || m.thumb || '', 320);
+      t.loading = 'lazy';
+      t.alt = (m.type === 'video') ? `${prod.name} - video preview` : `${prod.name} - thumb ${idx+1}`;
+
+      // click opens media at index
       t.addEventListener('click', () => { showProductAt(idx); });
-      // error fallback for each thumb
-      t.onerror = () => { t.onerror = null; t.src = placeholder; };
+
+      // on error fallback
+      t.onerror = () => { t.onerror = null; t.src = 'assets/placeholder-thumb.jpg'; };
+
+      // when actual thumb loads, mark as loaded (for blur-to-sharp effect if CSS used)
+      t.addEventListener('load', () => { t.classList.add('loaded'); }, { once: true });
+
       productThumbs.appendChild(t);
+      // observe for lazy loading
+      lazyObs.observe(t);
     });
+
   
-    // mark active thumb
-    Array.from(productThumbs.children).forEach((img, idx) => {
-      const isActive = (img.src === mainSrc) || (idx === 0 && !prod.thumbnail);
-      img.classList.toggle('active', isActive);
-    });
-  
-    // fill meta
+    // set metadata (title, desc, price, etc.)
     productTitle.textContent = prod.name || 'Unknown';
     productDesc.textContent = prod.desc || '';
     if (productRelease) productRelease.textContent = prod.release_date ? `Release: ${prod.release_date}` : 'Release: -';
     if (productRarity) productRarity.textContent = prod.rarity || '';
     if (productPrice) productPrice.textContent = formatPrice(currency === 'usd' ? prod.price_usd : prod.price_idr);
     if (productSKU) productSKU.textContent = prod.id || '-';
-    // tampilkan rating bintang dari 1–5 (bisa desimal)
+  
+    // rating (keep existing logic)
     if (prod.rate) {
       const maxStars = 5;
       const fullStars = Math.floor(prod.rate);
       const halfStar = prod.rate % 1 >= 0.5;
       const emptyStars = maxStars - fullStars - (halfStar ? 1 : 0);
-
+  
       let starsHTML = '<div class="star-rating">';
       starsHTML += '★'.repeat(fullStars);
       if (halfStar) starsHTML += '<span class="half-star">★</span>';
       starsHTML += '☆'.repeat(emptyStars);
       starsHTML += ` <span class="rate-value">(${prod.rate.toFixed(1)}/${maxStars})</span>`;
       starsHTML += '</div>';
-
+  
       productRate.innerHTML = starsHTML;
     } else {
       productRate.innerHTML = '<div class="star-rating muted">No rating</div>';
     }
-
   
-    // youtube
-    if (prod.youtube) {
-      productYoutube.href = prod.youtube;
-      productYoutube.style.display = 'inline-flex';
-    } else {
-      productYoutube.style.display = 'none';
-    }
-  
-    // tags
+    // tags as before
     const tagWrap = document.getElementById('productTags');
     if (tagWrap) {
       tagWrap.innerHTML = '';
       if (Array.isArray(prod.tags) && prod.tags.length) {
-        prod.tags.forEach(t => {
+        prod.tags.forEach(tg => {
           const el = document.createElement('span');
           el.className = 'product-tag';
-          el.textContent = t;
+          el.textContent = tg;
           tagWrap.appendChild(el);
         });
         tagWrap.style.display = 'flex';
@@ -747,6 +887,15 @@ document.body.addEventListener('click', async (e) => {
       }
     }
   
+    // youtube external button (ke kanan) - tetap ada
+    if (prod.youtube) {
+      productYoutube.href = prod.youtube;
+      productYoutube.style.display = 'inline-flex';
+    } else {
+      productYoutube.style.display = 'none';
+    }
+  
+    // contact button
     productContactBtn.onclick = () => {
       window.lastSelectedProductId = prod.id;
       window.lastSelectedProductName = prod.name;
@@ -755,19 +904,26 @@ document.body.addEventListener('click', async (e) => {
   
     productModal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
+  
+    // show first media (video if present will be first)
     showProductAt(0);
   }
-  
+  window.openProductModal = openProductModal;
 
-  // close
   function closeProductModal() {
     if (!productModal) return;
     productModal.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
-    productMainImage.src = '';
+  
+    // stop video if playing
+    const videoFrame = document.getElementById('productVideo');
+    if (videoFrame) videoFrame.src = '';
+  
     if (productThumbs) productThumbs.innerHTML = '';
+    if (productMainImage) productMainImage.src = '';
     currentOpenProduct = null;
   }
+  
 
   if (closeProductModalBtn) closeProductModalBtn.addEventListener('click', closeProductModal);
   if (productPrev) productPrev.addEventListener('click', () => showProductAt(productIndex - 1));
