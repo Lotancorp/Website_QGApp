@@ -1,0 +1,71 @@
+[
+    {
+      "img": "https://res.cloudinary.com/do1nbyqv0/image/upload/v1763004865/Advertisement_Banner_cg6umh.png",
+      "title": "Pasang Iklan",
+      "subtitle": "Pasang Iklan",
+      "url": "offering.html",
+      "type": "offering"
+    },
+    {
+      "img": "https://res.cloudinary.com/do1nbyqv0/image/upload/v1762872462/BOOSTER_CZ_FORTUNE_noe5ak.png",
+      "title": "Recommended Video",
+      "subtitle": "Crazy Rich",
+      "url": "https://youtu.be/Ui65WKJCWUY",
+      "type": "video"
+    },
+    {
+      "img": "https://res.cloudinary.com/do1nbyqv0/image/upload/v1762701139/Q_0001_Layer-2_vron5y.png",
+      "title": "Shadow Weapon Set",
+      "subtitle": "Weapon Set",
+      "url": "product.html?id=7",
+      "type": "product"
+    },
+    {
+      "img": "https://res.cloudinary.com/do1nbyqv0/image/upload/v1763000578/CC_0003_Tanjiro-Kamado_windhm.png"
+    ,
+      "title": "Tanjiro Kamado",
+      "subtitle": "Custom Character",
+      "url": "product.html?id=21",
+      "type": "product"
+    },
+    {
+      "img": "https://down-id.img.susercontent.com/file/id-11134207-7ra0t-mcjfpihivi60b4.webp"
+    ,
+      "title": "Helm MLA J5 Grey Glosy SNI",
+      "subtitle": "Real Product",
+      "url": "https://s.shopee.co.id/5L42sPXBIq",
+      "type": "product"
+    },
+    {
+      "img": "https://down-id.img.susercontent.com/file/id-11134207-7rbk1-majvemtwdal586.webp"
+    ,
+      "title": "Jas Hujan Setelan MERUS Raincoat",
+      "subtitle": "Real Product",
+      "url": "https://s.shopee.co.id/8KheSWp1Ah",
+      "type": "product"
+    },
+    {
+      "img": "https://down-id.img.susercontent.com/file/id-11134207-7ras9-m2145cb2ypkdb6.webp"
+    ,
+      "title": "Tumbler Jepang/Botol Minum",
+      "subtitle": "Real Product",
+      "url": "https://s.shopee.co.id/9zpsRkwVWQ",
+      "type": "product"
+    },
+    {
+      "img": "https://www.rf-fusion.com/_uploads/images/030cc5e2d59e15.png",
+      "title": "RF Server - RF Fusion",
+      "subtitle": "RF Server",
+      "url": "https://www.rf-fusion.com",
+      "type": "server"
+    },
+    {
+      "img": "https://www.rfaegis.net/assets/logo1-Duh-FoMa.png",
+      "title": "RF Server - RF Aegis",
+      "subtitle": "RF Server",
+      "url": "https://www.rfaegis.net",
+      "type": "server"
+    }
+
+  ]
+  

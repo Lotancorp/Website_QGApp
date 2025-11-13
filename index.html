@@ -314,9 +314,22 @@
 <button id="mobileHandle" class="mobile-controls-handle" aria-label="Open controls" style="display:none;">☰</button>
 
 
-  <script src="storepage.js"></script>
+<script src="storepage.js"></script>
   <!-- Toast Notification -->
 <div id="toast" class="toast" aria-live="polite" aria-hidden="true"></div>
+
+<div id="stickyRecs" class="sticky-recs" aria-hidden="false">
+  <div class="sticky-inner">
+    <button class="recs-nav prev" aria-label="Previous">‹</button>
+    <div class="recs-track-wrap">
+      <div id="recsTrack" class="recs-track" role="list">
+        <!-- items injected by JS -->
+      </div>
+    </div>
+    <button class="recs-nav next" aria-label="Next">›</button>
+  </div>
+  <button id="recsClose" class="recs-close" title="Tutup">✕</button>
+</div>
 
 <!-- AdSense1 -->
 <ins class="adsbygoogle"

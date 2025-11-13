@@ -1512,3 +1512,273 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 })();
+document.addEventListener('DOMContentLoaded', function initStickyRecs(){
+  const recsEl = document.getElementById('stickyRecs');
+  if (!recsEl) return; // safety
+
+  const track = document.getElementById('recsTrack');
+  const prevBtn = recsEl.querySelector('.recs-nav.prev');
+  const nextBtn = recsEl.querySelector('.recs-nav.next');
+  const closeBtn = document.getElementById('recsClose');
+// === Sticky recommendations (inject) ===
+(function initStickyRecs(){
+  const recsEl = document.getElementById('stickyRecs');
+  if (!recsEl) return; // safety
+
+  const track = document.getElementById('recsTrack');
+  const prevBtn = recsEl.querySelector('.recs-nav.prev');
+  const nextBtn = recsEl.querySelector('.recs-nav.next');
+  const closeBtn = document.getElementById('recsClose');
+
+  // contoh data; ganti dengan produk/video nyata (gunakan products[] jika mau)
+  const recsData = (window.products && window.products.slice(0,12)) || [
+    { id:'v1', title:'Rekomendasi Video', subtitle:'Video', img:'https://via.placeholder.com/320x180?text=Video' , url:'#'},
+    { id:'p1', title:'Skin Alpha', subtitle:'Weapon', img:'https://via.placeholder.com/320x180?text=Skin+1' , url:'#'},
+    { id:'p2', title:'Skin Beta', subtitle:'Armor', img:'https://via.placeholder.com/320x180?text=Skin+2' , url:'#'},
+    // ...
+  ];
+
+  // build items
+  recsData.forEach(item => {
+    const it = document.createElement('div');
+    it.className = 'recs-item';
+    it.innerHTML = `
+      <img src="${item.img}" alt="${(item.title||'')}" loading="lazy">
+      <div class="label">${item.title}</div>
+      <div class="muted">${item.subtitle || ''}</div>
+    `;
+    it.addEventListener('click', (e) => {
+      // klik: buka url (produk, video, detail modal)
+      if (item.url && item.url.startsWith('#') === false) {
+        window.open(item.url, '_blank');
+      } else {
+        // jika id produk, buka product modal (jika ada)
+        const prod = products && products.find(p => String(p.id) === String(item.id));
+        if (prod) {
+          openProductModal(prod);
+        } else {
+          // fallback: jika url '#', do nothing or show contact
+          window.location.href = item.url || '#';
+        }
+      }
+    });
+    track.appendChild(it);
+  });
+
+  // simple slide state (pixel-wise)
+  let x = 0;
+  function clampX(val) {
+    const trackWidth = track.scrollWidth;
+    const viewport = track.parentElement.clientWidth;
+    const max = Math.max(0, trackWidth - viewport);
+    return Math.max(0, Math.min(max, val));
+  }
+
+  function scrollToX(val) {
+    x = clampX(val);
+    track.style.transform = `translateX(-${x}px)`;
+  }
+
+  // prev/next scroll by viewport width
+  if (prevBtn) prevBtn.addEventListener('click', () => {
+    const viewport = track.parentElement.clientWidth;
+    scrollToX(x - (viewport * 0.75));
+  });
+  if (nextBtn) nextBtn.addEventListener('click', () => {
+    const viewport = track.parentElement.clientWidth;
+    scrollToX(x + (viewport * 0.75));
+  });
+
+  // touch drag support - basic
+  let startX = 0, startTranslate = 0, dragging = false;
+  track.parentElement.addEventListener('pointerdown', (ev) => {
+    dragging = true;
+    startX = ev.clientX;
+    // compute current translateX from style
+    const m = track.style.transform.match(/translateX\(-?([\d.]+)px\)/);
+    startTranslate = m ? parseFloat(m[1]) : x;
+    track.style.transition = 'none';
+    ev.target.setPointerCapture && ev.target.setPointerCapture(ev.pointerId);
+  });
+  window.addEventListener('pointermove', (ev) => {
+    if (!dragging) return;
+    const dx = ev.clientX - startX;
+    scrollToX(startTranslate - dx);
+  });
+  window.addEventListener('pointerup', (ev) => {
+    if (!dragging) return;
+    dragging = false;
+    track.style.transition = ''; // restore CSS transition
+  });
+
+  // close button
+  if (closeBtn) closeBtn.addEventListener('click', () => {
+    recsEl.style.display = 'none';
+  });
+
+  // autoplay (optional) — scroll slowly
+  let autoTimer = setInterval(() => {
+    const viewport = track.parentElement.clientWidth;
+    const trackWidth = track.scrollWidth;
+    const max = Math.max(0, trackWidth - viewport);
+    if (x >= max) {
+      // reset to start
+      scrollToX(0);
+    } else {
+      scrollToX(x + 160);
+    }
+  }, 2600);
+
+  // pause on hover/touch
+  recsEl.addEventListener('mouseenter', () => clearInterval(autoTimer));
+  recsEl.addEventListener('mouseleave', () => {
+    clearInterval(autoTimer);
+    autoTimer = setInterval(() => {
+      const viewport = track.parentElement.clientWidth;
+      const trackWidth = track.scrollWidth;
+      const max = Math.max(0, trackWidth - viewport);
+      if (x >= max) scrollToX(0); else scrollToX(x + 160);
+    }, 2600);
+  });
+
+})();
+});
+// pastikan element sticky sudah ada
+(function ensureContentSpacingForSticky(){
+  const sticky = document.getElementById('stickyRecs');
+  if (!sticky) return;
+
+  // cari target layout utama; ubah selector jika projectmu pakai lain
+  const mainTarget = document.querySelector('.app') || document.querySelector('#app') || document.body;
+
+  function applyPadding() {
+    // dapatkan tinggi total sticky + gap
+    const rect = sticky.getBoundingClientRect();
+    const height = Math.ceil(rect.height) + 8; // 8px safety
+    // terapkan padding-bottom hanya jika lebih besar dari padding sekarang
+    const current = parseInt(getComputedStyle(mainTarget).paddingBottom) || 0;
+    if (current < height) {
+      mainTarget.style.paddingBottom = height + 'px';
+    }
+  }
+
+  // jalankan sekali dan ketika resize/zoom berubah
+  applyPadding();
+  window.addEventListener('resize', applyPadding);
+  // jika sticky bisa ditutup, reset padding ketika disembunyikan
+  const closeBtn = document.getElementById('recsClose');
+  if (closeBtn) closeBtn.addEventListener('click', () => {
+    // jangan hilangkan padding kalau elemen masih ada tapi display none
+    if (sticky.style.display === 'none' || getComputedStyle(sticky).display === 'none') {
+      // reset ke nilai semula (kosongkan agar mengikuti CSS default)
+      mainTarget.style.paddingBottom = '';
+    }
+  });
+})();
+// collapsible behavior
+(function stickyCollapseToggle(){
+  const sticky = document.getElementById('stickyRecs');
+  if (!sticky) return;
+  // default collapsed
+  sticky.classList.add('collapsed');
+
+  // jika ada tombol untuk expand/collapse (opsional)
+  sticky.addEventListener('dblclick', () => { // double-click toggles
+    sticky.classList.toggle('collapsed');
+  });
+})();
+(function addTopPaddingForSticky(){
+  const sticky = document.getElementById('stickyRecs');
+  if (!sticky) return;
+
+  const target = document.querySelector('.app') || document.body;
+
+  function applyPad() {
+    const h = sticky.getBoundingClientRect().height;
+    target.style.paddingTop = (h + 40) + 'px'; // 40px buffer aman
+  }
+
+  applyPad();
+  window.addEventListener('resize', applyPad);
+})();
+// ---- AD INJECTION (paste this near the end of storepage.js) ----
+async function loadAdvertisementsDebug() {
+  console.log('[ADS] trying to fetch advertisement.json (same folder)...');
+  try {
+    const res = await fetch('advertisement.json', { cache: 'no-store' });
+    console.log('[ADS] fetch response status:', res.status);
+    if (!res.ok) {
+      console.warn('[ADS] advertisement.json fetch not ok:', res.status);
+      return [];
+    }
+    const data = await res.json();
+    console.log('[ADS] advertisement.json parsed:', data);
+    // Accept either an array at root or object with .items
+    const items = Array.isArray(data) ? data : (Array.isArray(data.items) ? data.items : []);
+    return items;
+  } catch (err) {
+    console.error('[ADS] loadAdvertisementsDebug error:', err);
+    return [];
+  }
+}
+document.addEventListener('DOMContentLoaded', async function populateRecsFromJSON_debug() {
+  const track = document.getElementById('recsTrack');
+  if (!track) {
+    console.warn('[ADS] #recsTrack not found in DOM');
+    return;
+  }
+  (async function populateRecsFromJSON_debug() {
+    const track = document.getElementById('recsTrack');
+    if (!track) {
+      console.warn('[ADS] #recsTrack not found in DOM');
+      return;
+    }
+
+    const ads = await loadAdvertisementsDebug();
+    console.log('[ADS] items to render:', ads.length);
+
+    if (!ads.length) {
+      track.innerHTML = '<div style="color:var(--muted);padding:12px">No ads loaded (check advertisement.json)</div>';
+      return;
+    }
+
+    track.innerHTML = ''; // clear any existing
+    ads.forEach(item => {
+      // normalize minimal fields
+      const img = item.img || item.image || item.thumb || '';
+      const title = item.title || item.name || '';
+      const subtitle = item.subtitle || item.desc || '';
+      const url = item.url || item.link || '#';
+      const type = item.type || 'link';
+
+      const el = document.createElement('div');
+      el.className = 'recs-item';
+      el.innerHTML = `
+        <img src="${img}" alt="${title}" loading="lazy">
+        <div class="label">${title}</div>
+        <div class="muted">${subtitle}</div>
+      `;
+      el.addEventListener('click', (e) => {
+        if (type === 'product' && url.includes('id=')) {
+          // try open modal if exists
+          const pid = url.split('id=')[1];
+          if (window.products) {
+            const prod = products.find(p => String(p.id) === String(pid));
+            if (prod && typeof openProductModal === 'function') return openProductModal(prod);
+          }
+        }
+        // special: if youtube short / watch, just open in new tab
+        if (url.includes('youtube') || url.includes('youtu.be')) {
+          window.open(url, '_blank');
+          return;
+        }
+        // default nav
+        window.open(url, '_blank');
+      });
+
+      track.appendChild(el);
+    });
+
+    console.log('[ADS] render done');
+  })();
+});
