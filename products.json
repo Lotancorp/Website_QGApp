@@ -798,5 +798,23 @@
       "release_date": "13 November 2025",
       "tags": ["character","custom","set"],
       "rate": 4.5
+    },
+    { "_comment": "Products 24 Mai Sakurajima",
+      "id": 24,
+      "name": "Mai Sakurajima",
+      "cat": "ccustom",
+      "price_usd": 10,
+      "price_idr": 125000,
+      "rarity": "SPECIAL",            
+      "desc": "Mai Sakurajima is a reimagined combatant adapted from the original universe, brought to life in Quartz Gallery’s modded battlefield. Preserving iconic traits while enhancing tactical prowess, this version is engineered for high-intensity scenarios—featuring upgraded abilities, refined visuals, and balanced gameplay integration. Whether facing hordes or dueling elites, delivers a unique blend of familiarity and elevated performance, tailored for fans and competitive players alike.",     
+      "thumbnail": 
+      "https://res.cloudinary.com/do1nbyqv0/image/upload/v1763046935/Mai_Sakurajima_sjslmo.png",
+      "images": 
+      ["https://res.cloudinary.com/do1nbyqv0/image/upload/v1763046935/Mai_Sakurajima_sjslmo.png"
+      ],
+      "youtube": "https://youtube.com/shorts/fJdVjTNiC_s",
+      "release_date": "13 November 2025",
+      "tags": ["character","custom","set"],
+      "rate": 3.7
     }
   ]
