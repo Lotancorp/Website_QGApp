@@ -624,10 +624,13 @@ document.body.addEventListener('click', async (e) => {
 
   function extractYouTubeId(url) {
     if (!url) return null;
-    // contoh: https://youtu.be/ID  atau https://www.youtube.com/watch?v=ID  atau /embed/ID
-    const m = url.match(/(?:youtu\.be\/|v=|\/embed\/)([A-Za-z0-9_-]{6,})/);
+    // menangani: youtu.be/ID, v=ID, /embed/ID, /shorts/ID, juga query params
+    const m = url.match(
+      /(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/)|v=)([A-Za-z0-9_-]{6,})/
+    );
     return m ? m[1] : null;
   }
+  
 
   let productMedia = []; // array of {type:'video'|'image', src:..., thumb:...}
   let productIndex = 0;

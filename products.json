@@ -713,5 +713,90 @@
       "release_date": "12 November 2025",
       "tags": ["monster","duo","set"],
       "rate": 4.6
+    },
+    { "_comment": "Products 19 Sung Jin Woo",
+      "id": 19,
+      "name": "Sung Jin Woo",
+      "cat": "ccustom",
+      "price_usd": 10,
+      "price_idr": 125000,
+      "rarity": "SPECIAL",            
+      "desc": "Sung Jin Woo is a reimagined combatant adapted from the original universe, brought to life in Quartz Gallery’s modded battlefield. Preserving iconic traits while enhancing tactical prowess, this version is engineered for high-intensity scenarios—featuring upgraded abilities, refined visuals, and balanced gameplay integration. Whether facing hordes or dueling elites, delivers a unique blend of familiarity and elevated performance, tailored for fans and competitive players alike.",     
+      "thumbnail": "https://res.cloudinary.com/do1nbyqv0/image/upload/v1763000577/CC_0004_SungJinWoo_k9xdip.png",
+      "images": 
+      ["https://res.cloudinary.com/do1nbyqv0/image/upload/v1763000577/CC_0004_SungJinWoo_k9xdip.png"
+      ],
+      "youtube": "https://youtube.com/shorts/H4NYh1r35B0?feature=share",
+      "release_date": "13 November 2025",
+      "tags": ["character","custom","set"],
+      "rate": 4.8
+    },
+    { "_comment": "Products 20 Chisato Nishikigi",
+      "id": 20,
+      "name": "Chisato Nishikigi",
+      "cat": "ccustom",
+      "price_usd": 10,
+      "price_idr": 125000,
+      "rarity": "SPECIAL",            
+      "desc": "Chisato Nishikigi is a reimagined combatant adapted from the original universe, brought to life in Quartz Gallery’s modded battlefield. Preserving iconic traits while enhancing tactical prowess, this version is engineered for high-intensity scenarios—featuring upgraded abilities, refined visuals, and balanced gameplay integration. Whether facing hordes or dueling elites, delivers a unique blend of familiarity and elevated performance, tailored for fans and competitive players alike.",     
+      "thumbnail": "https://res.cloudinary.com/do1nbyqv0/image/upload/v1763000577/CC_0002_Chisato-Nihikigi_usubmz.png",
+      "images": 
+      ["https://res.cloudinary.com/do1nbyqv0/image/upload/v1763000577/CC_0002_Chisato-Nihikigi_usubmz.png"
+      ],
+      "youtube": "https://youtube.com/shorts/_ZlKKKH74EI?feature=share",
+      "release_date": "13 November 2025",
+      "tags": ["character","custom","set"],
+      "rate": 4.7
+    },
+    { "_comment": "Products 21 Tanjiro Kamado",
+      "id": 21,
+      "name": "Tanjiro Kamado",
+      "cat": "ccustom",
+      "price_usd": 10,
+      "price_idr": 125000,
+      "rarity": "SPECIAL",            
+      "desc": "Tanjiro Kamado is a reimagined combatant adapted from the original universe, brought to life in Quartz Gallery’s modded battlefield. Preserving iconic traits while enhancing tactical prowess, this version is engineered for high-intensity scenarios—featuring upgraded abilities, refined visuals, and balanced gameplay integration. Whether facing hordes or dueling elites, delivers a unique blend of familiarity and elevated performance, tailored for fans and competitive players alike.",     
+      "thumbnail": "https://res.cloudinary.com/do1nbyqv0/image/upload/v1763000578/CC_0003_Tanjiro-Kamado_windhm.png",
+      "images": 
+      ["https://res.cloudinary.com/do1nbyqv0/image/upload/v1763000578/CC_0003_Tanjiro-Kamado_windhm.png"
+      ],
+      "youtube": "https://youtube.com/shorts/qOjEp0M8SVU?feature=share",
+      "release_date": "13 November 2025",
+      "tags": ["character","custom","set"],
+      "rate": 4.8
+    },
+    { "_comment": "Products 22 Zenitsu Agatsuma",
+      "id": 22,
+      "name": "Zenitsu Agatsuma",
+      "cat": "ccustom",
+      "price_usd": 10,
+      "price_idr": 125000,
+      "rarity": "SPECIAL",            
+      "desc": "Zenitsu Agatsuma is a reimagined combatant adapted from the original universe, brought to life in Quartz Gallery’s modded battlefield. Preserving iconic traits while enhancing tactical prowess, this version is engineered for high-intensity scenarios—featuring upgraded abilities, refined visuals, and balanced gameplay integration. Whether facing hordes or dueling elites, delivers a unique blend of familiarity and elevated performance, tailored for fans and competitive players alike.",     
+      "thumbnail": "https://res.cloudinary.com/do1nbyqv0/image/upload/v1763000582/CC_0001_Zenitsu-Agatsuma_dqrxot.png",
+      "images": 
+      ["https://res.cloudinary.com/do1nbyqv0/image/upload/v1763000582/CC_0001_Zenitsu-Agatsuma_dqrxot.png"
+      ],
+      "youtube": "https://youtube.com/shorts/xtEF2k5ahik?feature=share",
+      "release_date": "13 November 2025",
+      "tags": ["character","custom","set"],
+      "rate": 4.6
+    },
+    { "_comment": "Products 23 Inosuke Hashibira",
+      "id": 23,
+      "name": "Inosuke Hashibira",
+      "cat": "ccustom",
+      "price_usd": 10,
+      "price_idr": 125000,
+      "rarity": "SPECIAL",            
+      "desc": "Inosuke Hashibira is a reimagined combatant adapted from the original universe, brought to life in Quartz Gallery’s modded battlefield. Preserving iconic traits while enhancing tactical prowess, this version is engineered for high-intensity scenarios—featuring upgraded abilities, refined visuals, and balanced gameplay integration. Whether facing hordes or dueling elites, delivers a unique blend of familiarity and elevated performance, tailored for fans and competitive players alike.",     
+      "thumbnail": "https://res.cloudinary.com/do1nbyqv0/image/upload/v1763000579/CC_0000_Inosuke-Hashibara_qgwwhr.png",
+      "images": 
+      ["https://res.cloudinary.com/do1nbyqv0/image/upload/v1763000579/CC_0000_Inosuke-Hashibara_qgwwhr.png"
+      ],
+      "youtube": "https://youtube.com/shorts/m8vidHI5HZs?feature=share",
+      "release_date": "13 November 2025",
+      "tags": ["character","custom","set"],
+      "rate": 4.5
     }
   ]
