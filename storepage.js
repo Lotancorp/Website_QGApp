@@ -7,6 +7,45 @@ const $$ = (s) => Array.from(document.querySelectorAll(s));
 let products = [];
 let currency = 'usd'; // default
 let filtered = [];
+// --- Detect initial currency based on browser locale/timezone + saved pref ---
+function detectInitialCurrency() {
+  // 1) Kalau user sudah pernah pilih currency, hormati pilihan dia
+  try {
+    if (window.localStorage) {
+      const saved = localStorage.getItem('qg_currency');
+      if (saved === 'usd' || saved === 'idr') return saved;
+    }
+  } catch (e) {
+    // ignore
+  }
+
+  // 2) Heuristik Indonesia
+  try {
+    const primaryLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
+    const langs = (navigator.languages || []).map(l => String(l).toLowerCase());
+    const allLangs = [primaryLang, ...langs].join(' ');
+    const tz = (Intl.DateTimeFormat().resolvedOptions().timeZone || '').toLowerCase();
+
+    const isIndonesianLang =
+      primaryLang.startsWith('id') ||
+      langs.some(l => l.startsWith('id')) ||
+      allLangs.includes('id-id');
+
+    const isIndonesianTz =
+      tz.startsWith('asia/jakarta') ||
+      tz.startsWith('asia/makassar') ||
+      tz.startsWith('asia/jayapura');
+
+    if (isIndonesianLang || isIndonesianTz) {
+      return 'idr';
+    }
+  } catch (e) {
+    // kalau gagal, biarin
+  }
+
+  // default global
+  return 'usd';
+}
 
 // ----------------- load products -----------------
 // ----------------- load products -----------------
@@ -433,20 +472,33 @@ document.body.addEventListener('click', async (e) => {
   if (copyLinkBtn) {
     copyLinkBtn.addEventListener('click', async () => {
       const id = window.lastSelectedProductId;
-      // if no last selected, copy root page URL
-      const url = id ? `${location.origin}${location.pathname}?product=${encodeURIComponent(id)}` : `${location.href}`;
+  
+      let url;
+      if (id) {
+        const u = new URL(window.location.href);
+        u.searchParams.set('product', id);
+        url = u.toString();
+      } else {
+        url = window.location.href;
+      }
+  
       try {
         await navigator.clipboard.writeText(url);
-        // show near button (use event or the button element)
-        showToastAt('Link copied to clipboard!', copyLinkBtn, { type: 'success', duration: 2800, offsetY: -36 });
+        showToastAt('Link copied to clipboard!', copyLinkBtn, {
+          type: 'success',
+          duration: 2800,
+          offsetY: -36
+        });
       } catch (err) {
-        // fallback: prompt + toast at center
         prompt('Copy this link', url);
-        showToastAt('Could not auto-copy — please copy manually.', null, { type:'error', duration:3500 });
+        showToastAt('Could not auto-copy — please copy manually.', null, {
+          type: 'error',
+          duration: 3500
+        });
       }
-      
     });
   }
+  
 
 
   if (facebookBtn) facebookBtn.href = MY_FACEBOOK_URL;
@@ -1178,24 +1230,87 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+// --- Deep link: buka modal produk dari ?product=ID di URL ---
+async function openProductFromUrlQuery() {
+  const params = new URLSearchParams(window.location.search);
+  const pid = params.get('product');
+  if (!pid) return;
+  if (!Array.isArray(products) || !products.length) return;
+
+  const prod = products.find(p => String(p.id) === String(pid));
+  if (!prod) return;
+
+  // load images kalau perlu
+  try {
+    const imgs = await loadImagesForProduct(prod);
+    if (imgs && imgs.length) {
+      prod.images = imgs;
+    }
+  } catch (e) {
+    console.warn('Failed loading images for deep-linked product', e);
+  }
+
+  // simpan last selected — supaya WhatsApp / Copy Link dll tetap relevan
+  window.lastSelectedProductId = prod.id;
+  window.lastSelectedProductName = prod.name;
+
+  // optional: scroll ke card di grid (kalau ada)
+  const cardBtn = document.querySelector(`.btn-view[data-id="${prod.id}"]`);
+  if (cardBtn) {
+    const card = cardBtn.closest('.card');
+    if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  // buka modal produk
+  if (typeof openProductModal === 'function') {
+    openProductModal(prod);
+  }
+}
+
 
 // ----------------- INIT -----------------
+// ----------------- INIT -----------------
+// ----------------- INIT -----------------
 async function init() {
+  // 1) load data dulu
   await loadProducts();
-  // ensure currency default matches select (if exists)
-  const currencySel = $('#currencySelect');
-  currency = currencySel ? currencySel.value || 'usd' : 'usd';
+
+  // 2) tentukan currency awal
+  const initialCurrency = detectInitialCurrency();
+
+  const currencySel = $('#currencySelect');              // desktop
+  const currencySelMobile = $('#currencySelectMobile');  // kalau ada di mobile panel
+
+  currency = initialCurrency;
+
+  if (currencySel) currencySel.value = initialCurrency;
+  if (currencySelMobile) currencySelMobile.value = initialCurrency;
+
+  // optional: update wallet display kalau kamu pakai
+  const walletEl = $('#walletValue');
+  if (walletEl) {
+    if (currency === 'usd') walletEl.textContent = '$120.00';
+    else walletEl.textContent = 'Rp ' + (1200000).toLocaleString('id-ID');
+  }
+
+  // 3) load banner & pasang event handler
   await loadBanners();
   attachEvents();
-  // set year
+
+  // 4) set tahun footer
   const yearEl = $('#year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  // initial render
+  // 5) render grid awal dengan currency yang sudah diset
   applyFilters();
+
+  // 6) SETELAH grid siap → cek apakah URL punya ?product=ID
+  openProductFromUrlQuery();
 }
 
 document.addEventListener('DOMContentLoaded', init);
+
+
 // --- Mobile filter sync: search + categories + selects (mobile -> desktop) ---
 // --- Mobile controls: slide-in panel (only for small screens) ---
 (function(){
