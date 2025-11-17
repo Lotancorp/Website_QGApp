@@ -816,5 +816,23 @@
       "release_date": "13 November 2025",
       "tags": ["character","custom","set"],
       "rate": 3.7
+    },
+    { "_comment": "Products 25 Cha Hae In",
+      "id": 25,
+      "name": "Cha Hae In",
+      "cat": "ccustom",
+      "price_usd": 10,
+      "price_idr": 125000,
+      "rarity": "SPECIAL",            
+      "desc": "Cha Hae In is a reimagined combatant adapted from the original universe, brought to life in Quartz Gallery’s modded battlefield. Preserving iconic traits while enhancing tactical prowess, this version is engineered for high-intensity scenarios—featuring upgraded abilities, refined visuals, and balanced gameplay integration. Whether facing hordes or dueling elites, delivers a unique blend of familiarity and elevated performance, tailored for fans and competitive players alike.",     
+      "thumbnail": 
+      "https://res.cloudinary.com/do1nbyqv0/image/upload/v1763369665/Cha_Hae_In_dxies3.png",
+      "images": 
+      ["https://res.cloudinary.com/do1nbyqv0/image/upload/v1763369665/Cha_Hae_In_dxies3.png"
+      ],
+      "youtube": "https://youtube.com/shorts/gAv3Kh7b4c4?feature=share",
+      "release_date": "17 November 2025",
+      "tags": ["character","custom","set"],
+      "rate": 4.7
     }
   ]
