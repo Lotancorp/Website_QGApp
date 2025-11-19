@@ -290,11 +290,12 @@ function render(list) {
     }
     const displayRate = rateClamped > 0 ? `(${rateClamped.toFixed(1)}/5)` : '';
     const rateHtml = `<div class="rating-row"><div class="stars">${s}</div><div class="rate-value">${displayRate}</div></div>`;
-
+    const catLabel = (p.cat || 'skin').toLowerCase();
+    const seoAlt = `${p.name} RF Online ${catLabel} skin by Quartz Gallery`;
 
       el.innerHTML = `
       <div class="thumb" aria-hidden="true">
-        <img class="card-thumb" data-thumb-id="${p.id}" src="${thumbSrc}" alt="${p.name} thumb">
+        <img class="card-thumb" data-thumb-id="${p.id}" src="${thumbSrc}" alt="${seoAlt}">
       </div>
       <h4>${p.name}</h4>
       <p class="muted excerpt">${p.desc || ''}</p>
