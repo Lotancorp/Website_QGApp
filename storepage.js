@@ -7,6 +7,7 @@ const $$ = (s) => Array.from(document.querySelectorAll(s));
 let products = [];
 let currency = 'usd'; // default
 let filtered = [];
+let shortlist = []; // list ID produk yang di-shortlist
 // --- Detect initial currency based on browser locale/timezone + saved pref ---
 function detectInitialCurrency() {
   // 1) Kalau user sudah pernah pilih currency, hormati pilihan dia
@@ -216,6 +217,112 @@ function safeQuery(sel) {
   const el = document.querySelector(sel);
   return el;
 }
+// ---- Shortlist helpers ----
+function loadShortlist() {
+  try {
+    const raw = localStorage.getItem('qg_shortlist');
+    if (!raw) return [];
+    const arr = JSON.parse(raw);
+    if (Array.isArray(arr)) return arr.map(x => String(x));
+  } catch (e) {}
+  return [];
+}
+
+function saveShortlist() {
+  try {
+    localStorage.setItem('qg_shortlist', JSON.stringify(shortlist));
+  } catch (e) {}
+}
+
+function isInShortlist(id) {
+  return shortlist.includes(String(id));
+}
+
+function updateShortlistBadge() {
+  const el = document.getElementById('shortlistCount');
+  const btn = document.getElementById('shortlistBtn');
+  const count = shortlist.length;
+
+  if (el) {
+    el.textContent = count;
+  }
+  if (btn) {
+    btn.classList.toggle('has-items', count > 0);
+  }
+}
+
+
+function buildShortlistTextForMessage() {
+  if (!shortlist.length) return '';
+
+  const items = shortlist
+    .map(id => products.find(p => String(p.id) === String(id)))
+    .filter(Boolean);
+
+  if (!items.length) return '';
+
+  const lines = [];
+  lines.push("Hi, I'm interested in these skins:");
+  items.forEach((p, idx) => {
+    lines.push(`${idx + 1}. [${p.id}] ${p.name}`);
+  });
+
+  const noteEl = document.getElementById('shortlistNote');
+  const extra = noteEl && noteEl.value.trim();
+  if (extra) {
+    lines.push('', 'Note:', extra);
+  }
+
+  return lines.join('\n');
+}
+
+
+function openShortlistModal() {
+  const modal = document.getElementById('shortlistModal');
+  const listEl = document.getElementById('shortlistItems');
+  if (!modal || !listEl) return;
+
+  if (!shortlist.length) {
+    listEl.innerHTML = '<p class="muted">Your cart is still empty.</p>';
+  } else {
+    const items = shortlist
+      .map(id => products.find(p => String(p.id) === String(id)))
+      .filter(Boolean);
+
+    listEl.innerHTML = items
+      .map(
+        (p, idx) => `
+        <div class="cart-item-row" data-id="${p.id}">
+          <span class="cart-item-name">${idx + 1}. ${p.name}</span>
+          <button type="button"
+                  class="cart-item-remove"
+                  data-id="${p.id}"
+                  aria-label="Remove from cart">&times;</button>
+        </div>
+      `
+      )
+      .join('');
+  }
+
+  modal.setAttribute('aria-hidden', 'false');
+}
+
+
+function closeShortlistModal() {
+  const modal = document.getElementById('shortlistModal');
+  if (modal) modal.setAttribute('aria-hidden', 'true');
+}
+
+// Helper: pastikan URL Cloudinary pakai f_auto,q_auto (tanpa dobel)
+function ensureCloudAuto(url) {
+  if (!url || typeof url !== 'string') return url;
+  // kalau bukan Cloudinary, jangan diutak-atik
+  if (!url.includes('res.cloudinary.com')) return url;
+  // kalau sudah ada f_auto atau q_auto, biarin aja
+  if (url.includes('f_auto') || url.includes('q_auto')) return url;
+  // sisipkan setelah /upload/
+  return url.replace('/upload/', '/upload/f_auto,q_auto/');
+}
 // ---------- Cloudinary / proxy image loader ----------
 // Tries explicit product.images first; else calls local proxy server which in turn calls Cloudinary Search API.
 // If you deploy proxy elsewhere, change PROXY_BASE.
@@ -223,7 +330,12 @@ const PROXY_BASE = 'http://localhost:3000'; // change to your deployed URL later
 
 async function loadImagesForProduct(product) {
   if (!product) return [];
-  if (Array.isArray(product.images) && product.images.length) return product.images;
+
+  if (Array.isArray(product.images) && product.images.length) {
+    // pastikan semua URL Cloudinary sudah optimized
+    return product.images.map(src => ensureCloudAuto(src));
+  }
+
   return [];
 }
 
@@ -248,12 +360,13 @@ function render(list) {
     el.className = 'card' + (p.featured ? ' featured' : '');
 
     // --- thumbnail priority logic ---
-    const thumbSrc = p.thumbnail || (p.images && p.images.length ? p.images[0] : '') || 'assets/placeholder-thumb.jpg';
-
+    let thumbSrc = p.thumbnail || (p.images && p.images.length ? p.images[0] : '') || 'assets/placeholder-thumb.jpg';
+    thumbSrc = ensureCloudAuto(thumbSrc);
     const youtubeBtn = p.youtube
       ? `<a class="btn-outline btn-youtube" href="${p.youtube}" target="_blank" rel="noopener">YouTube</a>`
       : '';
-
+    const inShortlist = isInShortlist(p.id);
+    const cartLabel = inShortlist ? 'Remove' : 'Add to Cart';
     // build rating HTML (structured)
     //let rateHtml = '';
     // ---- Build rating using SVG with per-star fill percent (precise) ----
@@ -295,7 +408,12 @@ function render(list) {
 
       el.innerHTML = `
       <div class="thumb" aria-hidden="true">
-        <img class="card-thumb" data-thumb-id="${p.id}" src="${thumbSrc}" alt="${seoAlt}">
+        <img class="card-thumb"
+            data-thumb-id="${p.id}"
+            src="${thumbSrc}"
+            alt="${seoAlt}"
+            loading="lazy">
+
       </div>
       <h4>${p.name}</h4>
       <p class="muted excerpt">${p.desc || ''}</p>
@@ -313,6 +431,7 @@ function render(list) {
     
       <div class="actions">
         <button class="btn-outline btn-view" data-id="${p.id}">View</button>
+        <button class="btn-cart btn-shortlist-toggle" data-id="${p.id}">${cartLabel}</button>
         ${youtubeBtn}
         <button class="btn-primary btn-contact" data-id="${p.id}">Contact Me</button>
       </div>
@@ -362,6 +481,11 @@ function attachEvents() {
       if (e.target.tagName.toLowerCase() !== 'li') return;
       catList.querySelectorAll('li').forEach(li => li.classList.remove('active'));
       e.target.classList.add('active');
+      // 🔗 Update URL agar bisa di share
+      const newCat = e.target.dataset.cat;
+      const url = new URL(window.location);
+      url.searchParams.set('cat', newCat);
+      window.history.pushState({}, '', url);
       applyFilters();
     });
   }
@@ -423,6 +547,24 @@ document.body.addEventListener('click', async (e) => {
     openProductModal(prod);
     return;
   }
+  // SHORTLIST toggle
+  if (e.target && e.target.matches && e.target.matches('.btn-shortlist-toggle')) {
+    const id = e.target.dataset.id;
+    const sid = String(id);
+    const idx = shortlist.indexOf(sid);
+
+    if (idx === -1) {
+      shortlist.push(sid);
+      e.target.textContent = 'Remove';
+    } else {
+      shortlist.splice(idx, 1);
+      e.target.textContent = 'Add to Cart';
+    }
+
+    saveShortlist();
+    updateShortlistBadge();
+    return;
+  }
 
   // CONTACT (card) -> open contact modal with prefill
   if (e.target && e.target.matches && e.target.matches('.btn-contact')) {
@@ -468,6 +610,110 @@ document.body.addEventListener('click', async (e) => {
       const waUrl = `https://wa.me/${waNumber}?text=${msg}`;
       window.open(waUrl, '_blank');
     });
+    // ---- Shortlist modal controls ----
+    const shortlistBtn = document.getElementById('shortlistBtn');
+    const shortlistModal = document.getElementById('shortlistModal');
+    const closeShortlistBtn = document.getElementById('closeShortlistModal');
+    const shortlistCopyBtn = document.getElementById('shortlistCopyBtn');
+    const shortlistWhatsAppBtn = document.getElementById('shortlistWhatsAppBtn');
+  
+    if (shortlistBtn) {
+      shortlistBtn.addEventListener('click', openShortlistModal);
+    }
+    if (closeShortlistBtn) {
+      closeShortlistBtn.addEventListener('click', closeShortlistModal);
+    }
+    if (shortlistModal) {
+      shortlistModal.addEventListener('click', (ev) => {
+        if (ev.target === shortlistModal) closeShortlistModal();
+      });
+    }
+  // remove single item from cart when clicking "×"
+    document.addEventListener('click', (ev) => {
+      const btn = ev.target;
+      if (!btn || !btn.classList || !btn.classList.contains('cart-item-remove')) return;
+
+      const id = btn.dataset.id;
+      const sid = String(id);
+      const idx = shortlist.indexOf(sid);
+      if (idx === -1) return;
+
+      // remove from shortlist array
+      shortlist.splice(idx, 1);
+      saveShortlist();
+      updateShortlistBadge();
+
+      // update cart list UI
+      openShortlistModal();
+
+      // sync label di card & modal product kalau kebuka
+      const cardBtn = document.querySelector(`.btn-shortlist-toggle[data-id="${sid}"]`);
+      if (cardBtn) {
+        cardBtn.textContent = 'Add to Cart';
+      }
+      const productCartBtn = document.getElementById('productCartBtn');
+      if (productCartBtn && window.currentProductId && String(window.currentProductId) === sid) {
+        productCartBtn.textContent = 'Add to Cart';
+        productCartBtn.classList.remove('remove');
+      }
+    });
+
+    if (shortlistCopyBtn) {
+      shortlistCopyBtn.addEventListener('click', () => {
+        const text = buildShortlistTextForMessage();
+        if (!text) {
+          // cart kosong → toast kecil, bukan alert
+          showToastAt('Your cart is empty.', shortlistCopyBtn, {
+            type: 'info',
+            duration: 2600,
+            offsetY: -40
+          });
+          return;
+        }
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(() => {
+            // sukses copy → toast hijau
+            showToastAt('List copied to clipboard.', shortlistCopyBtn, {
+              type: 'success',
+              duration: 2600,
+              offsetY: -40
+            });
+          }).catch(() => {
+            // gagal copy → toast merah
+            showToastAt('Failed to copy text.', shortlistCopyBtn, {
+              type: 'error',
+              duration: 3000,
+              offsetY: -40
+            });
+          });
+        } else {
+          // fallback primitif kalau Clipboard API ga ada
+          prompt('Copy this text:', text);
+        }
+      });
+    }
+
+    
+    if (shortlistWhatsAppBtn) {
+      shortlistWhatsAppBtn.addEventListener('click', () => {
+        const text = buildShortlistTextForMessage();
+        if (!text) {
+          showToastAt('Your cart is empty.', shortlistWhatsAppBtn, {
+            type: 'info',
+            duration: 2600,
+            offsetY: -40
+          });
+          return;
+        }
+        const normalized = (MY_WHATSAPP_NUMBER || '').replace(/[^0-9]/g, '');
+        const url = `https://wa.me/${normalized}?text=${encodeURIComponent(text)}`;
+        window.open(url, '_blank');
+      });
+    }
+
+    
+  
   }
 
   if (copyLinkBtn) {
@@ -557,6 +803,9 @@ document.body.addEventListener('click', async (e) => {
   const aboutModal = document.createElement('div');
   aboutModal.className = 'modal';
   aboutModal.id = 'aboutModal';
+  
+  // 🔹 start dalam keadaan tersembunyi
+  aboutModal.setAttribute('aria-hidden', 'true');
   aboutModal.innerHTML = `
     <div class="modal-panel">
       <button class="modal-close" id="closeAboutModal">&times;</button>
@@ -671,10 +920,13 @@ document.body.addEventListener('click', async (e) => {
   const productRate = $('#productRate');
   const productYoutube = $('#productYoutube');
   const productContactBtn = $('#productContactBtn');
+  const productCartBtn = $('#productCartBtn');
   const closeProductModalBtn = $('#closeProductModal');
   const productPrev = $('#productPrev');
   const productNext = $('#productNext');
-
+  const productPrevItem = $('#productPrevItem');   // tombol prev item (kanan)
+  const productNextItem = $('#productNextItem');   // tombol next item (kanan)
+  
   function extractYouTubeId(url) {
     if (!url) return null;
     // menangani: youtu.be/ID, v=ID, /embed/ID, /shorts/ID, juga query params
@@ -683,11 +935,32 @@ document.body.addEventListener('click', async (e) => {
     );
     return m ? m[1] : null;
   }
+  function normalizeYoutubeField(yt) {
+    if (!yt) return { primary: null, extras: [] };
+  
+    if (Array.isArray(yt)) {
+      const cleaned = yt
+        .map(u => (u || '').trim())
+        .filter(Boolean);
+      return {
+        primary: cleaned[0] || null,
+        extras: cleaned.slice(1)
+      };
+    }
+  
+    if (typeof yt === 'string') {
+      const v = yt.trim();
+      return { primary: v || null, extras: [] };
+    }
+  
+    return { primary: null, extras: [] };
+  }
   
 
   let productMedia = []; // array of {type:'video'|'image', src:..., thumb:...}
   let productIndex = 0;
   let currentOpenProduct = null;
+  let currentProductId = null; 
   //let productImages = [];
   //let productIndex = 0;
   //let currentOpenProduct = null;
@@ -826,32 +1099,61 @@ document.body.addEventListener('click', async (e) => {
   function openProductModal(prod) {
     if (!productModal) return;
     currentOpenProduct = prod;
-    // Now open youtube
-    // build productMedia: put video FIRST if ada, kemudian gambar-gambar (tanpa mengubah prod.images)
+    currentProductId = prod.id; 
+    // 🔹 SIMPAN ID PRODUK AKTIF KE GLOBAL
+    window.currentProductId = prod.id;
+    // 🔹 Normalisasi field youtube: bisa string atau array
+    const ytInfo = normalizeYoutubeField(prod.youtube);
+    const primaryYoutube = ytInfo.primary;
+    const extraYoutubes = ytInfo.extras;
     productMedia = [];
   
-    if (prod.youtube) {
-      const yid = extractYouTubeId(prod.youtube);
+    // video utama (untuk slide pertama)
+    if (primaryYoutube) {
+      const yid = extractYouTubeId(primaryYoutube);
       if (yid) {
         const embed = `https://www.youtube.com/embed/${yid}`;
-        const thumb = `https://img.youtube.com/vi/${yid}/hqdefault.jpg`; // thumbnail for video
-        productMedia.push({ type: 'video', src: embed, thumb: thumb });
+        const thumb = `https://img.youtube.com/vi/${yid}/hqdefault.jpg`;
+        productMedia.push({ type: 'video', src: embed, thumb });
       }
     }
-  
-    // now images
+
+    // video tambahan hanya untuk gallery (preview)
+    if (extraYoutubes && extraYoutubes.length) {
+      extraYoutubes.forEach(url => {
+        const yid = extractYouTubeId(url);
+        if (!yid) return;
+        const embed = `https://www.youtube.com/embed/${yid}`;
+        const thumb = `https://img.youtube.com/vi/${yid}/hqdefault.jpg`;
+        productMedia.push({ type: 'video', src: embed, thumb });
+      });
+    }
+
+    // sekarang gambar-gambar seperti biasa
     (Array.isArray(prod.images) ? prod.images : []).forEach(src => {
       if (src && src.trim()) {
         productMedia.push({ type: 'image', src: src.trim(), thumb: src.trim() });
       }
     });
-  
-    // fallback: if no media, still show thumbnail as image
+
+    // fallback kalau bener-bener gak ada media
     if (!productMedia.length) {
       const placeholder = 'assets/placeholder-thumb.jpg';
-      productMedia.push({ type: 'image', src: prod.thumbnail || placeholder, thumb: prod.thumbnail || placeholder });
+      productMedia.push({
+        type: 'image',
+        src: prod.thumbnail || placeholder,
+        thumb: prod.thumbnail || placeholder
+      });
     }
-  
+      // dedup: buang media dengan src/type yang sama persis
+    const seen = new Set();
+    productMedia = productMedia.filter(m => {
+      const key = `${m.type}:${m.src}`;
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+ 
     // --- RIGHT THUMB (sidebar) logic (keep as before) ---
     const rightThumbEl = document.getElementById('productRightThumb');
     const placeholder = 'assets/placeholder-thumb.jpg';
@@ -944,8 +1246,8 @@ document.body.addEventListener('click', async (e) => {
     }
   
     // youtube external button (ke kanan) - tetap ada
-    if (prod.youtube) {
-      productYoutube.href = prod.youtube;
+    if (primaryYoutube) {
+      productYoutube.href = primaryYoutube;
       productYoutube.style.display = 'inline-flex';
     } else {
       productYoutube.style.display = 'none';
@@ -957,7 +1259,39 @@ document.body.addEventListener('click', async (e) => {
       window.lastSelectedProductName = prod.name;
       openContact({ name:'', message:`I'm interested in "${prod.name}" (ID:${prod.id}). Please share price & availability.` });
     };
-  
+    // cart button (add/remove from cart)
+    if (productCartBtn) {
+      const inCart = isInShortlist(prod.id);
+      productCartBtn.textContent = inCart ? 'Remove from Cart' : 'Add to Cart';
+
+      productCartBtn.onclick = () => {
+        const sid = String(prod.id);
+        const idx = shortlist.indexOf(sid);
+        let nowInCart;
+
+        if (idx === -1) {
+          shortlist.push(sid);
+          nowInCart = true;
+        } else {
+          shortlist.splice(idx, 1);
+          nowInCart = false;
+        }
+
+        saveShortlist();
+        updateShortlistBadge();
+
+        // update label in modal
+        productCartBtn.textContent = nowInCart ? 'Remove from Cart' : 'Add to Cart';
+
+        // sync label di card utama (kalau kelihatan)
+        const cardBtn = document.querySelector(`.btn-shortlist-toggle[data-id="${prod.id}"]`);
+        if (cardBtn) {
+          cardBtn.textContent = nowInCart ? 'Remove' : 'Add to Cart';
+        }
+      };
+    }
+    
+    renderSimilarProducts(prod);
     productModal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
   
@@ -965,7 +1299,50 @@ document.body.addEventListener('click', async (e) => {
     showProductAt(0);
   }
   window.openProductModal = openProductModal;
-
+  function renderSimilarProducts(prod) {
+    const wrap = $('#similarProducts');
+    const container = $('#similarWrapper');
+    if (!wrap || !container) return;
+  
+    // reset dulu
+    container.innerHTML = '';
+  
+    // ambil kategori & tags
+    const cat = prod.cat;
+    const tags = Array.isArray(prod.tags) ? prod.tags : [];
+  
+    // cari yang mirip
+    const sims = products
+      .filter(p => p.id !== prod.id) // jangan masukin diri sendiri
+      .filter(p => p.cat === cat)    // prioritas: kategori sama
+      .filter(p => {
+        // cek tumpang tindih tag
+        if (!Array.isArray(p.tags) || !tags.length) return true;
+        return p.tags.some(t => tags.includes(t));
+      })
+      .slice(0, 4); // maksimal 4
+  
+    // kalau tidak ada → sembunyikan
+    if (!sims.length) {
+      wrap.style.display = 'none';
+      return;
+    }
+  
+    // tampilkan
+    wrap.style.display = '';
+    sims.forEach(p => {
+      const thumb = p.thumbnail || (p.images && p.images.length ? p.images[0] : '');
+      const card = document.createElement('div');
+      card.className = 'similar-card';
+      card.innerHTML = `
+        <img src="${thumb}" alt="${p.name}">
+        <p style="font-size:13px;margin-top:6px;">${p.name}</p>
+      `;
+      card.addEventListener('click', () => openProductModal(p));
+      container.appendChild(card);
+    });
+  }
+  
   function closeProductModal() {
     if (!productModal) return;
     productModal.setAttribute('aria-hidden', 'true');
@@ -984,6 +1361,13 @@ document.body.addEventListener('click', async (e) => {
   if (closeProductModalBtn) closeProductModalBtn.addEventListener('click', closeProductModal);
   if (productPrev) productPrev.addEventListener('click', () => showProductAt(productIndex - 1));
   if (productNext) productNext.addEventListener('click', () => showProductAt(productIndex + 1));
+  if (productPrevItem) {
+    productPrevItem.addEventListener('click', () => openSiblingProduct(-1));
+  }
+  if (productNextItem) {
+    productNextItem.addEventListener('click', () => openSiblingProduct(1));
+  }
+  
   if (productModal) productModal.addEventListener('click', (ev) => { if (ev.target === productModal) closeProductModal(); });
 
   // keyboard nav
@@ -1231,6 +1615,40 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+function openSiblingProduct(direction) {
+  // direction: -1 (previous), +1 (next)
+
+  // 🔹 pastikan ada list filtered
+  if (!Array.isArray(filtered) || !filtered.length) return;
+
+  // 🔹 ambil ID produk aktif dari window
+  const currentId = window.currentProductId;
+  if (!currentId) return;
+
+  // 🔹 cari index produk aktif di filtered[]
+  const idx = filtered.findIndex(p => String(p.id) === String(currentId));
+  if (idx === -1) return;
+
+  const nextIdx = idx + direction;
+
+  // 🔹 jangan keluar batas (awal/akhir list)
+  if (nextIdx < 0 || nextIdx >= filtered.length) {
+    // opsional: di sini boleh kasih toast "no more item"
+    return;
+  }
+
+  const nextProd = filtered[nextIdx];
+
+  // update global + info buat WhatsApp / Copy link
+  window.currentProductId = nextProd.id;
+  window.lastSelectedProductId = nextProd.id;
+  window.lastSelectedProductName = nextProd.name;
+
+  // 🔹 buka modal dengan produk berikutnya
+  openProductModal(nextProd);
+}
+
+
 // --- Deep link: buka modal produk dari ?product=ID di URL ---
 async function openProductFromUrlQuery() {
   const params = new URLSearchParams(window.location.search);
@@ -1269,8 +1687,8 @@ async function openProductFromUrlQuery() {
 }
 
 
-// ----------------- INIT -----------------
-// ----------------- INIT -----------------
+
+
 // ----------------- INIT -----------------
 async function init() {
   // 1) load data dulu
@@ -1296,6 +1714,9 @@ async function init() {
 
   // 3) load banner & pasang event handler
   await loadBanners();
+  // 🔹 load shortlist dari localStorage
+  shortlist = loadShortlist();
+  updateShortlistBadge();
   attachEvents();
 
   // 4) set tahun footer

@@ -7,10 +7,10 @@
       "type": "offering"
     },
     {
-      "img": "https://res.cloudinary.com/do1nbyqv0/image/upload/v1762872462/BOOSTER_CZ_FORTUNE_noe5ak.png",
+      "img": "https://res.cloudinary.com/do1nbyqv0/image/upload/v1763823519/EXPLODING_jl7y33.png",
       "title": "Recommended Video",
-      "subtitle": "Crazy Rich",
-      "url": "https://youtu.be/Ui65WKJCWUY",
+      "subtitle": "Exploding MAU",
+      "url": "https://youtube.com/shorts/B1HszWJZAbA?feature=share",
       "type": "video"
     },
     {
@@ -21,11 +21,11 @@
       "type": "product"
     },
     {
-      "img": "https://res.cloudinary.com/do1nbyqv0/image/upload/v1763000578/CC_0003_Tanjiro-Kamado_windhm.png"
+      "img": "https://res.cloudinary.com/do1nbyqv0/image/upload/v1763802133/ROSHAN_SANTA_dyeqdg.png"
     ,
-      "title": "Tanjiro Kamado",
-      "subtitle": "Custom Character",
-      "url": "product.html?id=21",
+      "title": "Roshan Christmas",
+      "subtitle": "Custom Monster",
+      "url": "product.html?id=27",
       "type": "product"
     },
     {
@@ -65,6 +65,14 @@
       "subtitle": "RF Server",
       "url": "https://www.rfaegis.net",
       "type": "server"
+    },
+    {
+      "img": "https://res.cloudinary.com/do1nbyqv0/image/upload/v1763369665/Cha_Hae_In_dxies3.png"
+    ,
+      "title": "Cha Hae In",
+      "subtitle": "Custom Character",
+      "url": "product.html?id=25",
+      "type": "product"
     }
 
   ]

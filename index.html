@@ -62,6 +62,7 @@
           <li data-cat="wind">Wind/Injure</li>
           <li data-cat="monster">Monster</li>
           <li data-cat="unit">Unit</li>
+          <li data-cat="aura">Aura Effect</li>
           <li data-cat="ccustom">Character Custom</li>
         </ul>
 
@@ -140,6 +141,13 @@
               <option value="idr">IDR</option>
             </select>
           </div>
+          <div class="shortlist">
+            <button id="shortlistBtn" class="btn-cart-panel">
+              <span class="cart-icon">🛒</span>
+              <span class="cart-label">Cart</span>
+              <span class="cart-badge" id="shortlistCount">0</span>
+            </button>
+          </div>
         </div>
       </header>
 
@@ -193,9 +201,29 @@
       </div>
     </div>
   </div>
-  
-  
-  
+<!-- Cart Modal -->
+<div class="modal" id="shortlistModal" aria-hidden="true">
+  <div class="modal-panel cart-modal-panel">
+    <button class="modal-close" id="closeShortlistModal">&times;</button>
+    <h3>Your Cart</h3>
+    <p class="muted">
+      Selected skins will be sent to WhatsApp in a single message.
+    </p>
+
+    <div id="shortlistItems" class="cart-items"></div>
+
+    <div class="cart-note-wrap">
+      <label class="label" for="shortlistNote">Extra note (optional)</label>
+      <textarea id="shortlistNote" rows="3"
+        placeholder="For example: this is for next month's PvP event, please send me a bundle offer."></textarea>
+    </div>
+
+    <div class="modal-actions cart-actions">
+      <button id="shortlistCopyBtn" class="btn-secondary">Copy list</button>
+      <button id="shortlistWhatsAppBtn" class="btn-contact">Send via WhatsApp</button>
+    </div>
+  </div>
+</div>
 
 <!-- Product Modal (Steam-like layout) now open Video-->
 <div class="product-modal" id="productModal" aria-hidden="true">
@@ -244,9 +272,14 @@
 
         <div class="product-desc" id="productDesc">Description here...</div>
         <div id="productTags" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px"></div>
-        <div class="product-actions" style="margin-top:18px">
+        <div class="product-actions" style="margin-top:18px;display:flex;gap:8px;flex-wrap:wrap;">
           <a id="productYoutube" class="btn-youtube" target="_blank" rel="noopener" style="display:none">YouTube</a>
+          <button id="productCartBtn" class="btn-cart">Add to Cart</button>
           <button id="productContactBtn" class="btn-primary">Contact Me</button>
+        </div>
+        <div class="product-nav-actions" style="margin-top:10px;display:flex;gap:8px;">
+          <button id="productPrevItem" class="btn-secondary" style="flex:1;">⟵ Previous Item</button>
+          <button id="productNextItem" class="btn-secondary" style="flex:1;">Next Item ⟶</button>
         </div>
 
         <div id="productSKUWrap" style="margin-top:18px;color:var(--muted);font-size:13px">
@@ -255,6 +288,11 @@
         </div>
       </aside>
     </div>
+    <div id="similarProducts" class="similar-products" style="display:none;">
+      <h3>Similar skins you might like</h3>
+      <div id="similarWrapper" class="similar-wrapper"></div>
+    </div>
+    
   </div>
 </div>
 
