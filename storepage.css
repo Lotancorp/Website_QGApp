@@ -544,6 +544,61 @@
   opacity: 1;
   transform: scale(1);
 }
+/* ==== Floating cart button for mobile ==== */
+.mobile-cart-fab {
+  display: none; /* default: tidak muncul di desktop */
+}
+
+/* Hanya tampil di layar <= 980px */
+@media (max-width: 980px) {
+  .mobile-cart-fab {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    z-index: 9999; /* di atas konten, masih di bawah toast/modal */
+    bottom: 22px; /* sedikit lebih tinggi dari sebelumnya */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px 14px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    background: #16a34a;
+    color: #f9fafb;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  }
+
+  .mobile-cart-fab .cart-icon {
+    font-size: 18px;
+    line-height: 1;
+  }
+
+  .mobile-cart-fab .cart-badge {
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
+    border-radius: 999px;
+    background: #f9fafb;
+    color: #065f46;
+    font-size: 11px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transform: scale(0.7);
+    opacity: 0;
+    transition: transform .18s ease, opacity .18s ease;
+  }
+
+  .mobile-cart-fab.has-items .cart-badge {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
 
   /* gallery modal */
   .gallery-modal{

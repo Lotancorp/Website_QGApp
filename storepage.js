@@ -241,15 +241,29 @@ function isInShortlist(id) {
 function updateShortlistBadge() {
   const el = document.getElementById('shortlistCount');
   const btn = document.getElementById('shortlistBtn');
+
+  const mobileBadge = document.getElementById('mobileShortlistCount');
+  const mobileBtn   = document.getElementById('mobileCartBtn');
+
   const count = shortlist.length;
 
+  // badge di topbar (desktop)
   if (el) {
     el.textContent = count;
   }
   if (btn) {
     btn.classList.toggle('has-items', count > 0);
   }
+
+  // badge di floating button (mobile)
+  if (mobileBadge) {
+    mobileBadge.textContent = count;
+  }
+  if (mobileBtn) {
+    mobileBtn.classList.toggle('has-items', count > 0);
+  }
 }
+
 
 
 function buildShortlistTextForMessage() {
@@ -616,9 +630,12 @@ document.body.addEventListener('click', async (e) => {
     const closeShortlistBtn = document.getElementById('closeShortlistModal');
     const shortlistCopyBtn = document.getElementById('shortlistCopyBtn');
     const shortlistWhatsAppBtn = document.getElementById('shortlistWhatsAppBtn');
-  
+    const mobileCartBtn = document.getElementById('mobileCartBtn');
     if (shortlistBtn) {
       shortlistBtn.addEventListener('click', openShortlistModal);
+    }
+    if (mobileCartBtn) {
+      mobileCartBtn.addEventListener('click', openShortlistModal);
     }
     if (closeShortlistBtn) {
       closeShortlistBtn.addEventListener('click', closeShortlistModal);
@@ -626,7 +643,8 @@ document.body.addEventListener('click', async (e) => {
     if (shortlistModal) {
       shortlistModal.addEventListener('click', (ev) => {
         if (ev.target === shortlistModal) closeShortlistModal();
-      });
+      }
+    );
     }
   // remove single item from cart when clicking "×"
     document.addEventListener('click', (ev) => {
