@@ -55,6 +55,15 @@ async function loadProducts() {
     const res = await fetch('products.json', { cache: 'no-store' });
     if (!res.ok) throw new Error('HTTP ' + res.status);
     products = await res.json();
+    products.forEach(p => {
+      if (p.release_date) {
+        const d = Date.parse(p.release_date);
+        p._release_ts = isNaN(d) ? 0 : d;
+      } else {
+        p._release_ts = 0;
+      }
+    });
+    
     window.products = products;
     console.log('Loaded from products.json:', products);
   } catch (err) {
@@ -480,9 +489,27 @@ function applyFilters() {
 
   const sortEl = $('#sortSelect');
   const sortVal = sortEl ? sortEl.value : 'relevance';
-  if (sortVal === 'price-asc') filtered.sort((a, b) => ((currency === 'usd' ? (a.price_usd||0) - (b.price_usd||0) : (a.price_idr||0) - (b.price_idr||0))));
-  if (sortVal === 'price-desc') filtered.sort((a, b) => ((currency === 'usd' ? (b.price_usd||0) - (a.price_usd||0) : (b.price_idr||0) - (a.price_idr||0))));
-
+  
+  if (sortVal === 'newest') {
+    filtered.sort((a, b) => (b._release_ts || 0) - (a._release_ts || 0));
+  }
+  
+  if (sortVal === 'price-asc') {
+    filtered.sort((a, b) =>
+      currency === 'usd'
+        ? (a.price_usd || 0) - (b.price_usd || 0)
+        : (a.price_idr || 0) - (b.price_idr || 0)
+    );
+  }
+  
+  if (sortVal === 'price-desc') {
+    filtered.sort((a, b) =>
+      currency === 'usd'
+        ? (b.price_usd || 0) - (a.price_usd || 0)
+        : (b.price_idr || 0) - (a.price_idr || 0)
+    );
+  }
+  
   render(filtered);
 }
 
