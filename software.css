@@ -1530,4 +1530,56 @@
     /* Fix for inconsistent viewport on some Android webviews */
     html, body { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
   }
-  
+  .pricing-inline {
+  margin-top:18px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  padding:18px 22px;
+  border-radius:14px;
+  background: linear-gradient(135deg, rgba(255,184,77,0.08), rgba(123,92,255,0.08));
+  border:1px solid rgba(255,184,77,0.25);
+  backdrop-filter: blur(6px);
+}
+
+.pricing-badge {
+  font-size:12px;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  color:#ffb84d;
+  font-weight:600;
+}
+
+.pricing-main {
+  display:flex;
+  flex-direction:column;
+}
+
+.price {
+  font-size:34px;
+  font-weight:800;
+  color:#ffb84d;
+  line-height:1;
+}
+
+.price-note {
+  font-size:13px;
+  color:var(--muted);
+  margin-top:4px;
+}
+
+.btn-buy {
+  background: linear-gradient(90deg,#ff7a59,#ff5a9e);
+  color:#fff;
+  padding:12px 20px;
+  border-radius:10px;
+  font-weight:700;
+  text-decoration:none;
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+
+.btn-buy:hover {
+  transform:translateY(-2px);
+  box-shadow:0 8px 20px rgba(255,90,158,0.4);
+}
