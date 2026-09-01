@@ -227,47 +227,141 @@ function safeQuery(sel) {
   return el;
 }
 // ---- Shortlist helpers ----
+// ---- Cart helpers ----
+
+// Struktur baru:
+// [
+//   { id: "123", qty: 2 },
+//   { id: "456", qty: 1 }
+// ]
+
 function loadShortlist() {
   try {
     const raw = localStorage.getItem('qg_shortlist');
+
     if (!raw) return [];
+
     const arr = JSON.parse(raw);
-    if (Array.isArray(arr)) return arr.map(x => String(x));
-  } catch (e) {}
-  return [];
+
+    if (!Array.isArray(arr)) return [];
+
+    // Support data cart lama:
+    // ["123", "456"]
+    return arr
+      .map(item => {
+
+        // Format lama
+        if (typeof item === 'string' || typeof item === 'number') {
+          return {
+            id: String(item),
+            qty: 1
+          };
+        }
+
+        // Format baru
+        if (item && item.id !== undefined) {
+          return {
+            id: String(item.id),
+            qty: Math.max(1, parseInt(item.qty, 10) || 1)
+          };
+        }
+
+        return null;
+
+      })
+      .filter(Boolean);
+
+  } catch (e) {
+    return [];
+  }
 }
+
 
 function saveShortlist() {
   try {
-    localStorage.setItem('qg_shortlist', JSON.stringify(shortlist));
+    localStorage.setItem(
+      'qg_shortlist',
+      JSON.stringify(shortlist)
+    );
   } catch (e) {}
 }
 
+
+function getCartItem(id) {
+  return shortlist.find(
+    item => String(item.id) === String(id)
+  );
+}
+
+
 function isInShortlist(id) {
-  return shortlist.includes(String(id));
+  return !!getCartItem(id);
+}
+
+
+function getProductPrice(product) {
+  if (!product) return 0;
+
+  return currency === 'usd'
+    ? Number(product.price_usd || 0)
+    : Number(product.price_idr || 0);
+}
+
+
+function getCartTotalQuantity() {
+  return shortlist.reduce((total, item) => {
+    return total + (Number(item.qty) || 0);
+  }, 0);
+}
+
+
+function getCartTotalPrice() {
+  return shortlist.reduce((total, item) => {
+
+    const product = products.find(
+      p => String(p.id) === String(item.id)
+    );
+
+    if (!product) return total;
+
+    const qty = Math.max(
+      1,
+      Number(item.qty) || 1
+    );
+
+    return total + (
+      getProductPrice(product) * qty
+    );
+
+  }, 0);
 }
 
 function updateShortlistBadge() {
+
   const el = document.getElementById('shortlistCount');
   const btn = document.getElementById('shortlistBtn');
 
-  const mobileBadge = document.getElementById('mobileShortlistCount');
-  const mobileBtn   = document.getElementById('mobileCartBtn');
+  const mobileBadge =
+    document.getElementById('mobileShortlistCount');
 
-  const count = shortlist.length;
+  const mobileBtn =
+    document.getElementById('mobileCartBtn');
 
-  // badge di topbar (desktop)
+  // Sekarang jumlah badge berdasarkan TOTAL QUANTITY
+  const count = getCartTotalQuantity();
+
   if (el) {
     el.textContent = count;
   }
+
   if (btn) {
     btn.classList.toggle('has-items', count > 0);
   }
 
-  // badge di floating button (mobile)
   if (mobileBadge) {
     mobileBadge.textContent = count;
   }
+
   if (mobileBtn) {
     mobileBtn.classList.toggle('has-items', count > 0);
   }
@@ -276,24 +370,62 @@ function updateShortlistBadge() {
 
 
 function buildShortlistTextForMessage() {
+
   if (!shortlist.length) return '';
 
-  const items = shortlist
-    .map(id => products.find(p => String(p.id) === String(id)))
-    .filter(Boolean);
-
-  if (!items.length) return '';
-
   const lines = [];
+
   lines.push("Hi, I'm interested in these skins:");
-  items.forEach((p, idx) => {
-    lines.push(`${idx + 1}. [${p.id}] ${p.name}`);
+  lines.push('');
+
+  shortlist.forEach((item, index) => {
+
+    const product = products.find(
+      p => String(p.id) === String(item.id)
+    );
+
+    if (!product) return;
+
+    const qty = Math.max(
+      1,
+      Number(item.qty) || 1
+    );
+
+    const unitPrice =
+      getProductPrice(product);
+
+    const subtotal =
+      unitPrice * qty;
+
+    lines.push(
+      `${index + 1}. [${product.id}] ${product.name}`
+    );
+
+    lines.push(
+      `   ${formatPrice(unitPrice)} × ${qty} = ${formatPrice(subtotal)}`
+    );
+
   });
 
-  const noteEl = document.getElementById('shortlistNote');
-  const extra = noteEl && noteEl.value.trim();
+  lines.push('');
+  lines.push(
+    `Total Items: ${getCartTotalQuantity()}`
+  );
+
+  lines.push(
+    `Total Price: ${formatPrice(getCartTotalPrice())}`
+  );
+
+  const noteEl =
+    document.getElementById('shortlistNote');
+
+  const extra =
+    noteEl && noteEl.value.trim();
+
   if (extra) {
-    lines.push('', 'Note:', extra);
+    lines.push('');
+    lines.push('Note:');
+    lines.push(extra);
   }
 
   return lines.join('\n');
@@ -301,33 +433,271 @@ function buildShortlistTextForMessage() {
 
 
 function openShortlistModal() {
-  const modal = document.getElementById('shortlistModal');
-  const listEl = document.getElementById('shortlistItems');
+
+  const modal =
+    document.getElementById('shortlistModal');
+
+  const listEl =
+    document.getElementById('shortlistItems');
+
   if (!modal || !listEl) return;
 
-  if (!shortlist.length) {
-    listEl.innerHTML = '<p class="muted">Your cart is still empty.</p>';
-  } else {
-    const items = shortlist
-      .map(id => products.find(p => String(p.id) === String(id)))
-      .filter(Boolean);
 
-    listEl.innerHTML = items
-      .map(
-        (p, idx) => `
-        <div class="cart-item-row" data-id="${p.id}">
-          <span class="cart-item-name">${idx + 1}. ${p.name}</span>
-          <button type="button"
-                  class="cart-item-remove"
-                  data-id="${p.id}"
-                  aria-label="Remove from cart">&times;</button>
+  /* ===============================
+     EMPTY CART
+  =============================== */
+
+  if (!shortlist.length) {
+
+    listEl.innerHTML = `
+      <div class="cart-empty-state">
+
+        <div class="cart-empty-icon">
+          🛒
         </div>
-      `
-      )
-      .join('');
+
+        <strong>Your cart is empty</strong>
+
+        <span>
+          Browse the portfolio and add the designs
+          you are interested in.
+        </span>
+
+      </div>
+    `;
+
+  } else {
+
+    let total = 0;
+
+
+    const html = shortlist.map((item, index) => {
+
+      const product = products.find(
+        p => String(p.id) === String(item.id)
+      );
+
+      if (!product) return '';
+
+
+      const qty = Math.max(
+        1,
+        Number(item.qty) || 1
+      );
+
+
+      const unitPrice =
+        getProductPrice(product);
+
+
+      const subtotal =
+        unitPrice * qty;
+
+
+      total += subtotal;
+
+
+      /* Thumbnail otomatis dari product */
+
+      let thumbnail =
+        product.thumbnail ||
+        (
+          Array.isArray(product.images) &&
+          product.images.length
+            ? product.images[0]
+            : ''
+        );
+
+
+      thumbnail =
+        ensureCloudAuto(thumbnail);
+
+
+      return `
+
+        <div
+          class="cart-item-row"
+          data-id="${product.id}">
+
+
+          <!-- MINI THUMBNAIL -->
+
+          <div class="cart-item-thumb">
+
+            <img
+              src="${thumbnail}"
+              alt="${product.name}"
+              loading="lazy">
+
+          </div>
+
+
+          <!-- PRODUCT INFO -->
+
+          <div class="cart-item-info">
+
+
+            <div class="cart-item-top">
+
+              <div class="cart-item-name">
+
+                <span class="cart-item-number">
+                  ${index + 1}.
+                </span>
+
+                ${product.name}
+
+              </div>
+
+
+              <button
+                type="button"
+                class="cart-item-remove"
+                data-id="${product.id}"
+                aria-label="Remove ${product.name}"
+                title="Remove item">
+
+                &times;
+
+              </button>
+
+            </div>
+
+
+            <!-- PRICE + QUANTITY -->
+
+            <div class="cart-price-detail">
+
+
+              <span class="cart-unit-price">
+
+                ${formatPrice(unitPrice)}
+
+              </span>
+
+
+              <span class="cart-multiply">
+
+                ×
+
+              </span>
+
+
+              <div class="cart-quantity">
+
+
+                <button
+                  type="button"
+                  class="cart-qty-btn cart-qty-minus"
+                  data-id="${product.id}"
+                  aria-label="Decrease quantity">
+
+                  −
+
+                </button>
+
+
+                <span class="cart-qty-value">
+
+                  ${qty}
+
+                </span>
+
+
+                <button
+                  type="button"
+                  class="cart-qty-btn cart-qty-plus"
+                  data-id="${product.id}"
+                  aria-label="Increase quantity">
+
+                  +
+
+                </button>
+
+
+              </div>
+
+
+              <span class="cart-equals">
+
+                =
+
+              </span>
+
+
+              <strong class="cart-subtotal">
+
+                ${formatPrice(subtotal)}
+
+              </strong>
+
+
+            </div>
+
+
+          </div>
+
+
+        </div>
+
+      `;
+
+    }).join('');
+
+
+    listEl.innerHTML = `
+
+      <div class="cart-list">
+
+        ${html}
+
+      </div>
+
+
+      <div class="cart-total-box">
+
+
+        <div class="cart-total-row">
+
+          <span class="muted">
+            Total Items
+          </span>
+
+
+          <strong>
+            ${getCartTotalQuantity()}
+          </strong>
+
+        </div>
+
+
+        <div class="cart-grand-total">
+
+
+          <span>
+            Total
+          </span>
+
+
+          <strong>
+            ${formatPrice(total)}
+          </strong>
+
+        </div>
+
+
+      </div>
+
+    `;
+
   }
 
-  modal.setAttribute('aria-hidden', 'false');
+
+  modal.setAttribute(
+    'aria-hidden',
+    'false'
+  );
+
 }
 
 
@@ -335,7 +705,121 @@ function closeShortlistModal() {
   const modal = document.getElementById('shortlistModal');
   if (modal) modal.setAttribute('aria-hidden', 'true');
 }
+/* =========================================
+   CLEAR CART CONFIRM MODAL
+========================================= */
 
+function openClearCartConfirm() {
+
+  const modal =
+    document.getElementById(
+      'clearCartConfirmModal'
+    );
+
+  if (!modal) return;
+
+  modal.setAttribute(
+    'aria-hidden',
+    'false'
+  );
+
+}
+
+
+function closeClearCartConfirm() {
+
+  const modal =
+    document.getElementById(
+      'clearCartConfirmModal'
+    );
+
+  if (!modal) return;
+
+  modal.setAttribute(
+    'aria-hidden',
+    'true'
+  );
+
+}
+
+
+function clearEntireCart() {
+
+  /* Kosongkan cart */
+
+  shortlist = [];
+
+
+  /* Simpan ke localStorage */
+
+  saveShortlist();
+
+
+  /* Update angka cart */
+
+  updateShortlistBadge();
+
+
+  /* Refresh cart UI */
+
+  openShortlistModal();
+
+
+  /* Reset semua tombol product */
+
+  document
+    .querySelectorAll(
+      '.btn-shortlist-toggle'
+    )
+    .forEach(btn => {
+
+      btn.textContent =
+        'Add to Cart';
+
+    });
+
+
+  /* Reset tombol pada product modal */
+
+  const productCartBtn =
+    document.getElementById(
+      'productCartBtn'
+    );
+
+
+  if (productCartBtn) {
+
+    productCartBtn.textContent =
+      'Add to Cart';
+
+    productCartBtn.classList.remove(
+      'remove'
+    );
+
+  }
+
+
+  /* Tutup confirmation */
+
+  closeClearCartConfirm();
+
+
+  /* Optional success notification */
+
+  if (typeof showToastAt === 'function') {
+
+    showToastAt(
+      'Cart cleared successfully.',
+      null,
+      {
+        type: 'info',
+        duration: 2200
+      }
+    );
+
+  }
+
+}
 // Helper: pastikan URL Cloudinary pakai f_auto,q_auto (tanpa dobel)
 function ensureCloudAuto(url) {
   if (!url || typeof url !== 'string') return url;
@@ -456,7 +940,7 @@ function render(list) {
         <button class="btn-outline btn-view" data-id="${p.id}">View</button>
         <button class="btn-cart btn-shortlist-toggle" data-id="${p.id}">${cartLabel}</button>
         ${youtubeBtn}
-        <button class="btn-primary btn-contact" data-id="${p.id}">Contact Me</button>
+        <button class="btn-primary btn-contact" data-id="${p.id}">BUY</button>
       </div>
     `;
   
@@ -512,7 +996,62 @@ function applyFilters() {
   
   render(filtered);
 }
+document.addEventListener('click', (ev) => {
 
+  const btn = ev.target;
+
+  if (
+    !btn ||
+    !btn.classList ||
+    !btn.classList.contains('cart-item-remove')
+  ) return;
+
+
+  const sid =
+    String(btn.dataset.id);
+
+
+  shortlist = shortlist.filter(
+    item =>
+      String(item.id) !== sid
+  );
+
+
+  saveShortlist();
+  updateShortlistBadge();
+
+  openShortlistModal();
+
+
+  // Sync card button
+  const cardBtn =
+    document.querySelector(
+      `.btn-shortlist-toggle[data-id="${sid}"]`
+    );
+
+  if (cardBtn) {
+    cardBtn.textContent =
+      'Add to Cart';
+  }
+
+
+  // Sync product modal button
+  const productCartBtn =
+    document.getElementById(
+      'productCartBtn'
+    );
+
+  if (
+    productCartBtn &&
+    window.currentProductId &&
+    String(window.currentProductId) === sid
+  ) {
+
+    productCartBtn.textContent =
+      'Add to Cart';
+  }
+
+});
 // ----------------- attach events & handlers -----------------
 function attachEvents() {
   // CATEGORY clicks
@@ -592,15 +1131,30 @@ document.body.addEventListener('click', async (e) => {
   if (e.target && e.target.matches && e.target.matches('.btn-shortlist-toggle')) {
     const id = e.target.dataset.id;
     const sid = String(id);
-    const idx = shortlist.indexOf(sid);
 
-    if (idx === -1) {
-      shortlist.push(sid);
+    const item = getCartItem(sid);
+
+    if (!item) {
+
+      shortlist.push({
+        id: sid,
+        qty: 1
+      });
+
       e.target.textContent = 'Remove';
+
     } else {
-      shortlist.splice(idx, 1);
+
+      shortlist = shortlist.filter(
+        item =>
+          String(item.id) !== sid
+      );
+
       e.target.textContent = 'Add to Cart';
     }
+
+    saveShortlist();
+    updateShortlistBadge();
 
     saveShortlist();
     updateShortlistBadge();
@@ -656,8 +1210,136 @@ document.body.addEventListener('click', async (e) => {
     const shortlistModal = document.getElementById('shortlistModal');
     const closeShortlistBtn = document.getElementById('closeShortlistModal');
     const shortlistCopyBtn = document.getElementById('shortlistCopyBtn');
+    const shortlistClearBtn =
+      document.getElementById(
+        'shortlistClearBtn'
+      );
+
+    const clearCartConfirmModal =
+      document.getElementById(
+        'clearCartConfirmModal'
+      );
+
+    const clearCartCancelBtn =
+      document.getElementById(
+        'clearCartCancelBtn'
+      );
+
+    const clearCartConfirmBtn =
+      document.getElementById(
+        'clearCartConfirmBtn'
+      );
     const shortlistWhatsAppBtn = document.getElementById('shortlistWhatsAppBtn');
     const mobileCartBtn = document.getElementById('mobileCartBtn');
+      /* =========================================
+      CLEAR ALL BUTTON
+    ========================================= */
+
+    if (shortlistClearBtn) {
+
+      shortlistClearBtn.addEventListener(
+        'click',
+        () => {
+
+          if (!shortlist.length) {
+
+            if (
+              typeof showToastAt ===
+              'function'
+            ) {
+
+              showToastAt(
+                'Your cart is already empty.',
+                shortlistClearBtn,
+                {
+                  type: 'info',
+                  duration: 2200,
+                  offsetY: -40
+                }
+              );
+
+            }
+
+            return;
+
+          }
+
+
+          openClearCartConfirm();
+
+        }
+      );
+
+    }
+
+
+    /* CANCEL */
+
+    if (clearCartCancelBtn) {
+
+      clearCartCancelBtn.addEventListener(
+        'click',
+        closeClearCartConfirm
+      );
+
+    }
+
+
+    /* CONFIRM */
+
+    if (clearCartConfirmBtn) {
+
+      clearCartConfirmBtn.addEventListener(
+        'click',
+        clearEntireCart
+      );
+
+    }
+
+
+    /* CLICK OUTSIDE */
+
+    if (clearCartConfirmModal) {
+
+      clearCartConfirmModal.addEventListener(
+        'click',
+        (event) => {
+
+          if (
+            event.target ===
+            clearCartConfirmModal
+          ) {
+
+            closeClearCartConfirm();
+
+          }
+
+        }
+      );
+
+    }
+
+
+    /* ESCAPE KEY */
+
+    document.addEventListener(
+      'keydown',
+      (event) => {
+
+        if (
+          event.key === 'Escape' &&
+          clearCartConfirmModal &&
+          clearCartConfirmModal.getAttribute(
+            'aria-hidden'
+          ) === 'false'
+        ) {
+
+          closeClearCartConfirm();
+
+        }
+
+      }
+    );
     if (shortlistBtn) {
       shortlistBtn.addEventListener('click', openShortlistModal);
     }
@@ -680,7 +1362,7 @@ document.body.addEventListener('click', async (e) => {
 
       const id = btn.dataset.id;
       const sid = String(id);
-      const idx = shortlist.indexOf(sid);
+      //const idx = shortlist.indexOf(sid);
       if (idx === -1) return;
 
       // remove from shortlist array
@@ -702,7 +1384,74 @@ document.body.addEventListener('click', async (e) => {
         productCartBtn.classList.remove('remove');
       }
     });
+  if (shortlistClearBtn) {
 
+    shortlistClearBtn.addEventListener(
+      'click',
+      () => {
+
+        if (!shortlist.length) return;
+
+
+        openClearCartConfirm();
+        return;
+
+
+        /* Clear cart */
+
+        shortlist = [];
+
+
+        /* Save */
+
+        saveShortlist();
+
+
+        /* Update cart badge */
+
+        updateShortlistBadge();
+
+
+        /* Refresh cart */
+
+        openShortlistModal();
+
+
+        /* Reset all product buttons */
+
+        document
+          .querySelectorAll('.btn-shortlist-toggle')
+          .forEach(btn => {
+
+            btn.textContent =
+              'Add to Cart';
+
+          });
+
+
+        /* Reset product modal button */
+
+        const productCartBtn =
+          document.getElementById(
+            'productCartBtn'
+          );
+
+
+        if (productCartBtn) {
+
+          productCartBtn.textContent =
+            'Add to Cart';
+
+          productCartBtn.classList.remove(
+            'remove'
+          );
+
+        }
+
+      }
+    );
+
+  }
     if (shortlistCopyBtn) {
       shortlistCopyBtn.addEventListener('click', () => {
         const text = buildShortlistTextForMessage();
@@ -1272,22 +2021,47 @@ document.body.addEventListener('click', async (e) => {
     } else {
       productRate.innerHTML = '<div class="star-rating muted">No rating</div>';
     }
-  
-    // tags as before
+
+    // Product badges
     const tagWrap = document.getElementById('productTags');
+
     if (tagWrap) {
+
       tagWrap.innerHTML = '';
-      if (Array.isArray(prod.tags) && prod.tags.length) {
-        prod.tags.forEach(tg => {
-          const el = document.createElement('span');
-          el.className = 'product-tag';
-          el.textContent = tg;
-          tagWrap.appendChild(el);
-        });
-        tagWrap.style.display = 'flex';
-      } else {
-        tagWrap.style.display = 'none';
-      }
+
+      const productBadges = [
+        {
+          text: '✓ Ready Design',
+          className: 'badge-ready'
+        },
+        {
+          text: '✦ Customizable',
+          className: 'badge-customizable'
+        },
+        {
+          text: '⚠ Discount Will Apply',
+          className: 'badge-limited'
+        },
+        {
+          text: '🎨 Color Custom Available',
+          className: 'badge-color-custom'
+        }
+      ];
+
+      productBadges.forEach(badge => {
+
+        const el = document.createElement('span');
+
+        el.className =
+          `product-tag product-status-badge ${badge.className}`;
+
+        el.textContent = badge.text;
+
+        tagWrap.appendChild(el);
+
+      });
+
+      tagWrap.style.display = 'flex';
     }
   
     // youtube external button (ke kanan) - tetap ada
@@ -1311,7 +2085,7 @@ document.body.addEventListener('click', async (e) => {
 
       productCartBtn.onclick = () => {
         const sid = String(prod.id);
-        const idx = shortlist.indexOf(sid);
+        //const idx = shortlist.indexOf(sid);
         let nowInCart;
 
         if (idx === -1) {
@@ -1493,30 +2267,30 @@ document.body.addEventListener('click', async (e) => {
   // price table (use values from your images; edit if perlu)
   const PRICE_TABLE = {
     usd: {
-      "Armor": "$100",
-      "Weapon": "$50 (10 Pcs) / $90 (17 Pcs)",
-      "Shield": "$7",
-      "Booster": "$18",
-      "Mask": "$18",
-      "Unit (MAU)": "$60",
-      "Unit (Siege Kit)": "$30",
+      "Armor": "$120",
+      "Weapon": "$80 (11 Pcs) / $130 (17 Pcs)",
+      "Shield": "$10",
+      "Booster": "$20",
+      "Mask": "$20",
+      "Unit (MAU)": "$25 - 40 / 1 Key (Depending on difficulty)",
+      "Unit (Siege Kit)": "$15 - 35 (Depending on difficulty)",
       "Unit (Animus // 4 Animus)": "$120",
-      "Monster": "$15 – $30 (Depending on difficulty)",
-      "NPC": "$15 – $30 (Depending on difficulty)",
-      "Armor Revamp": "$30 – $40",
-      "Weapon Revamp": "$30 – $50"
+      "Monster": "$15 – $40 (Depending on difficulty)",
+      "NPC": "$15 – $40 (Depending on difficulty)",
+      "Armor Revamp": "$30 – $70",
+      "Weapon Revamp": "$30 – $80"
     },
     idr: {
-      "Armor": "Rp 1.500.000",
-      "Weapon": "Rp 800.000 (10 Pcs) / Rp 1.300.000 (17 Pcs)",
+      "Armor": "Rp 1.700.000",
+      "Weapon": "Rp 900.000 (11 Pcs) / Rp 1.500.000 (19 Pcs)",
       "Shield": "Rp 80.000 – Rp 110.000",
       "Booster": "Rp 275.000",
       "Mask": "Rp 275.000",
       "Unit (MAU)": "Rp 600.000 (2 MAU)",
       "Unit (Siege Kit)": "Rp 150.000 – Rp 400.000",
-      "Unit (Animus // 4 Animus)": "Rp 800.000",
-      "Monster": "Rp 150.000 – Rp 300.000",
-      "NPC": "Rp 150.000 – Rp 300.000",
+      "Unit (Animus // 4 Animus)": "Rp 1.000.000",
+      "Monster": "Rp 150.000 – Rp 400.000",
+      "NPC": "Rp 150.000 – Rp 400.000",
       "Armor Revamp": "Rp 500.000 – Rp 750.000",
       "Weapon Revamp": "Rp 500.000 – Rp 1.000.000"
     }
@@ -2148,28 +2922,171 @@ document.addEventListener('DOMContentLoaded', function initStickyRecs(){
   });
 
   // simple slide state (pixel-wise)
+// =========================================
+// INFINITE / LOOP CAROUSEL
+// =========================================
+
   let x = 0;
-  function clampX(val) {
-    const trackWidth = track.scrollWidth;
-    const viewport = track.parentElement.clientWidth;
-    const max = Math.max(0, trackWidth - viewport);
-    return Math.max(0, Math.min(max, val));
+
+
+  /* Hitung batas maksimal carousel */
+
+  function getMaxX() {
+
+    const trackWidth =
+      track.scrollWidth;
+
+    const viewport =
+      track.parentElement.clientWidth;
+
+    return Math.max(
+      0,
+      trackWidth - viewport
+    );
+
   }
+
+
+  /* Tetap batasi posisi untuk drag */
+
+  function clampX(val) {
+
+    const max = getMaxX();
+
+    return Math.max(
+      0,
+      Math.min(max, val)
+    );
+
+  }
+
+
+  /* Pindahkan carousel */
 
   function scrollToX(val) {
+
     x = clampX(val);
-    track.style.transform = `translateX(-${x}px)`;
+
+    track.style.transform =
+      `translateX(-${x}px)`;
+
   }
 
-  // prev/next scroll by viewport width
-  if (prevBtn) prevBtn.addEventListener('click', () => {
-    const viewport = track.parentElement.clientWidth;
-    scrollToX(x - (viewport * 0.75));
-  });
-  if (nextBtn) nextBtn.addEventListener('click', () => {
-    const viewport = track.parentElement.clientWidth;
-    scrollToX(x + (viewport * 0.75));
-  });
+
+  /* =========================================
+    NEXT
+  ========================================= */
+
+  function goNext() {
+
+    const viewport =
+      track.parentElement.clientWidth;
+
+    const max =
+      getMaxX();
+
+    const step =
+      viewport * 0.75;
+
+
+    if (max <= 0) return;
+
+
+    /*
+      Jika sudah sampai akhir,
+      kembali ke awal
+    */
+
+    if (x >= max - 2) {
+
+      scrollToX(0);
+
+      return;
+
+    }
+
+
+    /*
+      Scroll menuju item berikutnya.
+      Kalau belum sampai ujung,
+      tetap berhenti di ujung terlebih dahulu.
+    */
+
+    scrollToX(
+      Math.min(
+        max,
+        x + step
+      )
+    );
+
+  }
+
+
+  /* =========================================
+    PREVIOUS
+  ========================================= */
+
+  function goPrevious() {
+
+    const viewport =
+      track.parentElement.clientWidth;
+
+    const max =
+      getMaxX();
+
+    const step =
+      viewport * 0.75;
+
+
+    if (max <= 0) return;
+
+
+    /*
+      Jika sudah berada di awal,
+      lompat ke akhir
+    */
+
+    if (x <= 2) {
+
+      scrollToX(max);
+
+      return;
+
+    }
+
+
+    scrollToX(
+      Math.max(
+        0,
+        x - step
+      )
+    );
+
+  }
+
+
+  /* =========================================
+    NAVIGATION BUTTONS
+  ========================================= */
+
+  if (prevBtn) {
+
+    prevBtn.addEventListener(
+      'click',
+      goPrevious
+    );
+
+  }
+
+
+  if (nextBtn) {
+
+    nextBtn.addEventListener(
+      'click',
+      goNext
+    );
+
+  }
 
   // touch drag support - basic
   let startX = 0, startTranslate = 0, dragging = false;
@@ -2198,91 +3115,36 @@ document.addEventListener('DOMContentLoaded', function initStickyRecs(){
     recsEl.style.display = 'none';
   });
 
-  // autoplay (optional) — scroll slowly
-  let autoTimer = setInterval(() => {
-    const viewport = track.parentElement.clientWidth;
-    const trackWidth = track.scrollWidth;
-    const max = Math.max(0, trackWidth - viewport);
-    if (x >= max) {
-      // reset to start
-      scrollToX(0);
-    } else {
-      scrollToX(x + 160);
-    }
-  }, 2600);
+  // =========================================
+  // AUTOPLAY
+  // =========================================
+
+  let autoTimer = setInterval(
+    goNext,
+    2600
+  );
 
   // pause on hover/touch
   recsEl.addEventListener('mouseenter', () => clearInterval(autoTimer));
-  recsEl.addEventListener('mouseleave', () => {
-    clearInterval(autoTimer);
-    autoTimer = setInterval(() => {
-      const viewport = track.parentElement.clientWidth;
-      const trackWidth = track.scrollWidth;
-      const max = Math.max(0, trackWidth - viewport);
-      if (x >= max) scrollToX(0); else scrollToX(x + 160);
-    }, 2600);
-  });
+  recsEl.addEventListener(
+    'mouseleave',
+    () => {
 
+      clearInterval(autoTimer);
+
+      autoTimer = setInterval(
+        goNext,
+        2600
+      );
+
+    }
+  );
 })();
 });
 // pastikan element sticky sudah ada
-(function ensureContentSpacingForSticky(){
-  const sticky = document.getElementById('stickyRecs');
-  if (!sticky) return;
 
-  // cari target layout utama; ubah selector jika projectmu pakai lain
-  const mainTarget = document.querySelector('.app') || document.querySelector('#app') || document.body;
-
-  function applyPadding() {
-    // dapatkan tinggi total sticky + gap
-    const rect = sticky.getBoundingClientRect();
-    const height = Math.ceil(rect.height) + 8; // 8px safety
-    // terapkan padding-bottom hanya jika lebih besar dari padding sekarang
-    const current = parseInt(getComputedStyle(mainTarget).paddingBottom) || 0;
-    if (current < height) {
-      mainTarget.style.paddingBottom = height + 'px';
-    }
-  }
-
-  // jalankan sekali dan ketika resize/zoom berubah
-  applyPadding();
-  window.addEventListener('resize', applyPadding);
-  // jika sticky bisa ditutup, reset padding ketika disembunyikan
-  const closeBtn = document.getElementById('recsClose');
-  if (closeBtn) closeBtn.addEventListener('click', () => {
-    // jangan hilangkan padding kalau elemen masih ada tapi display none
-    if (sticky.style.display === 'none' || getComputedStyle(sticky).display === 'none') {
-      // reset ke nilai semula (kosongkan agar mengikuti CSS default)
-      mainTarget.style.paddingBottom = '';
-    }
-  });
-})();
 // collapsible behavior
-(function stickyCollapseToggle(){
-  const sticky = document.getElementById('stickyRecs');
-  if (!sticky) return;
-  // default collapsed
-  sticky.classList.add('collapsed');
 
-  // jika ada tombol untuk expand/collapse (opsional)
-  sticky.addEventListener('dblclick', () => { // double-click toggles
-    sticky.classList.toggle('collapsed');
-  });
-})();
-(function addTopPaddingForSticky(){
-  const sticky = document.getElementById('stickyRecs');
-  if (!sticky) return;
-
-  const target = document.querySelector('.app') || document.body;
-
-  function applyPad() {
-    const h = sticky.getBoundingClientRect().height;
-    target.style.paddingTop = (h + 40) + 'px'; // 40px buffer aman
-  }
-
-  applyPad();
-  window.addEventListener('resize', applyPad);
-})();
 // ---- AD INJECTION (paste this near the end of storepage.js) ----
 async function loadAdvertisementsDebug() {
   console.log('[ADS] trying to fetch advertisement.json (same folder)...');
