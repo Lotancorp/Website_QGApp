@@ -2406,17 +2406,23 @@
     "id": 78,
     "name": "Batik Singularity Weapons",
     "cat": "weapon",
-    "price_usd": 0.0,
-    "price_idr": 0,
+    "price_usd": 100.0,
+    "price_idr": 1000000,
     "rarity": "NEW RELEASE",
-    "desc": "",
+    "desc": "Batik Singularity Weapons Set is a custom RF Online skin a high-tier offensive set forged within the experimental chambers of Quartz Gallery. Its composition blends alloyed energy conductors and dense kinetic cores, allowing seamless energy flow between components. Each piece responds to user intent, channeling precision strikes that resonate with remarkable power and stability. Engineered for tacticians and duelists alike, this set embodies the harmony between speed and destructive accuracy.",
     "thumbnail": "https://res.cloudinary.com/do1nbyqv0/image/upload/v1792157320/Batik_Singularity__Armored_Guardian_htvw7u.png",
     "images": [
       "https://res.cloudinary.com/do1nbyqv0/image/upload/v1792157320/Batik_Singularity__Armored_Guardian_htvw7u.png"
     ],
     "youtube": "https://youtu.be/NflJU_DYZX4",
-    "release_date": "",
-    "tags": [],
-    "rate": 5.0
+    "release_date": "16 10 2026",
+    "tags": [
+      "rf online",
+      "skin",
+      "weapon",
+      "Batik",
+      "set"
+    ],
+    "rate": 4.7
   }
 ]
