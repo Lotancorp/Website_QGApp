@@ -1,306 +1,251 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Quartz Gallery — Software</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1020">
+  <meta name="description" content="Explore Quartz Gallery V3 features, learn how to use the tools, and watch video tutorials for RF Online file workflows.">
+  <title>Quartz Gallery V3 — Software Guide</title>
   <link rel="icon" type="image/png" href="Images/QG.png" sizes="32x32">
-  <link rel="stylesheet" href="software.css" />
   <style>
-    /* Small landing-specific overrides */
-    .hero {
-      display:flex;
-      gap:20px;
-      align-items:center;
-      justify-content:space-between;
-      padding:36px;
-      border-radius:12px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
-      border:1px solid rgba(255,255,255,0.03);
-      margin:20px 0;
+    :root {
+      color-scheme: dark;
+      --bg: #0b1020;
+      --panel: #111a2c;
+      --panel-soft: #151f33;
+      --line: rgba(255,255,255,.1);
+      --text: #edf3ff;
+      --muted: #aab7ce;
+      --blue: #82b1ff;
+      --cyan: #70e2e2;
+      --green: #b4e28b;
+      --shadow: 0 20px 55px rgba(0,0,0,.28);
+      font-family: Inter, "Segoe UI", system-ui, -apple-system, sans-serif;
     }
-    .hero-left { max-width:720px; }
-    .hero h1 { margin:0 0 6px 0; font-size:28px; }
-    .hero p.lead { margin:0 0 14px 0; color:var(--muted); line-height:1.5; }
-    .cta-group { display:flex; gap:12px; align-items:center; }
-    .btn-download { background: linear-gradient(90deg,#ff7a59,#ff5a9e); color:#fff; padding:12px 18px; border-radius:10px; font-weight:700; text-decoration:none; }
-    .btn-register { background: linear-gradient(90deg,#7b5cff,#3467FF); color:#fff; padding:12px 18px; border-radius:10px; font-weight:700; text-decoration:none; }
-
-    .features { display:grid; grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); gap:12px; margin:18px 0; }
-    .feature { background: rgba(255,255,255,0.02); padding:14px; border-radius:10px; border:1px solid rgba(255,255,255,0.02); }
-    .feature h4 { margin:0 0 6px 0; }
-    .screenshot-slides { position:relative; border-radius:10px; overflow:hidden; border:1px solid rgba(255,255,255,0.03); background:var(--glass); }
-    .slides { display:flex; transition:transform .45s ease; width:100%; }
-    .slide { min-width:100%; display:flex; align-items:center; justify-content:center; padding:18px; }
-    .slide img { max-width:100%; max-height:420px; object-fit:contain; }
-    .slides-nav { display:flex; justify-content:center; gap:8px; margin-top:10px; }
-    .slides-nav button { padding:8px 10px; border-radius:8px; border:none; cursor:pointer; background:rgba(255,255,255,0.03); color:var(--text); }
-
-    .tutorials { margin-top:18px; display:flex; gap:18px; flex-wrap:wrap; }
-    .tutorials .links { flex:1 1 320px; background:rgba(255,255,255,0.02); padding:12px; border-radius:10px; border:1px solid rgba(255,255,255,0.02); }
-    footer.landing-foot { margin-top:28px; color:var(--muted); text-align:center; font-size:13px; }
-    @media (max-width:980px){
-      .hero { flex-direction:column; align-items:flex-start; }
-      .hero-left { max-width:100%; }
-      .cta-group { width:100%; justify-content:stretch; gap:8px; }
-      .cta-group a { flex:1; text-align:center; }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+    body {
+      margin: 0; color: var(--text); line-height: 1.65;
+      background: radial-gradient(ellipse at 78% 0%, rgba(48,105,183,.2), transparent 36rem),
+                  radial-gradient(ellipse at 0% 45%, rgba(27,113,128,.11), transparent 28rem), var(--bg);
     }
+    a { color: inherit; text-decoration: none; }
+    button { color: inherit; font: inherit; }
+    .wrap { width: min(1160px, calc(100% - 40px)); margin: 0 auto; }
+    .topbar { position: sticky; top: 0; z-index: 20; border-bottom: 1px solid var(--line); background: rgba(11,16,32,.88); backdrop-filter: blur(18px); }
+    .nav { min-height: 70px; display: flex; align-items: center; gap: 22px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; letter-spacing: -.03em; white-space: nowrap; }
+    .brand img { width: 38px; height: 38px; object-fit: contain; border-radius: 10px; }
+    .brand small { color: #91a9ca; font-size: 12px; }
+    .nav-links { margin-left: auto; display: flex; align-items: center; gap: 18px; color: var(--muted); font-size: 12px; }
+    .nav-links a:hover { color: white; }
+    .nav-actions { display: flex; gap: 8px; }
+    .menu-toggle { display: none; margin-left: auto; border: 1px solid var(--line); border-radius: 10px; padding: 7px 10px; background: var(--panel); }
+    .button { min-height: 41px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 0 14px; border: 1px solid var(--line); border-radius: 12px; background: #18243a; font-size: 12px; font-weight: 750; transition: .2s; }
+    .button:hover { transform: translateY(-2px); border-color: #82b1ff77; background: #203351; }
+    .button.primary { border: 0; color: #0b1421; background: linear-gradient(110deg,#9ac2ff,#70e2e2); }
+    .button.small { min-height: 34px; padding: 0 11px; }
+    .hero { padding: 61px 0 48px; }
+    .hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; align-items: center; gap: 35px; }
+    .eyebrow,.kicker { color: var(--cyan); font-size: 10px; font-weight: 850; letter-spacing: .14em; text-transform: uppercase; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; padding: 7px 12px; border: 1px solid #70a7ff44; border-radius: 99px; background: #182844; color: #d4e5ff; }
+    .eyebrow i { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 12px var(--green); }
+    h1,h2,h3,h4,p { margin-top: 0; }
+    h1 { max-width: 700px; margin: 19px 0; font-size: clamp(42px,6vw,72px); line-height: .99; letter-spacing: -.06em; }
+    h1 span { color: transparent; background: linear-gradient(100deg,#a9caff,#6ee2df); background-clip: text; -webkit-background-clip: text; }
+    .lead { max-width: 630px; color: var(--muted); font-size: 16px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 9px; margin: 22px 0; }
+    .license-chip { display: inline-flex; align-items: center; gap: 13px; padding: 10px 14px; border: 1px solid var(--line); border-radius: 14px; background: #121b2a; }
+    .license-chip b { color: #c9ddff; font-size: 20px; }
+    .license-chip small { display: block; color: var(--muted); font-size: 10px; }
+    .hero-art { position: relative; min-height: 410px; display: grid; place-items: center; }
+    .orbit { position: absolute; width: min(100%,420px); aspect-ratio: 1; border: 1px solid #a7c9ff20; border-radius: 50%; box-shadow: inset 0 0 80px #3677b514; }
+    .art-card { position: relative; width: min(76%,330px); height: 365px; overflow: hidden; border: 1px solid #d7e5ff40; border-radius: 27px; background: linear-gradient(145deg,#263e60,#111928 65%,#344666); box-shadow: var(--shadow); transform: rotate(2deg); }
+    .art-card img { width: 100%; height: 100%; object-fit: cover; opacity: .78; mix-blend-mode: screen; }
+    .art-card:after { content: ""; position: absolute; inset: 45% 0 0; background: linear-gradient(transparent,#0b1020ed); }
+    .art-caption { position: absolute; z-index: 1; bottom: 18px; left: 19px; }
+    .art-caption small { color: #b7c8e1; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; }
+    .art-caption strong { display: block; font-size: 18px; line-height: 1.2; }
+    .float-tag { position: absolute; z-index: 2; padding: 9px 12px; border: 1px solid var(--line); border-radius: 12px; background: #172238ef; box-shadow: 0 12px 30px #0005; font-size: 11px; }
+    .float-tag.one { top: 48px; left: 0; }
+    .float-tag.two { right: 0; bottom: 42px; }
+    .section { padding: 59px 0; }
+    .section-head { max-width: 760px; margin-bottom: 24px; }
+    .section-head h2 { margin: 6px 0 9px; font-size: clamp(29px,4vw,43px); line-height: 1.08; letter-spacing: -.045em; }
+    .section-head p { margin-bottom: 0; color: var(--muted); font-size: 13px; }
+    .feature-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
+    .card,.panel { border: 1px solid var(--line); border-radius: 18px; background: linear-gradient(145deg,#151f32,#101827); box-shadow: 0 12px 32px #0002; }
+    .feature-card { min-height: 177px; padding: 18px; transition: .2s; }
+    .feature-card:hover { transform: translateY(-3px); border-color: #70a7ff66; }
+    .feature-icon { width: 38px; height: 38px; display: grid; place-items: center; margin-bottom: 12px; border: 1px solid #70a7ff33; border-radius: 12px; background: #1c2e4b; color: #d7e9ff; font-size: 17px; }
+    .feature-card h3 { margin-bottom: 6px; font-size: 15px; }
+    .feature-card p { margin: 0; color: var(--muted); font-size: 12px; }
+    .feature-tag { display: inline-block; margin-top: 11px; color: #91baff; font-size: 9px; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; }
+    .gallery { overflow: hidden; border: 1px solid var(--line); border-radius: 18px; background: #101827; }
+    .gallery-window { overflow: hidden; }
+    .gallery-track { display: flex; transition: transform .4s ease; }
+    .gallery-slide { min-width: 100%; height: clamp(190px,42vw,450px); display: grid; place-items: center; padding: 12px; background: linear-gradient(145deg,#172338,#0b1020); }
+    .gallery-slide img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px; }
+    .gallery-controls { display: flex; align-items: center; justify-content: space-between; padding: 9px 12px; border-top: 1px solid var(--line); color: var(--muted); font-size: 11px; }
+    .gallery-controls button { width: 34px; height: 30px; border: 1px solid var(--line); border-radius: 9px; background: #18243a; cursor: pointer; }
+    .split-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; }
+    .panel { padding: 20px; }
+    .panel h3 { margin-bottom: 7px; font-size: 16px; }
+    .panel p,.panel li { color: var(--muted); font-size: 12px; }
+    .panel ul { margin: 9px 0 0; padding-left: 18px; }
+    .panel li+li { margin-top: 5px; }
+    .notice { margin-top: 13px; padding: 11px 14px; border-left: 3px solid var(--cyan); border-radius: 0 10px 10px 0; background: #132532; color: #cad9e8; font-size: 12px; }
+    .tutorial-layout { display: grid; grid-template-columns: 1.2fr .8fr; align-items: start; gap: 14px; }
+    .tutorial-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .tutorial-link { display: flex; align-items: center; gap: 9px; padding: 10px; border: 1px solid var(--line); border-radius: 11px; background: #121a29; color: #cfdaeb; font-size: 11px; }
+    .tutorial-link:hover { border-color: #70a7ff77; background: #1a2940; }
+    .play-icon { display: grid; width: 25px; height: 25px; flex: 0 0 auto; place-items: center; border-radius: 8px; background: #342333; color: #ff8d9a; }
+    .spec-list { display: grid; gap: 8px; }
+    .spec { padding-bottom: 8px; border-bottom: 1px solid var(--line); color: var(--muted); font-size: 11px; }
+    .spec strong { color: var(--text); }
+    .addon-banner { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 22px; border-color: #70a7ff38; background: linear-gradient(115deg,#172844,#132532); }
+    .addon-banner p { max-width: 650px; margin: 5px 0 0; color: var(--muted); font-size: 12px; }
+    .footer { padding: 25px 0 38px; border-top: 1px solid var(--line); color: #8290a7; font-size: 11px; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
+    .reveal { opacity: 0; transform: translateY(13px); transition: .45s; }
+    .reveal.visible { opacity: 1; transform: none; }
+    @media(max-width:850px) { .hero-grid,.tutorial-layout { grid-template-columns: 1fr; } .hero-art { min-height: 360px; } .feature-grid { grid-template-columns: repeat(2,1fr); } }
+    @media(max-width:620px) {
+      .wrap { width: calc(100% - 28px); } .nav { min-height: 62px; } .menu-toggle { display: block; }
+      .nav-links { position: absolute; top: 61px; left: 0; right: 0; display: none; padding: 14px 20px; border-bottom: 1px solid var(--line); background: #0d1424f5; flex-direction: column; align-items: flex-start; gap: 12px; }
+      .nav-links.open { display: flex; } .nav-actions { display: none; } .hero { padding: 42px 0 30px; } .lead { font-size: 14px; }
+      .hero-art { min-height: 330px; } .art-card { height: 300px; } .feature-grid,.split-grid,.tutorial-grid { grid-template-columns: 1fr; }
+      .section { padding: 46px 0; } .addon-banner { align-items: flex-start; flex-direction: column; }
+    }
+    @media(prefers-reduced-motion:reduce) { *,*:before,*:after { scroll-behavior: auto !important; transition-duration: .01ms !important; } .reveal { opacity: 1; transform: none; } }
   </style>
 </head>
 <body>
-  <div style="max-width:1120px;margin:18px auto;padding:12px;">
-    <header style="display:flex;align-items:center;gap:12px;">
-      <div style="display:flex;align-items:center;gap:12px;">
-        <img src="Images/qg.png" alt="Quartz Gallery" style="width:56px;height:56px;object-fit:contain;border-radius:8px;">
-        <div>
-          <h2 style="margin:0">Quartz Gallery — Toolkit</h2>
-          <div class="muted" style="font-size:13px;">Power tools for RF Online skin & effect editing</div>
-        </div>
+  <header class="topbar">
+    <nav class="nav wrap" aria-label="Main navigation">
+      <a class="brand" href="#top"><img src="Images/QG.png" alt="Quartz Gallery logo"><span>Quartz Gallery <small>V3 Toolkit</small></span></a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">☰</button>
+      <div class="nav-links" id="navLinks">
+        <a href="#features">Features</a><a href="#setup">Getting started</a><a href="#tutorials">Tutorials</a><a href="addonpage.html">Add-Ons</a>
       </div>
-      <div style="margin-left:auto;display:flex;gap:10px;">
-        <a class="btn-register" href="addonpage.html">Add-Ons</a>
-        <a class="btn-register" href="https://forms.gle/AW5tZStuq4HpND5x7" target="_blank">Register</a>
-        <a class="btn-download" href="https://drive.google.com/file/d/1YYxdRgsWoTZGdrdVG6P-PjXec_v0iCgT/view" target="_blank">Download</a>
+      <div class="nav-actions"><a class="button small" href="https://forms.gle/AW5tZStuq4HpND5x7" target="_blank" rel="noopener">Register</a><a class="button primary small" href="https://drive.google.com/file/d/1YYxdRgsWoTZGdrdVG6P-PjXec_v0iCgT/view?usp=drive_link" target="_blank" rel="noopener">Download</a></div>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero"><div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow"><i></i> Tools for RF Online creators</div>
+        <h1>Make your workflow <span>work better.</span></h1>
+        <p class="lead">Quartz Gallery V3 brings editing, file checks, asset previews, and batch tools together in one Windows application. Follow the guides below to find the right tool, even if you have never worked with these file types before.</p>
+        <div class="hero-actions"><a class="button primary" href="https://drive.google.com/file/d/1YYxdRgsWoTZGdrdVG6P-PjXec_v0iCgT/view?usp=drive_link" target="_blank" rel="noopener">Download Quartz Gallery ↓</a><a class="button" href="#features">Explore all features</a><a class="button" href="addonpage.html">Add-On licenses →</a></div>
+        <div class="license-chip"><b>$25</b><span><strong>Lifetime software license</strong><small>One-time payment · Free updates</small></span></div>
       </div>
-      
-    </header>
+      <div class="hero-art" aria-label="Quartz Gallery artwork"><div class="orbit"></div><div class="float-tag one">✦ &nbsp;A practical creator toolkit</div><div class="art-card"><img src="https://res.cloudinary.com/do1nbyqv0/image/upload/v1762764250/QG_wbkhpe.png" alt="Quartz Gallery App" fetchpriority="high"><div class="art-caption"><small>Quartz Gallery asset</small><strong>Quartz Gallery App<br>RF Online App Config</strong></div></div><div class="float-tag two">✓ &nbsp;Explore · Edit · Check</div></div>
+    </div></section>
 
-    <section class="hero">
-      <div class="hero-left">
-        <h1>Quartz Toolkit — RF Online Modding Utility</h1>
-        <p class="lead">A cohesive suite of tools designed to streamline RF Online content creation — from EFF/SPR handling to icon and particle indexing. Built for modders, creators and server maintainers who need speed, accuracy and batch-processing power.</p>
-
-        <div style="display:flex;gap:10px;align-items:center">
-          <a class="btn-download" href="https://drive.google.com/file/d/1YYxdRgsWoTZGdrdVG6P-PjXec_v0iCgT/view?usp=drive_link" target="_blank" rel="noopener">Download</a>
-          <a class="btn-register" href="addonpage.html">
-            Official Add-Ons
-          </a>
-          <a class="btn-register" href="https://forms.gle/AW5tZStuq4HpND5x7" target="_blank" rel="noopener">Register</a>
-          <div style="margin-left:12px;color:var(--muted);font-size:13px">v2.2.1 • last update: May 7, 2026</div>
-        </div>
-        <div class="pricing-inline">
-          <div class="pricing-badge">Lifetime License</div>
-          <div class="pricing-main">
-            <span class="price">$25</span>
-            <span class="price-note">One-time payment • Free updates</span>
-          </div>
-          <a class="btn-buy" href="#">Buy Now</a>
-        </div>
+    <section class="section" id="features"><div class="wrap">
+      <div class="section-head"><div class="kicker">Complete feature guide</div><h2>Everything you can do in the public app.</h2><p>These are the public QGV3 tools and workflows, grouped by what you want to accomplish.</p></div>
+      <div class="feature-grid">
+        <article class="card feature-card"><div class="feature-icon">▤</div><h3>Main Text Editor</h3><p>Open and edit TXT, INI, and SPT files in tabs. Search or replace text, move between open files, and save with Ctrl+S. Named files are saved automatically every five minutes.</p><span class="feature-tag">Editing · Search · Autosave</span></article>
+        <article class="card feature-card"><div class="feature-icon">⌕</div><h3>Open Link Mode</h3><p>Turn on the link button, then click a supported SPT path in Particle.ini or an EFF path in EffectFileList, Monster.ini, or Npc.ini to open the linked file.</p><span class="feature-tag">Open linked files</span></article>
+        <article class="card feature-card"><div class="feature-icon">▣</div><h3>Master Source</h3><p>Register shared locations for RF Client, databases, Excel workbooks, Resource.edf, animation assets, and JSON files. The app indexes sources and shows progress in the right panel.</p><span class="feature-tag">Shared file locations</span></article>
+        <article class="card feature-card"><div class="feature-icon">▱</div><h3>Root Folder Explorer</h3><p>Add work folders to the left sidebar, browse supported files, hide unrelated folders, copy paths, and open files with a double-click.</p><span class="feature-tag">Browse your work</span></article>
+        <article class="card feature-card"><div class="feature-icon">⚙</div><h3>Config Link Editor</h3><p>Create connected records for EffectFileList, Monster.ini or Npc.ini, ItemEffectList, PatternList, and Particle.ini. It checks available numbers, builds linked rows, and opens the generated files for review.</p><span class="feature-tag">Create linked config records</span></article>
+        <article class="card feature-card"><div class="feature-icon">＋</div><h3>Quick Config Writers</h3><p>Use the editor buttons for EffectFileList, ItemEffectList, PatternList, Particle.ini, and Edit Particle to add common records without typing every line yourself.</p><span class="feature-tag">Faster data entry</span></article>
+        <article class="card feature-card"><div class="feature-icon">◉</div><h3>Availability Particle</h3><p>See which Particle numbers are available or already used in a Particle.ini file. Choose a source file, filter the list, and copy numbers when needed.</p><span class="feature-tag">Find an available number</span></article>
+        <article class="card feature-card"><div class="feature-icon">✓</div><h3>Check File</h3><p>Run checks against an open Particle.ini and related data. Review effect, item-effect, entity, and file-path results, then open a result to inspect the source.</p><span class="feature-tag">Validation and review</span></article>
+        <article class="card feature-card"><div class="feature-icon">▱</div><h3>3D Viewport</h3><p>Browse and preview MSH models. Rotate and zoom the view, inspect textures, and use available skeleton and animation sources to see a model in motion.</p><span class="feature-tag">Model and animation preview</span></article>
+        <article class="card feature-card"><div class="feature-icon">▰</div><h3>Quartz Gallery Modular</h3><p>Use several specialist tools from one window: Folder Generator, SPT Editor, Entity Editor, EFF Modifier, and Particle Organizer.</p><span class="feature-tag">A group of editing tools</span></article>
+        <article class="card feature-card"><div class="feature-icon">▧</div><h3>Folder Generator</h3><p>Create an organized Chef folder structure, prepare EFF or SPT folders, and optionally create a starter Excel sheet for an effect.</p><span class="feature-tag">Folder setup</span></article>
+        <article class="card feature-card"><div class="feature-icon">✎</div><h3>SPT Editor</h3><p>Find SPT files and update selected text across a folder. Open a Particle path directly, review changes, and save the edited files.</p><span class="feature-tag">Batch SPT editing</span></article>
+        <article class="card feature-card"><div class="feature-icon">◇</div><h3>Entity Editor</h3><p>Review entity references from SPT files, check whether the referenced files are present, and apply changes to selected entries.</p><span class="feature-tag">Entity file management</span></article>
+        <article class="card feature-card"><div class="feature-icon">◈</div><h3>EFF Modifier</h3><p>Convert EFF records to Excel, edit or map values, then save or convert the workbook back to EFF. Batch workflows are available for supported tasks.</p><span class="feature-tag">EFF conversion and editing</span></article>
+        <article class="card feature-card"><div class="feature-icon">☷</div><h3>Particle Organizer</h3><p>Review Particle blocks, identify duplicates or missing numbers, sort entries, and save a cleaned Particle.ini.</p><span class="feature-tag">Particle list cleanup</span></article>
+        <article class="card feature-card"><div class="feature-icon">▦</div><h3>EFF Structorian</h3><p>Open EFF files and Excel sheets in a table. Inspect records, edit cells, add or remove rows, and save the result.</p><span class="feature-tag">EFF / Excel table editor</span></article>
+        <article class="card feature-card"><div class="feature-icon">▥</div><h3>Sprite Modifier</h3><p>Load sprite images, view their grid, extract individual images, join images into a sheet, or create an icon from a PNG.</p><span class="feature-tag">Sprite and icon images</span></article>
+        <article class="card feature-card"><div class="feature-icon">＋</div><h3>Built-in Add-Ons</h3><p>Launch RF Killer, Item Duplicator, Icon Creator, Particle Remap, HxD Batch Editor, R3T ↔ DDS Converter, and SPR ↔ DDS Converter from ADD ON+.</p><span class="feature-tag">Included with the app</span></article>
+        <article class="card feature-card"><div class="feature-icon">▱</div><h3>Minimized Windows</h3><p>Restore or close tool windows from the right-side Minimized Windows panel. Repeated windows are labeled so you can tell them apart.</p><span class="feature-tag">Window management</span></article>
       </div>
+    </div></section>
 
-      <div style="width:360px;text-align:center">
-        <div class="screenshot-slides" aria-hidden="false">
-          <div class="slides" id="slides">
-            <div class="slide"><img src="https://res.cloudinary.com/do1nbyqv0/image/upload/v1762759394/bandicam_2025-11-10_14-20-11-701_dubdmw.jpg" alt="Screenshot 1"></div>
-            <div class="slide"><img src="https://res.cloudinary.com/do1nbyqv0/image/upload/v1762759388/bandicam_2025-11-10_14-19-40-628_nl6ed0.jpg" alt="Screenshot 2"></div>
-            <div class="slide"><img src="https://res.cloudinary.com/do1nbyqv0/image/upload/v1762759385/bandicam_2025-11-10_14-20-04-281_niydzn.jpg" alt="Screenshot 3"></div>
-            <div class="slide"><img src="https://res.cloudinary.com/do1nbyqv0/image/upload/v1762759383/bandicam_2025-11-10_14-19-29-916_fjrenr.jpg" alt="Screenshot 4"></div>
-            <div class="slide"><img src="https://res.cloudinary.com/do1nbyqv0/image/upload/v1762759378/bandicam_2025-11-10_14-19-36-751_x8vkr0.jpg" alt="Screenshot 5"></div>
-            <div class="slide"><img src="https://res.cloudinary.com/do1nbyqv0/image/upload/v1762759377/bandicam_2025-11-10_14-19-31-775_pxzdup.jpg" alt="Screenshot 6"></div>
-          </div>
-          
-        </div>
-        <div class="slides-nav" style="margin-top:12px;">
-          <button id="prevSlide">&larr;</button>
-          <button id="nextSlide">&rarr;</button>
-        </div>
+    <section class="section" id="screenshots"><div class="wrap">
+      <div class="section-head"><div class="kicker">See it in action</div><h2>A closer look at the workspace.</h2><p>Browse screenshots of Quartz Gallery and its tools.</p></div>
+      <div class="gallery"><div class="gallery-window"><div class="gallery-track" id="galleryTrack">
+        <div class="gallery-slide"><img src="https://res.cloudinary.com/do1nbyqv0/image/upload/v1762759394/bandicam_2025-11-10_14-20-11-701_dubdmw.jpg" alt="Quartz Gallery screenshot 1" loading="lazy"></div>
+        <div class="gallery-slide"><img src="https://res.cloudinary.com/do1nbyqv0/image/upload/v1762759388/bandicam_2025-11-10_14-19-40-628_nl6ed0.jpg" alt="Quartz Gallery screenshot 2" loading="lazy"></div>
+        <div class="gallery-slide"><img src="https://res.cloudinary.com/do1nbyqv0/image/upload/v1762759385/bandicam_2025-11-10_14-20-04-281_niydzn.jpg" alt="Quartz Gallery screenshot 3" loading="lazy"></div>
+        <div class="gallery-slide"><img src="https://res.cloudinary.com/do1nbyqv0/image/upload/v1762759383/bandicam_2025-11-10_14-19-29-916_fjrenr.jpg" alt="Quartz Gallery screenshot 4" loading="lazy"></div>
+        <div class="gallery-slide"><img src="https://res.cloudinary.com/do1nbyqv0/image/upload/v1762759378/bandicam_2025-11-10_14-19-36-751_x8vkr0.jpg" alt="Quartz Gallery screenshot 5" loading="lazy"></div>
+        <div class="gallery-slide"><img src="https://res.cloudinary.com/do1nbyqv0/image/upload/v1762759377/bandicam_2025-11-10_14-19-31-775_pxzdup.jpg" alt="Quartz Gallery screenshot 6" loading="lazy"></div>
+      </div></div><div class="gallery-controls"><button id="galleryPrev" aria-label="Previous screenshot">←</button><span id="galleryCount">Screenshot 1 of 6</span><button id="galleryNext" aria-label="Next screenshot">→</button></div></div>
+    </div></section>
+
+    <section class="section" id="setup"><div class="wrap">
+      <div class="section-head"><div class="kicker">Getting started</div><h2>Start with four simple steps.</h2><p>You do not need programming experience. Set up your file locations, open a file, and choose the tool that matches your task.</p></div>
+      <div class="split-grid">
+        <article class="panel"><h3>1. Open Quartz Gallery</h3><p>Start the app. If Windows asks for Administrator permission, choose <b>Yes</b> so the app can work with the files and folders it needs.</p></article>
+        <article class="panel"><h3>2. Set up Master Source</h3><p>Click <b>Master Source</b> on the left. Add your RF Client, database, Excel, Resource.edf, or animation locations and click <b>Save</b>. Wait for indexing to finish.</p></article>
+        <article class="panel"><h3>3. Open a work folder and file</h3><p>Choose <b>Browse</b> to add a folder to the left sidebar. Open it and double-click a text file to show it in the main editor.</p></article>
+        <article class="panel"><h3>4. Choose a tool and save</h3><p>Use the matching tool for your task. Press <b>Ctrl + S</b> to save an edit. Named files in the main editor are also saved automatically every five minutes.</p></article>
       </div>
-    </section>
+      <div class="notice">Keep a backup of important files before editing. New <b>Untitled</b> tabs and the server-provided <b>Developer</b> view are excluded from automatic saving. Minimized tool windows can be restored from the right panel.</div>
+    </div></section>
 
-    <section>
-      <h3 style="margin-top:6px">Core Features</h3>
-      <div class="features">
-        <div class="feature">
-          <h4>Index Number SPR</h4>
-          <div class="muted">Scan and generate reliable index maps for SPR collections, ensuring consistent referencing for skins and animations.</div>
-        </div>
+    <section class="section" id="tutorials"><div class="wrap">
+      <div class="section-head"><div class="kicker">Video tutorials</div><h2>Watch a task, then try it yourself.</h2><p>Each tutorial opens on YouTube in a new tab.</p></div>
+      <div class="tutorial-layout"><div class="tutorial-grid">
+        <a class="tutorial-link" href="https://youtu.be/nObpcj7Znf4" target="_blank" rel="noopener"><span class="play-icon">▶</span><b>01 · Getting Started</b></a>
+        <a class="tutorial-link" href="https://youtu.be/acAcW_kxJSI" target="_blank" rel="noopener"><span class="play-icon">▶</span><b>02 · Root Function</b></a>
+        <a class="tutorial-link" href="https://youtu.be/CGjyiMDCCSE" target="_blank" rel="noopener"><span class="play-icon">▶</span><b>03 · EffectFileList Writer</b></a>
+        <a class="tutorial-link" href="https://youtu.be/M_jSbIiGKfQ" target="_blank" rel="noopener"><span class="play-icon">▶</span><b>04 · ItemEffectList Writer</b></a>
+        <a class="tutorial-link" href="https://youtu.be/eoRB6W5oBbc" target="_blank" rel="noopener"><span class="play-icon">▶</span><b>05 · PatternList Writer</b></a>
+        <a class="tutorial-link" href="https://youtu.be/iMIQYYItX6U" target="_blank" rel="noopener"><span class="play-icon">▶</span><b>06 · Particle Writer</b></a>
+        <a class="tutorial-link" href="https://youtu.be/vABPyRAv60M" target="_blank" rel="noopener"><span class="play-icon">▶</span><b>07 · Particle Editor</b></a>
+        <a class="tutorial-link" href="https://youtu.be/xRzWFXPqfiI" target="_blank" rel="noopener"><span class="play-icon">▶</span><b>08 · Folder Generator</b></a>
+        <a class="tutorial-link" href="https://youtu.be/ASf5W_M3pFA" target="_blank" rel="noopener"><span class="play-icon">▶</span><b>09 · Mass SPT Editor</b></a>
+        <a class="tutorial-link" href="https://youtu.be/LrYAWXR6vTY" target="_blank" rel="noopener"><span class="play-icon">▶</span><b>10 · Entity Editor</b></a>
+        <a class="tutorial-link" href="https://youtu.be/K4bzf-gJjtw" target="_blank" rel="noopener"><span class="play-icon">▶</span><b>11 · Filter Effect</b></a>
+        <a class="tutorial-link" href="https://youtu.be/4viBUMq5M9U" target="_blank" rel="noopener"><span class="play-icon">▶</span><b>12 · EFF Editor</b></a>
+        <a class="tutorial-link" href="https://youtu.be/GOzMCtsaWa8" target="_blank" rel="noopener"><span class="play-icon">▶</span><b>13 · EFF Converter</b></a>
+        <a class="tutorial-link" href="https://youtu.be/8_YkH0OtCb4" target="_blank" rel="noopener"><span class="play-icon">▶</span><b>14 · Change Logs</b></a>
+        <a class="tutorial-link" href="https://youtu.be/8dJOkJnO63Y" target="_blank" rel="noopener"><span class="play-icon">▶</span><b>15 · Batch Icon Creator</b></a>
+      </div><aside class="panel"><div class="kicker">Quick specs</div><h3 style="margin-top:7px">At a glance</h3><ul><li>Windows (64-bit)</li><li>$25 one-time software license</li><li>Free software updates</li><li>Excel workbook import and export</li><li>Selected batch editing tools</li><li>Built-in Add-Ons; paid licenses activated separately</li></ul><a class="button primary" style="width:100%;margin-top:14px" href="https://forms.gle/AW5tZStuq4HpND5x7" target="_blank" rel="noopener">Register</a></aside></div>
+    </div></section>
 
-        <div class="feature">
-          <h4>Join & Extract Icon</h4>
-          <div class="muted">Join multiple icon sources into single sheets and extract icons with accurate cropping for game-ready assets.</div>
-        </div>
-
-        <div class="feature">
-          <h4>
-            Custom Icon Creator (Add-On)
-            <a href="addonpage.html" style="font-size:12px;margin-left:6px;color:#ffb84d;">
-              View details →
-            </a>
-          </h4>
-          <div class="muted">
-            Create icons with customizable backgrounds via an official Add-On module — batch create or tweak per-item assets quickly.
-          </div>
-        </div>
-        
-
-        <div class="feature">
-          <h4>EFF ⇄ Excel Converter</h4>
-          <div class="muted">Convert EFF files into Excel for easier editing, and reconvert modified spreadsheets back into EFF with structural integrity.</div>
-        </div>
-
-        <div class="feature">
-          <h4>Chef RF Folder Generator</h4>
-          <div class="muted">Automated folder configuration tailored for RF Online server file structures to speed up deployment and testing.</div>
-        </div>
-
-        <div class="feature">
-          <h4>Particle.ini Resource Indexer</h4>
-          <div class="muted">Index and validate particle resource numbers to check availability and avoid collisions in particle lists.</div>
-        </div>
-
-        <div class="feature">
-          <h4>EFF Structorian</h4>
-          <div class="muted">A structural inspector and fixer for EFF files — validates format, repairs common inconsistencies, and reports issues.</div>
-        </div>
-
-        <div class="feature">
-          <h4>Mass Entity & SPT Color Editor</h4>
-          <div class="muted">Bulk edit entity definitions and SPT color tables with preview and batch-apply operations for massive content updates.</div>
-        </div>
-
-        <div class="feature">
-          <h4>DDS DXT Type Converter (Add-On)</h4>
-          <div class="muted">Convert DDS textures between DXT compression types via an Add-On for compatibility and performance testing.</div>
-        </div>
-
-        <div class="feature">
-          <h4>DDS DXT Type Checker (Add-On)</h4>
-          <div class="muted">Quickly scan and report DDS compression types to ensure assets meet server/client expectations.</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="tutorials-section">
-        <div class="tutorials-panel">
-          <h3>Tutorials</h3>
-      
-          <div class="tutorials-wrapper">
-            <ul class="links-list">
-              <li><a href="https://youtu.be/nObpcj7Znf4" target="_blank" rel="noopener">
-                <svg class="yt-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-                <div class="txt"><strong>Tutorial 1:</strong> Getting Started</div>
-              </a></li>
-      
-              <li><a href="https://youtu.be/acAcW_kxJSI" target="_blank" rel="noopener">
-                <svg class="yt-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-                <div class="txt"><strong>Tutorial 2:</strong> Root Function</div>
-              </a></li>
-      
-              <li><a href="https://youtu.be/CGjyiMDCCSE" target="_blank" rel="noopener">
-                <svg class="yt-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-                <div class="txt"><strong>Tutorial 3:</strong> Writer tools - EffectFileList</div>
-              </a></li>
-      
-              <li><a href="https://youtu.be/M_jSbIiGKfQ" target="_blank" rel="noopener">
-                <svg class="yt-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-                <div class="txt"><strong>Tutorial 4:</strong> Writer tools - ItemEffectlist</div>
-              </a></li>
-      
-              <li><a href="https://youtu.be/eoRB6W5oBbc" target="_blank" rel="noopener">
-                <svg class="yt-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-                <div class="txt"><strong>Tutorial 5:</strong> Writer tools - PatternList</div>
-              </a></li>
-      
-              <li><a href="https://youtu.be/iMIQYYItX6U" target="_blank" rel="noopener">
-                <svg class="yt-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-                <div class="txt"><strong>Tutorial 6:</strong> Writer tools - Particle Writer</div>
-              </a></li>
-      
-              <li><a href="https://youtu.be/vABPyRAv60M" target="_blank" rel="noopener">
-                <svg class="yt-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-                <div class="txt"><strong>Tutorial 7:</strong> Writer tools - Particle Editor</div>
-              </a></li>
-      
-              <li><a href="https://youtu.be/xRzWFXPqfiI" target="_blank" rel="noopener">
-                <svg class="yt-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-                <div class="txt"><strong>Tutorial 8:</strong> Function - Folder Generator</div>
-              </a></li>
-      
-              <li><a href="https://youtu.be/ASf5W_M3pFA" target="_blank" rel="noopener">
-                <svg class="yt-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-                <div class="txt"><strong>Tutorial 9:</strong> Function - Mass SPT Editor</div>
-              </a></li>
-      
-              <li><a href="https://youtu.be/LrYAWXR6vTY" target="_blank" rel="noopener">
-                <svg class="yt-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-                <div class="txt"><strong>Tutorial 10:</strong> Function - Entity Editor</div>
-              </a></li>
-      
-              <li><a href="https://youtu.be/K4bzf-gJjtw" target="_blank" rel="noopener">
-                <svg class="yt-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-                <div class="txt"><strong>Tutorial 11:</strong> Function - Filter Effect</div>
-              </a></li>
-      
-              <li><a href="https://youtu.be/4viBUMq5M9U" target="_blank" rel="noopener">
-                <svg class="yt-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-                <div class="txt"><strong>Tutorial 12:</strong> Function - EFF Editor</div>
-              </a></li>
-      
-              <li><a href="https://youtu.be/GOzMCtsaWa8" target="_blank" rel="noopener">
-                <svg class="yt-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-                <div class="txt"><strong>Tutorial 13:</strong> Function - EFF Converter</div>
-              </a></li>
-      
-              <li><a href="https://youtu.be/8_YkH0OtCb4" target="_blank" rel="noopener">
-                <svg class="yt-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-                <div class="txt"><strong>Tutorial 14:</strong> Function - Change Logs</div>
-              </a></li>
-      
-              <li><a href="https://youtu.be/8dJOkJnO63Y" target="_blank" rel="noopener">
-                <svg class="yt-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-                <div class="txt"><strong>Tutorial 15:</strong> Function - Batch Icon Creator</div>
-              </a></li>
-            </ul>
-          </div>
-        </div>
-      
-        <aside class="quick-specs">
-          <h3>Quick Specs</h3>
-          <div class="spec-card">
-            <ul>
-              <li>Platform: Windows (x64)</li>
-              <li>License: Free (donations welcome)</li>
-              <li>
-                Plugins:
-                <a href="addonpage.html" style="color:#ffb84d;">Icon Creator</a> /
-                DDS Converter /
-                DXT Checker
-              </li>
-              <li>Batch: Yes — bulk SPT / Entity edits</li>
-              <li>Excel support: XLSX import/export</li>
-            </ul>
-      
-            <div style="margin-top:12px">
-              <a class="btn-register" href="register.html" target="_blank" rel="noopener" style="display:block;text-align:center">Register</a>
-              <a class="btn-download" href="downloads/quartz_toolkit_setup.zip" target="_blank" rel="noopener" style="display:block;text-align:center;margin-top:8px">Download</a>
-            </div>
-          </div>
-        </aside>
-      </section>
-      
-      
-    <footer class="landing-foot">
-      © Quartz Gallery • Made by Taufan — Tools intended for modding, backup your files before use.
-    </footer>
-  </div>
+    <section class="section"><div class="wrap"><div class="panel addon-banner"><div><div class="kicker">Already included in the app</div><h2 style="margin:5px 0;font-size:26px">Explore the Add-On licenses.</h2><p>No separate Add-On downloads are needed. Compare the free tools and paid licenses, then contact us on WhatsApp to activate a paid Add-On.</p></div><a class="button primary" href="addonpage.html">View Add-Ons →</a></div></div></section>
+  </main>
+  <footer class="footer"><div class="wrap footer-inner"><span>© Quartz Gallery · Made by Taufan</span><span>Back up important files before editing · <a href="addonpage.html" style="color:#9cc3ff">Add-On licenses</a></span></div></footer>
 
   <script>
-    // Simple slideshow (no external lib)
-    (function(){
-      const slides = document.getElementById('slides');
-      const total = slides.children.length;
-      let idx = 0;
-      const prev = document.getElementById('prevSlide');
-      const next = document.getElementById('nextSlide');
-
-      function update() {
-        slides.style.transform = 'translateX(' + (-idx * 100) + '%)';
-      }
-      prev.addEventListener('click', ()=> { idx = (idx - 1 + total) % total; update(); });
-      next.addEventListener('click', ()=> { idx = (idx + 1) % total; update(); });
-      // auto rotate
-      setInterval(()=> { idx = (idx + 1) % total; update(); }, 6000);
-    })();
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    menuToggle.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', String(isOpen));
+      menuToggle.textContent = isOpen ? '×' : '☰';
+    });
+    navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      menuToggle.textContent = '☰';
+    }));
+    const revealObserver = new IntersectionObserver(entries => entries.forEach(entry => {
+      if (entry.isIntersecting) { entry.target.classList.add('visible'); revealObserver.unobserve(entry.target); }
+    }), { threshold: 0.08 });
+    document.querySelectorAll('.feature-card,.panel,.gallery,.section-head').forEach(item => revealObserver.observe(item));
+    const galleryTrack = document.getElementById('galleryTrack');
+    const galleryCount = document.getElementById('galleryCount');
+    const slideTotal = galleryTrack.children.length;
+    let slideIndex = 0;
+    function showSlide(nextIndex) {
+      slideIndex = (nextIndex + slideTotal) % slideTotal;
+      galleryTrack.style.transform = `translateX(-${slideIndex * 100}%)`;
+      galleryCount.textContent = `Screenshot ${slideIndex + 1} of ${slideTotal}`;
+    }
+    document.getElementById('galleryPrev').addEventListener('click', () => showSlide(slideIndex - 1));
+    document.getElementById('galleryNext').addEventListener('click', () => showSlide(slideIndex + 1));
   </script>
 </body>
 </html>
+
