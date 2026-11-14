@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <!-- Tambahkan ini di bagian <head> -->
+  <script src="https://product-gallery.cloudinary.com/all.js"></script>
+  <link rel="stylesheet" href="https://product-gallery.cloudinary.com/all.min.css" />
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gallery Portofolio - Quartz Gallery</title>
+  <!-- Memanggil style.css dari repository -->
+  <link rel="stylesheet" href="vidstyle.css">
+  <!-- CSS tambahan khusus halaman gallery -->
+ 
+</head>
+<body>
+  <header>
+    <h1>Quartz Gallery Portofolio</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="image.html">Image Gallery</a></li>
+        <li><a href="video.html" class="active">Video Gallery</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Quartz Gallery Video</h2>
+    <p>Choose Play Video to Further Information.</p>
+
+    <!-- Container untuk daftar video yang bisa di-scroll horizontal -->
+    <div class="video-scroll-container">
+      <!-- Video 1 -->
+      <div class="video-item">
+        <img src="https://img.youtube.com/vi/avOJ-U6sgQw/hqdefault.jpg" alt="Thumbnail Video">
+        <button data-video="https://www.youtube.com/embed/avOJ-U6sgQw">Play Video</button>
+      </div>
+      <!-- Video 2 -->
+      <div class="video-item">
+        <img src="https://img.youtube.com/vi/eOsWCC5JqCg/hqdefault.jpg" alt="Thumbnail Video">
+        <button data-video="https://www.youtube.com/embed/eOsWCC5JqCg">Play Video</button>
+      </div>
+      <!-- Video 3 -->
+      <div class="video-item">
+        <img src="https://img.youtube.com/vi/iSNwHPQfWuY/hqdefault.jpg" alt="Thumbnail Video">
+        <button data-video="https://www.youtube.com/embed/iSNwHPQfWuY">Play Video</button>
+      </div>
+      <!-- Video 4 -->
+      <div class="video-item">
+        <img src="https://img.youtube.com/vi/LRyI_zF7WhA/hqdefault.jpg" alt="Thumbnail Video">
+        <button data-video="https://www.youtube.com/embed/LRyI_zF7WhA">Play Video</button>
+      </div>
+      <!-- Tambahkan lebih banyak item video sesuai kebutuhan -->
+      <div class="video-item">
+        <img src="https://img.youtube.com/vi/hl0faj5cS0E/hqdefault.jpg" alt="Thumbnail Video">
+        <button data-video="https://www.youtube.com/embed/hl0faj5cS0E">Play Video</button>
+      </div>
+      <div class="video-item">
+        <img src="https://img.youtube.com/vi/SiNFoFyJSyE/hqdefault.jpg" alt="Thumbnail Video">
+        <button data-video="https://www.youtube.com/embed/SiNFoFyJSyE">Play Video</button>
+      </div>
+      <!-- Update 11 June -->
+      <div class="video-item">
+        <img src="https://img.youtube.com/vi/xGku71470to/hqdefault.jpg" alt="Thumbnail Video">
+        <button data-video="https://www.youtube.com/embed/xGku71470to">Play Video</button>
+      </div>
+      <div class="video-item">
+        <img src="https://img.youtube.com/vi/-4voyBInNM0/hqdefault.jpg" alt="Thumbnail Video">
+        <button data-video="https://www.youtube.com/embed/-4voyBInNM0">Play Video</button>
+      </div>
+      <div class="video-item">
+        <img src="https://img.youtube.com/vi/nky9U_5t4CU/hqdefault.jpg" alt="Thumbnail Video">
+        <button data-video="https://www.youtube.com/embed/nky9U_5t4CU">Play Video</button>
+      </div>
+      <div class="video-item">
+        <img src="https://img.youtube.com/vi/T8x6KjB3_xs/hqdefault.jpg" alt="Thumbnail Video">
+        <button data-video="https://www.youtube.com/embed/T8x6KjB3_xs">Play Video</button>
+      </div>
+      <div class="video-item">
+        <img src="https://img.youtube.com/vi/MSl9aRVR0sM/hqdefault.jpg" alt="Thumbnail Video">
+        <button data-video="https://www.youtube.com/embed/MSl9aRVR0sM">Play Video</button>
+      </div>
+      <div class="video-item">
+        <img src="https://img.youtube.com/vi/J9Ov7YSHqpg/hqdefault.jpg" alt="Thumbnail Video">
+        <button data-video="https://www.youtube.com/embed/J9Ov7YSHqpg">Play Video</button>
+      </div>
+      <div class="video-item">
+        <img src="https://img.youtube.com/vi/g6BzS9UdMWs/hqdefault.jpg" alt="Thumbnail Video">
+        <button data-video="https://www.youtube.com/embed/g6BzS9UdMWs">Play Video</button>
+      </div>
+      <div class="video-item">
+        <img src="https://img.youtube.com/vi/18f2kQdJpIk/hqdefault.jpg" alt="Thumbnail Video">
+        <button data-video="https://www.youtube.com/embed/18f2kQdJpIk">Play Video</button>
+      </div>
+    </div>
+
+    <!-- Container untuk memutar video yang dipilih -->
+    <div class="video-player-container">
+      <iframe 
+        id="mainVideoPlayer" 
+        src="" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+        allowfullscreen>
+      </iframe>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Quartz Gallery. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Ambil semua tombol "Play Video"
+    const buttons = document.querySelectorAll('.video-item button');
+    // Ambil elemen iframe
+    const player = document.getElementById('mainVideoPlayer');
+
+    // Tambahkan event listener untuk setiap tombol
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Ambil link video dari data attribute
+        const videoUrl = btn.dataset.video;
+        // Set src iframe agar memutar video yang dipilih
+        player.src = videoUrl;
+      });
+    });
+  </script>
+</body>
+</html>

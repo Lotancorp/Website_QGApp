@@ -1,0 +1,523 @@
+/* === Global Styles === */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f3f3f3; /* Latar belakang abu-abu muda */
+    color: #333; /* Warna teks abu-abu gelap */
+}
+
+/* === Header === */
+header {
+    background-color: #333; /* Latar belakang hitam */
+    color: #fff; /* Warna teks putih */
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    top: 0;            /* Menempel di bagian atas layar */
+    z-index: 9999;     /* Pastikan berada di atas elemen lain */
+}
+
+/* Tombol di kanan atas */
+.top-right-buttons {
+    /* Supaya tombol berada di tengah (horizontal) */
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+
+    /* Membuat garis (frame) memanjang di sekitar tombol */
+    border: 2px solid #333; 
+    width: 80%;             /* Atur sesuai selera (80% dari lebar kontainer induk) */
+    margin: 20px auto;      /* Auto untuk men-center-kan div, 20px jarak atas-bawah */
+    padding: 10px;          /* Jarak dalam kontainer */
+    box-sizing: border-box; /* Supaya padding dihitung di dalam width */
+}
+
+/* Styling dasar untuk tombol */
+.top-right-buttons button {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px 20px;
+    margin: 0 10px;         /* Jarak antar tombol */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Efek hover */
+.top-right-buttons button:hover {
+    background-color: #0056b3;
+}
+
+
+#registerButton, #downloadButton {
+    background-color: #057aff; /* Warna abu-abu gelap */
+    color: #fff; /* Warna teks putih */
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+#registerButton:hover, #downloadButton:hover {
+    background-color: #05ff50; /* Warna abu-abu lebih gelap saat hover */
+}
+
+/* === Container Utama === */
+.container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+    background-color: #fff; /* Latar belakang putih untuk konten utama */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* === Section === */
+.section {
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid #ccc; /* Garis pemisah abu-abu */
+}
+
+/* Tombol Section Toggle */
+.section-toggle {
+    width: 100%;
+    background-color: #444; /* Latar belakang abu-abu gelap */
+    color: white; /* Warna teks putih */
+    border: none;
+    padding: 15px;
+    text-align: left;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-bottom: 1px solid #555; /* Garis abu-abu di bawah tombol */
+}
+
+.section-toggle:hover {
+    background-color: #0c3d86; /* Latar belakang hitam saat hover */
+}
+
+.section-toggle:last-child {
+    border-bottom: none;
+}
+
+/* Konten Section (Disembunyikan secara default) */
+.section ul,
+.section .application-content {
+    display: none;
+    padding: 15px 0;
+}
+
+.section.expanded ul,
+.section.expanded .application-content {
+    display: block;
+}
+
+
+/* === Links List === */
+.links-list {
+    list-style: none;
+    padding: 0;
+}
+
+.links-list li {
+    margin: 5px 0;
+}
+
+.links-list a {
+    text-decoration: none;
+    color: #555; /* Teks abu-abu gelap */
+    font-weight: bold;
+}
+
+.links-list a:hover {
+    color: #000; /* Teks hitam saat hover */
+    text-decoration: underline;
+}
+
+/* === Payment Methods === */
+.payment-methods {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  margin-top: 0;
+}
+.payment-content {
+  display: none;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+.payment-methods.expanded .payment-content {
+  display: block;
+}
+.payment-form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+.payment-form .continue-button-container {
+  grid-column: 1 / -1;
+  text-align: center;
+}
+.payment-option {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+.payment-option:hover {
+  background-color: #f5f5f5;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.payment-option input[type="radio"] {
+  margin: 0;
+}
+.payment-option img {
+  width: 40px;
+  height: auto;
+}
+.payment-option div {
+  flex: 1;
+}
+.payment-option strong {
+  font-size: 1.1em;
+  color: #333;
+}
+.payment-details {
+  margin-top: 5px;
+  padding-left: 20px;
+  font-size: 0.9em;
+  color: #666;
+}
+.payment-details li {
+  list-style: none;
+  margin-bottom: 5px;
+}
+.payment-content {
+  /* tambahkan padding kiri-kanan */
+  padding: 0 1.5rem;
+}
+
+.payment-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 2rem;      /* gap horisontal lebih lebar */
+  row-gap: 1rem;
+  max-width: 1000px;     /* batasi lebar total */
+  margin: 0 auto;        /* center di layar */
+}
+
+
+
+/* === Media Query untuk Responsif === */
+@media (max-width: 768px) {
+    .payment-form {
+        grid-template-columns: 1fr; /* Satu kolom untuk layar kecil */
+    }
+}
+.sliding-banner {
+    position: relative;
+    width: 100%; /* Sesuaikan lebar dengan header */
+    max-width: 851px; /* Pastikan tidak melebihi dimensi asli */
+    height: 315px; /* Sesuai dengan ukuran gambar asli */
+    margin: 0 auto; /* Pusatkan di tengah */
+    overflow: hidden;
+    border-radius: 10px; /* Tambahkan sedikit lengkungan pada sudut */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Tambahkan bayangan */
+}
+
+.sliding-banner img {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Potong gambar agar sesuai */
+    transition: left 1s ease-in-out;
+}
+
+.sliding-banner img.active {
+    left: 0;
+}
+
+.sliding-banner img.previous {
+    left: -100%;
+}
+
+/* Media Query untuk Responsivitas */
+@media (max-width: 768px) {
+    .sliding-banner {
+        width: 100%;
+        height: auto; /* Sesuaikan tinggi dengan proporsi gambar */
+    }
+
+    .sliding-banner img {
+        object-fit: contain; /* Tampilkan seluruh gambar pada layar kecil */
+    }
+}
+
+/* Modal overlay */
+.modal {
+    display: none; /* Tersembunyi secara default */
+    position: fixed;
+    z-index: 1000; /* Pastikan berada di atas konten lainnya */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5); /* Latar belakang gelap transparan */
+  }
+  
+  /* Konten Modal */
+  .modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px; /* Biar tidak terlalu lebar */
+    border-radius: 8px;
+    position: relative;
+  }
+  
+  /* Tombol close modal */
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #aaa;
+    cursor: pointer;
+  }
+  
+  .close-button:hover {
+    color: #000;
+  }
+  
+  /* Tombol Continue (opsional styling) */
+  .continue-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .continue-button:hover {
+    background-color: #0056b3;
+  }
+  /* Kontainer tombol, posisikan center */
+.continue-button-container {
+    text-align: center;    /* Memastikan isi kontainer di tengah */
+    margin-top: 20px;      /* Jarak dari opsi payment */
+  }
+  
+  /* Style tombol itu sendiri */
+  .continue-button {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .continue-button:hover {
+    background-color: #0056b3;
+  }
+  /* Default: konten tersembunyi */
+/* ===== Section Price Styling ===== */
+
+/* Membungkus keseluruhan price section dalam card */
+  
+  /* Tombol toggle di bagian atas */
+  .section-toggle {
+    width: 100%;
+    background-color: #444; /* Latar belakang abu-abu gelap */
+    color: #fff; /* Warna teks putih */
+    border: none;
+    padding: 15px;
+    text-align: left;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-bottom: 1px solid #555; /* Garis pemisah */
+  }
+  
+  .section-toggle:hover {
+    background-color: #0c3d86; /* Warna hover */
+  }
+  
+  /* Kontainer utama harga */
+  .price-container {
+    display: none; /* Tersembunyi secara default, muncul saat toggle */
+    padding: 1.5rem;
+  }
+  
+  /* Saat parent .section memiliki class .expanded, tampilkan konten */
+  .section.expanded .price-container {
+    display: block;
+  }
+  
+  /* Judul kecil di dalam container */
+  .price-container h2, 
+  .price-container h3 {
+    margin-bottom: 0.5rem;
+    color: #333;
+  }
+  
+  /* Harga akun */
+  .account-price {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  /* Daftar harga skin */
+  .price-list {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 1rem;
+  }
+  
+  .price-list li {
+    margin: 0.5rem 0;
+  }
+  
+  /* Catatan tambahan */
+  .price-note {
+    font-style: italic;
+    color: #666;
+    font-size: 0.9rem;
+  }
+  
+/* --- Thumbnail Horizontal Layout --- */
+.thumbnail-list {
+  display: flex;
+  flex-wrap: nowrap; /* Tetap dalam satu baris (bisa diganti 'wrap' jika ingin multiple baris) */
+  gap: 1rem;         /* Jarak horizontal antar thumbnail */
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow-x: auto;  /* Scroll horizontal jika melebihi lebar layar */
+}
+
+.thumbnail-list li {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  min-width: 150px;  /* Ukuran minimum tiap thumbnail */
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  flex: 0 0 auto;    /* Supaya tidak melebar otomatis */
+}
+
+.thumbnail-list li a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  text-decoration: none;
+  color: #333;
+}
+
+.thumbnail-list li a:hover {
+  background-color: #f9f9f9; /* Efek hover */
+}
+
+.thumbnail-list li img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px; /* Bisa ganti ke 50% untuk lingkaran */
+  margin-bottom: 0.5rem;
+}
+
+.thumbnail-list li span {
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+/* Kontainer horizontal scroll */
+.article-thumbnails {
+  display: flex;               /* susun thumbnail secara berderet */
+  gap: 1rem;                   /* jarak antar item */
+  padding: 1rem 0;             /* spasi atas-bawah */
+  overflow-x: auto;            /* aktifkan scroll horizontal */
+  scroll-snap-type: x mandatory; /* snap ke tiap item */
+}
+
+/* Sembunyikan scrollbar kalau mau */
+.article-thumbnails::-webkit-scrollbar {
+  height: 8px;
+}
+.article-thumbnails::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.2);
+  border-radius: 4px;
+}
+
+/* Gaya per item */
+.thumb-item {
+  flex: 0 0 auto;              /* jangan mengecil */
+  scroll-snap-align: start;    /* snap di awal item */
+  text-align: center;
+  text-decoration: none;
+  color: inherit;
+}
+.thumb-item img {
+  width: 250px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 6px;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+.thumb-item span {
+  display: block;
+  font-size: 0.9rem;
+}
+.app-list {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+.app-list li {
+  margin-bottom: 0.75rem;
+}
+.app-list a {
+  color: #227aee;
+  font-size: 2.1rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+.app-list a:hover {
+  text-decoration: underline;
+}
+/* default: sembunyikan thumbnails di My Thought */
+.section-mythought .article-thumbnails {
+  display: none;
+}
+.section-mythought {
+  border-bottom: 1px solid #fff;
+}
+/* ketika section-mythought di-toggle (bertambah class .expanded), tampilkan */
+.section-mythought.expanded .article-thumbnails {
+  display: flex;       /* atau block, sesuai layout yang kamu inginkan */
+  gap: 1rem;           /* jarak antar item */
+  overflow-x: auto;    /* kalau kamu ingin scroll horizontal */
+}

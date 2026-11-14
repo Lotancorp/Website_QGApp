@@ -1,0 +1,70 @@
+[
+    {
+      "img": "https://res.cloudinary.com/do1nbyqv0/image/upload/v1763004865/Advertisement_Banner_cg6umh.png",
+      "title": "Pasang Iklan",
+      "subtitle": "Pasang Iklan",
+      "url": "offering.html",
+      "type": "offering"
+    },
+    {
+      "img": "https://res.cloudinary.com/do1nbyqv0/image/upload/v1763823519/EXPLODING_jl7y33.png",
+      "title": "Recommended Video",
+      "subtitle": "Exploding MAU",
+      "url": "https://youtube.com/shorts/B1HszWJZAbA?feature=share",
+      "type": "video"
+    },
+    {
+      "img": "https://owndev.id/docs/assets/img/logo.png",
+      "title": "OwnDev Game Guard",
+      "subtitle": "Trusted Game Guard",
+      "url": "https://owndev.id/docs/#overview",
+      "type": "Game Guard"
+    },
+    {
+      "img": "https://res.cloudinary.com/do1nbyqv0/image/upload/v1767504845/Dimensional_Weapons_xlnsdd.png",
+      "title": "Dimentional Weapon Set",
+      "subtitle": "Weapon Set",
+      "url": "product.html?id=41",
+      "type": "product"
+    },
+    {
+      "img": "https://res.cloudinary.com/do1nbyqv0/image/upload/v1781830022/ChatGPT_Image_Jun_19_2026_07_38_38_AM_rj4fpt.png"
+    ,
+      "title": "Crafting Season",
+      "subtitle": "Custom Monster",
+      "url": "product.html?id=60",
+      "type": "product"
+    },
+
+    {
+      "img": "https://res.cloudinary.com/do1nbyqv0/image/upload/v1788243246/image_2026-09-01_131403590_upmyhc.png",
+      "title": "RF Uprising",
+      "subtitle": "RF Server",
+      "url": "https://rftheuprising.com",
+      "type": "server"
+    },
+    {
+      "img": "https://res.cloudinary.com/do1nbyqv0/image/upload/v1788243246/image_2026-09-01_131403590_upmyhc.png",
+      "title": "RF Naga",
+      "subtitle": "RF Server",
+      "url": "https://rfnaga.com",
+      "type": "server"
+    },
+    {
+      "img": "https://res.cloudinary.com/do1nbyqv0/image/upload/v1788243246/image_2026-09-01_131403590_upmyhc.png",
+      "title": "RF Universe",
+      "subtitle": "RF Server",
+      "url": "https://www.universepvp.com",
+      "type": "server"
+    },
+    {
+      "img": "https://res.cloudinary.com/do1nbyqv0/image/upload/v1781836855/image_2026-06-19_094051596_t7jdqv.png"
+    ,
+      "title": "Kamen Rider Geats",
+      "subtitle": "Custom Character",
+      "url": "product.html?id=69",
+      "type": "product"
+    }
+
+  ]
+  

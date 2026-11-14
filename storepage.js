@@ -527,7 +527,9 @@ function openShortlistModal() {
             <img
               src="${thumbnail}"
               alt="${product.name}"
-              loading="lazy">
+              loading="lazy" decoding="async"
+            srcset="${thumbnailSourceSet(thumbnail)}"
+            sizes="(max-width:600px) 90vw, (max-width:980px) 45vw, 340px">
 
           </div>
 
@@ -830,6 +832,16 @@ function ensureCloudAuto(url) {
   // sisipkan setelah /upload/
   return url.replace('/upload/', '/upload/f_auto,q_auto/');
 }
+// Responsive delivery for thumbnails only; full gallery URLs stay untouched.
+function thumbnailSourceSet(url) {
+  try {
+    const parsed = new URL(url, window.location.href);
+    if (parsed.hostname !== 'res.cloudinary.com' || !parsed.pathname.includes('/image/upload/')) return '';
+    return [320, 640, 960].map(width =>
+      `${url.replace('/upload/', `/upload/c_limit,w_${width}/`)} ${width}w`).join(', ');
+  } catch { return ''; }
+}
+
 // ---------- Cloudinary / proxy image loader ----------
 // Tries explicit product.images first; else calls local proxy server which in turn calls Cloudinary Search API.
 // If you deploy proxy elsewhere, change PROXY_BASE.
@@ -919,7 +931,9 @@ function render(list) {
             data-thumb-id="${p.id}"
             src="${thumbSrc}"
             alt="${seoAlt}"
-            loading="lazy">
+            loading="lazy" decoding="async"
+            srcset="${thumbnailSourceSet(thumbSrc)}"
+            sizes="(max-width:600px) 90vw, (max-width:980px) 45vw, 340px">
 
       </div>
       <h4>${p.name}</h4>

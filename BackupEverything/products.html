@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head><meta charset="utf-8"/><title>Products Data</title></head>
+  <body>
+    <!--
+      This file serves as the editable product store. Edit the JSON below.
+      Each product structure:
+      {
+        "id": 1,
+        "name": "Valkyrie Helm",
+        "cat": "helmet",
+        "price_usd": 1328.12,
+        "price_idr": 20000000,
+        "rarity":"Epic",
+        "desc":"High-tier helm with feather ornament.",
+        "images": ["images/valk1.jpg","images/valk2.jpg"]
+      }
+    -->
+    <script>
+      fetch("products.json")
+        .then(response => response.json())
+        .then(data => {
+          console.log("Products loaded:", data);
+          // lanjutkan proses render produk di sini
+        });
+    </script>
+        
+  </body>
+</html>

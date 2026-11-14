@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quartz Gallery Payment Methods</title>
+  <style>
+    /* Global Styles */
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3f3f3;
+      margin: 0;
+      padding: 0;
+      color: #333;
+      font-size: 18px; /* Increase global font size */
+    }
+    header {
+      background: #333;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2em;
+    }
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Payment Methods Section */
+    .payment-methods {
+      margin-bottom: 20px;
+    }
+    .payment-methods h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 2em;
+      color: #333;
+    }
+    .payment-form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .payment-option {
+      display: flex;
+      align-items: center;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 15px;
+      background: #fafafa;
+      transition: background 0.3s;
+    }
+    .payment-option:hover {
+      background: #f0f0f0;
+    }
+    .payment-option img {
+      width: 60px;
+      height: auto;
+      margin-right: 15px;
+    }
+    .payment-details {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      flex: 1;
+      font-size: 1.1em;
+    }
+    .payment-details li {
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+    }
+    .copy-btn {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      margin-left: 10px;
+      padding: 0;
+      display: inline-flex;
+      align-items: center;
+    }
+    .copy-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: #007BFF;
+      transition: fill 0.3s;
+    }
+    .copy-btn:hover svg {
+      fill: #0056b3;
+    }
+    .continue-button-container {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .continue-button {
+      background: #28a745;
+      color: #fff;
+      border: none;
+      padding: 15px 30px;
+      font-size: 1.2em;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .continue-button:hover {
+      background: #218838;
+    }
+    
+    /* Hide default radio buttons */
+    .payment-option input[type="radio"] {
+      display: none;
+    }
+    /* Toast Container */
+    #toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100%); /* Mulai di bawah layar */
+    background-color: #333;
+    color: #fff;
+    padding: 1em 1.5em;
+    border-radius: 4px;
+    font-size: 1em;
+    opacity: 0;               /* Supaya invisible di awal */
+    pointer-events: none;     /* Agar klik tidak kena toast */
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    z-index: 9999;            /* Pastikan di atas elemen lain */
+    }
+
+    #toast.show {
+    transform: translateX(-50%) translateY(0); /* Naik ke atas (tengah) */
+    opacity: 1; 
+    pointer-events: auto;
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Quartz Gallery Payment Methods</h1>
+  </header>
+  <div class="container">
+    <section class="payment-methods">
+      <h2>Payment Method</h2>
+      <form class="payment-form">
+        <!-- Bank Transfer (Indonesia) -->
+        <label class="payment-option">
+          <input type="radio" name="payment" value="bank-transfer-indonesia">
+          <img src="bank-logo.png" alt="Bank Transfer">
+          <div>
+            <strong>Pay via Bank Transfer (Indonesia)</strong>
+            <ul class="payment-details">
+              <li>
+                <span>BCA: 7151851138 - Muhammad Taufan Firdaus</span>
+                <button type="button" class="copy-btn" onclick="copyText('7151851138')">
+                  <!-- Copy Icon SVG -->
+                  <svg xmlns="http://www.w3.org/2000/svg" 
+                  viewBox="0 0 24 24" 
+                  fill="#007BFF" 
+                  style="width: 24px; height: 24px;">
+                  <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 
+                  .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2z"/>
+              </svg>
+                </button>
+              </li>
+              <li>
+                <span>CIMB: 706444755500 - Muhammad Taufan Firdaus</span>
+                <button type="button" class="copy-btn" onclick="copyText('706444755500')">
+                    <svg xmlns="http://www.w3.org/2000/svg" 
+                        viewBox="0 0 24 24" 
+                        fill="#007BFF" 
+                        style="width: 24px; height: 24px;">
+                        <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 
+                        .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2z"/>
+                    </svg>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </label>
+  
+        <!-- E-Wallet -->
+        <label class="payment-option">
+          <input type="radio" name="payment" value="e-wallet">
+          <img src="Gopay.png" alt="Gopay">
+          <div>
+            <strong>Pay via E-Wallet</strong>
+            <ul class="payment-details">
+              <li>
+                <span>Gopay: 081294648329</span>
+                <button type="button" class="copy-btn" onclick="copyText('081294648329')">
+                    <svg xmlns="http://www.w3.org/2000/svg" 
+                        viewBox="0 0 24 24" 
+                        fill="#007BFF" 
+                        style="width: 24px; height: 24px;">
+                        <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 
+                        .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2z"/>
+                    </svg>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </label>
+  
+        <!-- International -->
+        <label class="payment-option">
+          <input type="radio" name="payment" value="international">
+          <img src="paypal-logo.png" alt="International">
+          <div>
+            <strong>Pay via International</strong>
+            <ul class="payment-details">
+              <li>
+                <span>PayPal: lotancorp@gmail.com - @quartzgallery</span>
+                <button type="button" class="copy-btn" onclick="copyText('lotancorp@gmail.com')">
+                    <svg xmlns="http://www.w3.org/2000/svg" 
+                        viewBox="0 0 24 24" 
+                        fill="#007BFF" 
+                        style="width: 24px; height: 24px;">
+                        <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 
+                        .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2z"/>
+                    </svg>
+                </button>
+              </li>
+              <li>
+                <span>Binance USDT: BEP20</span>
+                <button type="button" class="copy-btn" onclick="copyText('0x771b6960e49624b3c703ef8221137c22491c314f')">
+                    <svg xmlns="http://www.w3.org/2000/svg" 
+                        viewBox="0 0 24 24" 
+                        fill="#007BFF" 
+                        style="width: 24px; height: 24px;">
+                        <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 
+                        .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2z"/>
+                    </svg>
+              </li>
+              <li>
+                <span>Binance USDT: TRC20</span>
+                <button type="button" class="copy-btn" onclick="copyText('TUzMvGhHEQpEphL2jPSLNhS5CojXMMxmjf')">
+                    <svg xmlns="http://www.w3.org/2000/svg" 
+                        viewBox="0 0 24 24" 
+                        fill="#007BFF" 
+                        style="width: 24px; height: 24px;">
+                        <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 
+                        .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2z"/>
+                    </svg>
+              </li>
+            </ul>
+          </div>
+        </label>
+  
+        <!-- WhatsApp Contact -->
+        <label class="payment-option">
+          <input type="radio" name="payment" value="whatsapp">
+          <img src="whatsapp-logo.png" alt="WhatsApp">
+          <div>
+            <strong>Contact Me Through WhatsApp</strong>
+            <ul class="payment-details">
+              <li>
+                <span>WhatsApp: 081294648329</span>
+                <button type="button" class="copy-btn" onclick="copyText('081294648329')">
+                    <svg xmlns="http://www.w3.org/2000/svg" 
+                        viewBox="0 0 24 24" 
+                        fill="#007BFF" 
+                        style="width: 24px; height: 24px;">
+                        <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 
+                        .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2z"/>
+                    </svg>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </label>
+        </form>
+    </section>
+  </div>
+  
+  <script>
+    // Function to copy text to clipboard using the Clipboard API
+    function copyText(text) {
+      navigator.clipboard.writeText(text).then(function() {
+        alert("Copied: " + text);
+      }, function(err) {
+        alert("Failed to copy text: " + err);
+      });
+    }
+  
+    // Redirect functionality when "Continue" button is clicked.
+    // Update these URLs with your actual payment gateway or processing pages.
+    document.getElementById('continueBtn').addEventListener('click', function () {
+      var selectedOption = document.querySelector('input[name="payment"]:checked');
+      if (!selectedOption) {
+        alert("Please select a payment method.");
+        return;
+      }
+  
+      var paymentMethod = selectedOption.value;
+      var paymentUrls = {
+        "bank-transfer-indonesia": "https://example.com/bank-payment", // Replace with your Bank Transfer URL
+        "e-wallet": "https://example.com/e-wallet-payment",            // Replace with your E-Wallet URL
+        "international": "https://example.com/international-payment",    // Replace with your International Payment URL
+        "whatsapp": "https://wa.me/6281294648329"                        // WhatsApp Chat Link
+      };
+  
+      var redirectUrl = paymentUrls[paymentMethod];
+      if (redirectUrl) {
+        window.location.href = redirectUrl;
+      } else {
+        alert("Selected payment method is not available.");
+      }
+    });
+      // Fungsi menampilkan toast
+  function showToast(message) {
+    const toast = document.getElementById('toast');
+    toast.textContent = message;           // Tampilkan pesan
+    toast.classList.add('show');           // Tambah kelas "show"
+    
+    // Hapus kelas "show" setelah 2 detik (2000 ms), agar toast hilang
+    setTimeout(() => {
+      toast.classList.remove('show');
+    }, 2000);
+  }
+
+  // Fungsi copy text dengan notifikasi toast
+  function copyText(text) {
+    navigator.clipboard.writeText(text).then(() => {
+      showToast("Copied: " + text);
+    }, (err) => {
+      showToast("Failed to copy text: " + err);
+    });
+  }
+  </script>
+  <div id="toast"></div>
+</body>
+</html>

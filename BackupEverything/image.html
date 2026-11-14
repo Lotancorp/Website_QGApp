@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Image Gallery - Quartz Gallery</title>
+  <!-- Memanggil style.css dari repository (opsional) -->
+  <link rel="stylesheet" href="imgstyle.css">
+
+  <!-- Memuat Google Identity Services Client Library -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+  <header>
+    <h1>Quartz Gallery Portofolio</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <!-- Di sini kita aktifkan "Image Gallery" -->
+        <li><a href="gallery.html" class="active">Video Gallery</a></li>
+        <!-- Tambahkan menu navigasi lain jika perlu -->
+      </ul>
+    </nav>
+  </header>
+  <main class="gallery-container">
+    <!-- Section untuk Gallery Picture -->
+    <section id="flickr-dynamic-album">
+      <h2>Quartz Gallery Picture Portofolio</h2>
+      <h2>Album Preview</h2>
+      
+      <!-- Label + Dropdown -->
+      <div class="album-select-wrapper">
+        <label for="albumSelector">Select Skin:</label>
+        <select id="albumSelector">
+          <option value="0">Armor Skin</option>
+          <option value="1">Weapon Skin</option>
+          <option value="2">Booster Skin</option>
+          <option value="3">Shield Skin</option>
+          <option value="4">Others Skin</option>
+          <option value="5">Monster Skin</option>
+        </select>
+      </div>
+    
+      <!-- Container untuk embed album -->
+      <div id="albumEmbedContainer"></div>
+    </section>
+    <section id="picture-gallery">
+      <p></p>
+      <div class="gallery-scroll-container">
+        <!-- Album 1 -->
+        <div class="gallery-item">
+          <a href="https://flic.kr/s/aHBqjApEK1" target="_blank">
+            <img src="https://live.staticflickr.com/65535/52649775629_a2cc41291f_c.jpg" alt="Armor Skin">
+            <div class="album-info">
+              <h3>Armor Skin</h3>
+            </div>
+          </a>
+        </div>
+        <!-- Album 2 -->
+        <div class="gallery-item">
+          <a href="https://flic.kr/s/aHBqjApCWK" target="_blank">
+            <img src="https://live.staticflickr.com/65535/52650106405_c95719e79d_z.jpg" alt="Weapon Skin">
+            <div class="album-info">
+              <h3>Weapon Skin</h3>
+            </div>
+          </a>
+        </div>
+        <!-- Album 3 -->
+        <div class="gallery-item">
+          <a href="https://flic.kr/s/aHBqjApAS3" target="_blank">
+            <img src="https://live.staticflickr.com/65535/52650029933_2c8fe1b1a4_z.jpg" alt="Booster Skin">
+            <div class="album-info">
+              <h3>Booster Skin</h3>
+            </div>
+          </a>
+        </div>
+        <!-- Album 4 -->
+        <div class="gallery-item">
+          <a href="https://flic.kr/s/aHBqjApB51" target="_blank">
+            <img src="https://live.staticflickr.com/65535/52650159553_d0ecb429a3_z.jpg" alt="Shield Skin">
+            <div class="album-info">
+              <h3>Shield Skin</h3>
+            </div>
+          </a>
+        </div>
+        <!-- Tambahkan album lain di sini -->
+        <div class="gallery-item">
+          <a href="https://flic.kr/s/aHBqjApEK1" target="_blank">
+            <img src="https://live.staticflickr.com/65535/52649775629_a2cc41291f_c.jpg" alt="Armor Skin">
+            <div class="album-info">
+              <h3>Armor Skin</h3>
+            </div>
+          </a>
+        </div>
+        <!-- Album 2 -->
+        <div class="gallery-item">
+          <a href="https://flic.kr/s/aHBqjApCWK" target="_blank">
+            <img src="https://live.staticflickr.com/65535/52650106405_c95719e79d_z.jpg" alt="Weapon Skin">
+            <div class="album-info">
+              <h3>Weapon Skin</h3>
+            </div>
+          </a>
+        </div>
+        <!-- Album 3 -->
+        <div class="gallery-item">
+          <a href="https://flic.kr/s/aHBqjApAS3" target="_blank">
+            <img src="https://live.staticflickr.com/65535/52650029933_2c8fe1b1a4_z.jpg" alt="Booster Skin">
+            <div class="album-info">
+              <h3>Booster Skin</h3>
+            </div>
+          </a>
+        </div>
+        <!-- Album 4 -->
+        <div class="gallery-item">
+          <a href="https://flic.kr/s/aHBqjCjPwg" target="_blank">
+            <img src="https://live.staticflickr.com/65535/54621632083_6d020e9d1a_b.jpg" alt="NPC Skin">
+            <div class="album-info">
+              <h3>NPC Skin</h3>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section untuk Google Photos Gallery -->
+    <!-- Contoh: Mengganti Section Google Photos Gallery menjadi Flickr Album Embed -->
+
+
+    
+  </main>
+  <footer>
+    <p>&copy; 2025 Quartz Gallery. All rights reserved.</p>
+  </footer>
+  <!-- Memanggil file JavaScript untuk Google API (pastikan sudah disesuaikan dengan GIS) -->
+  <script src="google.js"></script>
+</body>
+</html>

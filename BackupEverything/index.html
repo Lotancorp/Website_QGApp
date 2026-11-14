@@ -1,0 +1,526 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3181228773033613"
+     crossorigin="anonymous"></script>
+
+  <!-- Google Analytics (Quartz Gallery) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-30X30XGTMT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-30X30XGTMT');
+  </script>
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <!-- Favicon -->
+  <title>Quartz Gallery – RF Online Skin Store & Portfolio</title>
+
+  <meta name="description" content="Custom RF Online skin: armor, weapon, mask, cape, dan character custom. Koleksi skin RF Online buatan Quartz Gallery dengan gallery in-game dan price list.">
+  
+  <link rel="canonical" href="https://quartzgallery.biz.id/">
+  
+  <meta property="og:title" content="Quartz Gallery – RF Online Skin Portfolio">
+  <meta property="og:description" content="Koleksi custom RF Online skins: armor, weapon, mask, cape, dan character custom dengan preview in-game.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://quartzgallery.biz.id/">
+  <meta property="og:image" content="https://res.cloudinary.com/do1nbyqv0/image/upload/v1762764250/QG_wbkhpe.png">
+  
+  <link rel="icon" type="image/png" href="https://res.cloudinary.com/do1nbyqv0/image/upload/v1762764250/QG_wbkhpe.png" sizes="32x32">
+  <link rel="shortcut icon" href="https://res.cloudinary.com/do1nbyqv0/image/upload/v1762764250/QG_wbkhpe.png">
+
+  <link rel="stylesheet" href="storepage.css" />
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="logo">
+          <img src="https://res.cloudinary.com/do1nbyqv0/image/upload/v1762764250/QG_wbkhpe.png" alt="Quartz Gallery Logo">
+        </div>
+        
+        <div>
+          <h1>Quartz Gallery</h1>
+          <p class="muted">RF Online Skin & Mod Store</p>
+        </div>
+      </div>
+
+      <div class="filters">
+        <label class="label">Search</label>
+        <input id="search" type="search" placeholder="Search skins, name, tags..." />
+
+        <label class="label">Categories</label>
+        <ul class="categories" id="categoryList">
+          <li data-cat="all" class="active">All Collections</li>
+          <li data-cat="armor">Armor</li>
+          <li data-cat="weapon">Weapon</li>
+          <li data-cat="helmet">Mask</li>
+          <li data-cat="cape">Booster</li>
+          <li data-cat="collector">Collector Set</li>
+          <li data-cat="wind">Wind/Injure</li>
+          <li data-cat="monster">Monster</li>
+          <li data-cat="unit">Unit</li>
+          <li data-cat="aura">Aura Effect</li>
+          <li data-cat="ccustom">Character Custom</li>
+        </ul>
+
+        <!--label class="label">Price</label-->
+        <div class="price-range">
+          <button id="priceBtn" class="btn-primary" style="padding:10px 14px;">Price List</button>
+        </div>
+        
+        <!-- new: software button -->
+        <div style="margin-top:8px;">
+          <a id="softwareBtn"
+             class="btn-software"
+             href="softwarelandingpage.html"
+             target="_blank"
+             rel="noopener">
+            Software
+          </a>
+        </div>
+        
+        
+        <div class="spacer"></div>
+        
+        <!-- header/top-level About (terpisah dari product Contact) -->
+        <button id="aboutBtn" class="btn-contact">About Me</button>
+      </div>
+
+      <footer class="sidebar-foot">
+        <small>© <span id="year"></span> Quartz • made by Taufan</small>
+      </footer>
+    </aside>
+
+    <main class="content">
+     <!-- Banner Slider (insert before <main class="content">) -->
+      <section class="banner-slider" id="bannerSlider" aria-hidden="true">
+        <div class="banner-track" id="bannerTrack" role="list"></div>
+      
+        <!-- controls -->
+        <button class="banner-nav left" id="bannerPrev" aria-label="Previous slide">&larr;</button>
+        <button class="banner-nav right" id="bannerNext" aria-label="Next slide">&rarr;</button>
+      
+        <!-- indicators -->
+        <div class="banner-indicators" id="bannerIndicators" role="tablist"></div>
+      </section>
+      <!-- End Banner Slider -->
+      
+      <header class="topbar">
+      <!-- ADD: Mobile quick toggle (tambah tepat di dalam <header class="topbar"> bersama elemen .left) -->
+      <button id="mobileControlsToggle" class="mobile-controls-toggle" aria-expanded="false" aria-label="Open controls">☰</button>
+        <div class="left">
+          <h2>Skin Portfolio</h2>
+          <p class="muted">
+            Collection of custom RF Online Skins by Quartz Gallery.
+            Click an item to view in-game gallery or contact for further information.
+          </p>
+        </div>
+        <div class="right">
+          <div class="sort">
+            <label class="muted">Sort</label>
+            <select id="sortSelect">
+              <option value="relevance">Relevance</option>
+              <option value="newest" selected>Newest First</option>
+              <option value="price-asc">Price ↑</option>
+              <option value="price-desc">Price ↓</option>
+            </select>
+          </div>
+            <div class="view-toggle">
+
+              <label class="muted">
+                View
+              </label>
+
+              <select
+                id="gridViewSelect"
+                title="Choose grid view">
+
+                <option value="compact">
+                  Small
+                </option>
+
+                <option value="large">
+                  Large
+                </option>
+
+              </select>
+
+            </div>
+          <div class="currency">
+            <label class="muted">Currency</label>
+            <select id="currencySelect" title="Choose currency">
+              <option value="usd" selected>USD</option>
+              <option value="idr">IDR</option>
+            </select>
+          </div>
+          <div class="shortlist">
+            <button id="shortlistBtn" class="btn-cart-panel">
+              <span class="cart-icon">🛒</span>
+              <span class="cart-label">Cart</span>
+              <span class="cart-badge" id="shortlistCount">0</span>
+            </button>
+          </div>
+        </div>
+      </header>
+
+
+      <!-- =========================================
+          FEATURED DESIGNS / ADVERTISEMENT
+      ========================================= -->
+
+      <div id="stickyRecs" class="sticky-recs" aria-hidden="false">
+
+        <div class="sticky-inner">
+
+          <button
+            class="recs-nav prev"
+            aria-label="Previous">
+            ‹
+          </button>
+
+          <div class="recs-track-wrap">
+
+            <div
+              id="recsTrack"
+              class="recs-track"
+              role="list">
+
+              <!-- items injected by JS -->
+
+            </div>
+
+          </div>
+
+          <button
+            class="recs-nav next"
+            aria-label="Next">
+            ›
+          </button>
+
+        </div>
+
+        <button
+          id="recsClose"
+          class="recs-close"
+          title="Close">
+          ✕
+        </button>
+
+      </div>
+
+
+      <section class="grid" id="productGrid">
+
+        <!-- Cards inserted by JS -->
+
+      </section>
+        <!-- Cards inserted by JS -->
+      </section>
+
+      <div class="empty" id="emptyState" hidden>
+        <h3>No products found</h3>
+        <p class="muted">Try clearing filters or use a different search term.</p>
+      </div>
+
+    </main>
+  </div>
+  <!-- Mobile floating cart button -->
+  <button id="mobileCartBtn" class="mobile-cart-fab" aria-label="Open cart">
+    <span class="cart-icon">🛒</span>
+    <span class="cart-badge" id="mobileShortlistCount">0</span>
+  </button>
+<!-- Price Modal -->
+<div class="modal" id="priceModal" aria-hidden="true">
+    <div class="modal-panel">
+      <button class="modal-close" id="closePriceModal">&times;</button>
+      <h3>Skin Price List</h3>
+      <p class="muted">Showing prices in <span id="priceCurrencyLabel">USD</span></p>
+  
+      <div id="priceContent" style="margin-top:12px; max-height:50vh; overflow:auto;">
+        <!-- Filled dynamically by JS -->
+      </div>
+  
+      <div style="display:flex;justify-content:flex-end;margin-top:12px;gap:8px;">
+        <button id="closePriceBtn" class="btn-secondary">Close</button>
+      </div>
+    </div>
+  </div>
+  
+<!-- Contact Modal -->
+<div class="modal" id="contactModal" aria-hidden="true">
+    <div class="modal-panel">
+      <button class="modal-close" id="closeModal">&times;</button>
+      <h3>Contact Me</h3>
+      <p class="muted">Choose a channel to contact me:</p>
+  
+      <div class="contact-channels" style="margin-top:12px">
+        <button id="whatsappBtn" class="btn-social whatsapp">WhatsApp</button>
+        <a id="facebookBtn" class="btn-social facebook" target="_blank" rel="noopener">Facebook</a>
+        <a id="instagramBtn" class="btn-social instagram" target="_blank" rel="noopener">Instagram</a>
+      </div>
+  
+      <hr style="border:none;border-top:1px solid rgba(255,255,255,0.04);margin:12px 0"/>
+  
+      <div style="display:flex;gap:8px;justify-content:flex-end;">
+        <button id="copyLinkBtn" class="btn-secondary">Copy Link</button>
+        <button id="mailtoBtn" class="btn-secondary">Open Email</button>
+        <button id="closeModalBottom" class="btn-primary">Close</button>
+      </div>
+    </div>
+  </div>
+<!-- Cart Modal -->
+<div class="modal" id="shortlistModal" aria-hidden="true">
+  <div class="modal-panel cart-modal-panel">
+  <button class="modal-close" id="closeShortlistModal">&times;</button>
+
+  <div class="cart-modal-heading">
+
+    <div class="cart-title-area">
+
+      <h3>Your Cart</h3>
+
+      <p class="muted">
+        Selected skins will be sent to WhatsApp in a single message.
+      </p>
+
+    </div>
+
+    <button
+      type="button"
+      id="shortlistClearBtn"
+      class="cart-clear-btn">
+
+      Clear all
+
+    </button>
+
+  </div>
+
+    <div id="shortlistItems" class="cart-items"></div>
+
+    <div class="cart-note-wrap">
+      <label class="label" for="shortlistNote">Extra note (optional)</label>
+      <textarea id="shortlistNote" rows="3"
+        placeholder="For example: this is for next month's PvP event, please send me a bundle offer."></textarea>
+    </div>
+
+    <div class="modal-actions cart-actions">
+      <button id="shortlistCopyBtn" class="btn-secondary">Copy list</button>
+      <button id="shortlistWhatsAppBtn" class="btn-contact">Send via WhatsApp</button>
+    </div>
+  </div>
+</div>
+
+<!-- Product Modal (Steam-like layout) now open Video-->
+<div class="product-modal" id="productModal" aria-hidden="true">
+  <div class="product-panel">
+    <button class="product-close" id="closeProductModal">&times;</button>
+
+    <div class="product-body">
+      <!-- LEFT: Big gallery -->
+      <div class="product-left">
+        <div class="product-main-wrap">
+          <button class="gallery-nav prev" id="productPrev" aria-label="Previous">&larr;</button>
+
+          <!-- ✅ Embedded video (hidden by default, shown when selected) -->
+          <div id="productVideoWrap" style="display:none;">
+            <iframe id="productVideo" width="100%" height="400"
+              src=""
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen></iframe>
+          </div>
+
+          <!-- ✅ Main image container -->
+          <div class="product-main-image">
+            <img id="productMainImage" src="" alt="RF Online skin in-game preview" />
+          </div>
+
+          <button class="gallery-nav next" id="productNext" aria-label="Next">&rarr;</button>
+        </div>
+
+        <!-- ✅ Thumbnails + caption -->
+        <div class="product-thumbs" id="productThumbs" role="list"></div>
+        <div class="product-caption" id="productCaption"></div>
+      </div>
+
+      <!-- RIGHT: Product details -->
+      <aside class="product-right">
+        <div class="product-meta">
+          <img id="productRightThumb" src="" alt="RF Online skin thumbnail"
+            style="width:100%;height:140px;object-fit:contain;border-radius:8px;margin-bottom:12px;border:1px solid rgba(255,255,255,0.03);background:#050608" />
+
+          <h2 id="productTitle">Product name</h2>
+          <p class="muted" id="productRarity">Rarity</p>
+          <div class="product-price" id="productPrice">$0.00</div>
+          <div class="product-release muted" id="productRelease">Release: -</div>
+        </div>
+
+        <div class="product-desc" id="productDesc">Description here...</div>
+        <div id="productTags" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px"></div>
+        <div class="product-actions" style="margin-top:18px;display:flex;gap:8px;flex-wrap:wrap;">
+          <a id="productYoutube" class="btn-youtube" target="_blank" rel="noopener" style="display:none">YouTube</a>
+          <button id="productCartBtn" class="btn-cart">Add to Cart</button>
+          <button id="productContactBtn" class="btn-primary">Contact Me</button>
+        </div>
+        <div class="product-nav-actions" style="margin-top:10px;display:flex;gap:8px;">
+          <button id="productPrevItem" class="btn-secondary" style="flex:1;">⟵ Previous Item</button>
+          <button id="productNextItem" class="btn-secondary" style="flex:1;">Next Item ⟶</button>
+        </div>
+
+        <div id="productSKUWrap" style="margin-top:18px;color:var(--muted);font-size:13px">
+          <div><strong>SKU / ID:</strong> <span id="productSKU">-</span></div>
+          <div style="margin-top:6px"><strong>Rate:</strong> <span id="productRate" class="muted">-</span></div>
+        </div>
+      </aside>
+    </div>
+    <div id="similarProducts" class="similar-products" style="display:none;">
+      <h3>Similar skins you might like</h3>
+      <div id="similarWrapper" class="similar-wrapper"></div>
+    </div>
+    
+  </div>
+</div>
+
+
+<!-- ADD: Mobile controls off-canvas panel -->
+<div id="mobileControlsPanel" class="mobile-controls-panel" aria-hidden="true">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+    <strong style="font-size:16px">Menu</strong>
+    <button id="mobileControlsClose" class="mobile-controls-toggle" aria-label="Close">✕</button>
+  </div>
+
+  <!-- SEARCH -->
+  <div class="section">
+    <label class="muted">Search</label>
+    <input id="searchMobile" type="search" placeholder="Search skins, name, tags..." style="width:100%; padding:10px; border-radius:8px; background:var(--glass); border:1px solid rgba(255,255,255,0.03); color:var(--text)">
+  </div>
+
+  <!-- CATEGORIES -->
+  <div class="section">
+    <label class="muted">Categories</label>
+    <ul id="categoryListMobile"></ul>
+  </div>
+
+  <!-- Sort / View / Currency (kept) -->
+  <div class="section">
+    <label class="muted">Sort</label>
+    <select id="sortSelectMobile">
+      <option value="relevance">Relevance</option>
+      <option value="price-asc">Price ↑</option>
+      <option value="price-desc">Price ↓</option>
+    </select>
+  </div>
+
+  <div class="section">
+    <label class="muted">View</label>
+    <select id="gridViewSelectMobile">
+      <option value="compact">Compact (5)</option>
+      <option value="large">Large (3)</option>
+    </select>
+  </div>
+
+  <div class="section">
+    <label class="muted">Currency</label>
+    <select id="currencySelectMobile">
+      <option value="usd">USD</option>
+      <option value="idr">IDR</option>
+    </select>
+  </div>
+
+  <div class="section">
+    <button id="priceBtnMobile" class="btn-primary">Price List</button>
+  </div>
+        <!-- new: software button -->
+        <div>
+          <a id="softwareBtn"
+             class="btn-software"
+             href="softwarelandingpage.html"
+             target="_blank"
+             rel="noopener">
+            Software
+          </a>
+        </div>
+  <div class="section">
+    <button id="aboutBtn" class="btn-contact" style="width:100%">About Me</button>
+  </div>
+</div>
+
+<div id="mobileOverlay" class="mobile-overlay" aria-hidden="true"></div>
+
+<!-- small handle tab (optional) -->
+<button id="mobileHandle" class="mobile-controls-handle" aria-label="Open controls" style="display:none;">☰</button>
+
+
+<script src="storepage.js"></script>
+  <!-- Toast Notification -->
+
+
+<!-- AdSense1
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-3181228773033613"
+     data-ad-slot="4646267145"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script> -->
+<!-- =========================================
+     CLEAR CART CONFIRMATION MODAL
+========================================= -->
+
+<div
+  id="clearCartConfirmModal"
+  class="confirm-modal"
+  aria-hidden="true">
+
+  <div
+    class="confirm-modal-panel"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="clearCartConfirmTitle">
+
+    <div class="confirm-icon">
+      🗑
+    </div>
+
+    <h3 id="clearCartConfirmTitle">
+      Clear your cart?
+    </h3>
+
+    <p>
+      All selected items will be removed from your cart.
+      This action cannot be undone.
+    </p>
+
+    <div class="confirm-actions">
+
+      <button
+        type="button"
+        id="clearCartCancelBtn"
+        class="confirm-cancel">
+
+        Cancel
+
+      </button>
+
+      <button
+        type="button"
+        id="clearCartConfirmBtn"
+        class="confirm-danger">
+
+        Yes, clear cart
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+</body>
+</html>
