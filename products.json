@@ -3,8 +3,8 @@
     "_comment": "Products 1 Future Armor",
     "id": 1,
     "name": "Futuristic",
-    "cat": "armor",
-    "price_usd": 70,
+    "cat": "helmet",
+    "price_usd": 70.0,
     "price_idr": 1100000,
     "rarity": "OLD",
     "desc": "Futuristic Armor is a custom RF Online skin a specialized combat exosuit designed by Quartz Gallery, combining refined aesthetics with battlefield endurance. Each segment of its plating is crafted to maintain structural integrity under extreme stress while amplifying the wearer’s agility and defensive resonance. The armor’s adaptive surface reflects both physical and elemental impacts, ensuring balanced protection without compromising mobility. Perfect for those who value precision and resilience on every front line.",
@@ -1480,11 +1480,11 @@
     "id": 40,
     "name": "Dimentional Armor",
     "cat": "armor",
-    "price_usd": 35,
+    "price_usd": 35.0,
     "price_idr": 500000,
-    "rarity": "POPULAR",
+    "rarity": "RARE",
     "desc": "Dimentional Armor is a custom RF Online skin a specialized combat exosuit designed by Quartz Gallery, combining refined aesthetics with battlefield endurance. Each segment of its plating is crafted to maintain structural integrity under extreme stress while amplifying the wearer’s agility and defensive resonance. The armor’s adaptive surface reflects both physical and elemental impacts, ensuring balanced protection without compromising mobility. Perfect for those who value precision and resilience on every front line.",
-    "thumbnail": "https://res.cloudinary.com/do1nbyqv0/image/upload/v1767503470/Dimensional_Armor_fnr7q9.png",
+    "thumbnail": "",
     "images": [
       "https://res.cloudinary.com/do1nbyqv0/image/upload/v1767503470/Dimensional_Armor_fnr7q9.png"
     ],
@@ -1494,7 +1494,7 @@
       "rf online",
       "skin",
       "armor",
-      "dimentional",
+      "batik",
       "set"
     ],
     "rate": 4.7
@@ -2424,5 +2424,49 @@
       "set"
     ],
     "rate": 4.7
+  },
+  {
+    "_comment": "Products 79 Batik Singularity Armor",
+    "id": 79,
+    "name": "Batik Singularity Armor",
+    "cat": "weapon",
+    "price_usd": 40.0,
+    "price_idr": 600000,
+    "rarity": "NEW RELEASE",
+    "desc": "Batik Singularity Armor (Include Booster) is a custom RF Online skin a specialized combat exosuit designed by Quartz Gallery, combining refined aesthetics with battlefield endurance. Each segment of its plating is crafted to maintain structural integrity under extreme stress while amplifying the wearer’s agility and defensive resonance. The armor’s adaptive surface reflects both physical and elemental impacts, ensuring balanced protection without compromising mobility. Perfect for those who value precision and resilience on every front line.",
+    "thumbnail": "https://res.cloudinary.com/do1nbyqv0/image/upload/v1794630178/qg-product-79-1f1b7ed9e18845bca078a10745c83517.png",
+    "images": [],
+    "youtube": "https://youtu.be/y2DW0OIl7TY",
+    "release_date": "14 November 2026",
+    "tags": [
+      "rf online",
+      "skin",
+      "armor",
+      "batik",
+      "set"
+    ],
+    "rate": 4.9
+  },
+  {
+    "_comment": "Products 80 Garuda Emperror Armor",
+    "id": 80,
+    "name": "Garuda Emperror Armor",
+    "cat": "armor",
+    "price_usd": 35.0,
+    "price_idr": 600000,
+    "rarity": "NEW RELEASE",
+    "desc": "Garuda Emperror Armor (Include Booster) is a custom RF Online skin a specialized combat exosuit designed by Quartz Gallery, combining refined aesthetics with battlefield endurance. Each segment of its plating is crafted to maintain structural integrity under extreme stress while amplifying the wearer’s agility and defensive resonance. The armor’s adaptive surface reflects both physical and elemental impacts, ensuring balanced protection without compromising mobility. Perfect for those who value precision and resilience on every front line.",
+    "thumbnail": "https://res.cloudinary.com/do1nbyqv0/image/upload/v1794640424/qg-product-80-5a41654e48f24d3685a8b45edb3b9189.png",
+    "images": [],
+    "youtube": "https://youtu.be/txB-7w6YLVE",
+    "release_date": "14 November 2026",
+    "tags": [
+      "rf online",
+      "skin",
+      "armor",
+      "Garuda",
+      "set"
+    ],
+    "rate": 4.6
   }
 ]
