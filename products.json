@@ -2490,5 +2490,35 @@
         "url": "https://www.youtube.com/watch?v=txB-7w6YLVE"
       }
     ]
+  },
+  {
+    "_comment": "Products 81 Symbol Of Warrio",
+    "id": 81,
+    "name": "Symbol Of Warrior",
+    "cat": "armor",
+    "price_usd": 50.0,
+    "price_idr": 700000,
+    "rarity": "NEW RELEASE",
+    "desc": "Symbol of Warrior Armor (Include Booster) is a custom RF Online skin a specialized combat exosuit designed by Quartz Gallery, combining refined aesthetics with battlefield endurance. Each segment of its plating is crafted to maintain structural integrity under extreme stress while amplifying the wearer’s agility and defensive resonance. The armor’s adaptive surface reflects both physical and elemental impacts, ensuring balanced protection without compromising mobility. Perfect for those who value precision and resilience on every front line.",
+    "thumbnail": "https://res.cloudinary.com/do1nbyqv0/image/upload/v1794932277/qg-product-81-1e74018ffa3a466ca87a2541ccab0763.png",
+    "images": [
+      "https://res.cloudinary.com/do1nbyqv0/image/upload/v1794932277/qg-product-81-1e74018ffa3a466ca87a2541ccab0763.png"
+    ],
+    "videos": [
+      {
+        "title": "",
+        "url": "https://www.youtube.com/watch?v=iHezMu0qVJk"
+      }
+    ],
+    "youtube": "https://www.youtube.com/watch?v=iHezMu0qVJk",
+    "release_date": "17 November 2026",
+    "tags": [
+      "rf online",
+      "skin",
+      "armor",
+      "SOW",
+      "set"
+    ],
+    "rate": 4.9
   }
 ]
